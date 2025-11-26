@@ -2,17 +2,8 @@
 > Un guide qui décrit comment est structuré notre dépot et notre CI/CD.
 
 ## Sommaire
-1. [Introduction](#introduction)
-2. [Organisation de versionnage](#organisation-de-versionnage)
-3. [CI/CD](#cicd)
-
-
-## Introduction
-
-Le projet SHIMERA est une librairie dite _SDK_ ("_software development kit_" ou kit de développement logiciel) qui a pour but de permettre à son utilisateur (principalement technicien) de mettre en place des effets visuels au dessus de son projet graphique.
-
-L'état final du projet vise à permettre tout projet graphique, indépendemment de son architecture, de greffer SHIMERA au sein de sa boucle de fonctionnement. Aussi, la nature des effets visuels disponibles ne se limitent pas une industrie logicielle particulière.
-
+1. [Organisation de versionnage](#organisation-de-versionnage)
+2. [CI/CD](#ci-cd)
 
 ## Organisation de versionnage
 ---
