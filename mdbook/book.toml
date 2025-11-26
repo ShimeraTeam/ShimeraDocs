@@ -1,0 +1,16 @@
+[book]
+authors = ["eddygardes"]
+language = "fr"
+multilingual = true
+src = "src"
+title = "Shimera"
+
+#[output.xgettext]
+#optional = true
+#pot-file = "messages.pot"
+#granularity = 0
+
+[output.html]
+
+[preprocessor.gettext]
+after = ["links"]
