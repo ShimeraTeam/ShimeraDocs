@@ -2,11 +2,11 @@
 > A guide to understand the project's technical environment.
 
 ## Table of Contents
-1. [Libraries & Tools](#libraries--tools)
-2. [Architecture & Deployment](#architecture--deployment)
+1. [Libraries & Tools](#libraries-tools)
+2. [Architecture & Deployment](#architecture-deployment)
 3. [Hardware Requirements](#hardware-requirements)
 
-### Libraries & Tools
+## Libraries & Tools
 ---
 
 For the development of Shimera, we use several libraries, SDKs, or other tools that are essential for the proper functioning of the project.
@@ -21,14 +21,14 @@ For the main interaction between the graphics hardware and our library, here is 
 - **CMake**: A build management tool that allows us to handle dependencies and compile our project.
 - **ApiTrace**: An API tracing tool that allows us to track API calls and debug issues related to the graphics API.
 
-### Architecture & Deployment
+## Architecture & Deployment
 ---
 
 Regarding the deployment of Shimera, as an open-source SDK library, we will use GitHub to host the source code. Users can either clone the repository or download a compiled version of the library to integrate into their projects.
 
 The compiled version will include a `.so` file (for Linux) and a `.dll` file (for Windows) that can be directly used in projects, along with the definitions of symbols present in the library.
 
-### Hardware Requirements
+## Hardware Requirements
 ---
 
 To run our library, several prerequisites are necessary:

@@ -9,7 +9,7 @@
   - [Functional Tests](#functional-tests)
   - [Performance Tests](#performance-tests)
 
-### Testing Objectives
+## Testing Objectives
 
 Unit tests will be used to verify the correct functioning of each feature and the SHIMERA shaders. Unit tests will be written in C++ using the Catch2 framework.
 
@@ -17,9 +17,9 @@ Integration tests will be conducted to validate the correct assembly of the libr
 
 Performance tests will be used to check the speed of shader generation across different graphics libraries.
 
-### Types of Tests
+## Types of Tests
 
-- ### Unit Tests
+- ## Unit Tests
 
   We will use a tool capable of testing our shaders by comparing them to reference rendering images.
 
@@ -33,14 +33,14 @@ Performance tests will be used to check the speed of shader generation across di
 
   (*) In the case where the test is automated on GitHub, a ticket will be generated.
 
-- ### Integration Tests
+- ## Integration Tests
 
   We will ensure that the library builds correctly on every merge to the development branch (dev) and the production branch (main). Additionally, these tests will include unit and performance tests on each merge.
 
-- ### Functional Tests
+- ## Functional Tests
 
   We will perform functional tests before validating recently added features. For this, we will use a recognized tool, _RenderDoc_, which allows capturing the order of graphic loading. This way, we can verify that shaders are correctly loaded in the proper sequence.
 
-- ### Performance Tests
+- ## Performance Tests
 
   We will create a program capable of measuring shader generation speed across different graphics libraries. The goal is to achieve the shortest possible time for shader generation on each graphics library.

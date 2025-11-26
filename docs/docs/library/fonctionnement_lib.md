@@ -1,5 +1,10 @@
 # **{Shimera} Fonctionnement de Shimera**
 
+## Sommaire
+
+1. [Étapes de développement](#etapes-de-developpement)
+2. [Architecture de la librairie](#architecture-de-la-librairie)
+
 ## Étapes de développement
 
 1. **Exemples sans shaders OpenGL**  

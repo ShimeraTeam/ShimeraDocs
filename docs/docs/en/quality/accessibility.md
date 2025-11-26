@@ -5,6 +5,7 @@
 
 1. [Target Audience](#target-audience)
 2. [Visually Impaired Users](#visually-impaired-users)
+2. [Other Disabilities](#other-disabilities)
 
 ## Target Audience
 

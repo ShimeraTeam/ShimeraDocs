@@ -3,8 +3,7 @@
 
 ## Sommaire
 1. [Organisation de versionnage](#organisation-de-versionnage)
-2. [CI/CD](#cicd)
-
+2. [CI/CD](#ci-cd)
 
 ## Organisation de versionnage
 ---

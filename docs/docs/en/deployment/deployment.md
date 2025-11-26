@@ -3,7 +3,7 @@
 
 ## Table of Contents
 1. [Versioning Organization](#versioning-organization)
-2. [CI/CD](#cicd)
+2. [CI/CD](#ci-cd)
 
 ## Versioning Organization
 ---

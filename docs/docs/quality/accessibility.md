@@ -5,6 +5,7 @@
 
 1. [Public Visé](#public-visé)
 2. [Malvoyants](#malvoyants)
+3. [Autres Handicaps](#autres-handicaps)
 
 ## Public Visé
 

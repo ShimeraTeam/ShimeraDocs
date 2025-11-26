@@ -1,5 +1,9 @@
 # **{Shimera} How Shimera Works**
 
+## Table of Contents
+1. [Development Steps](#development-steps)
+2. [Library Architecture](#library-architecture)
+
 ## Development Steps
 
 1. **Examples without OpenGL shaders**  
