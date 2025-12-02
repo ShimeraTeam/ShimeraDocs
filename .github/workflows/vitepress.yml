@@ -24,14 +24,14 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-        working-directory: ./docs
+        working-directory: ./userdoc
 
       - name: Build VitePress site
         run: npm run build
-        working-directory: ./docs
+        working-directory: ./userdoc
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs/docs/.vitepress/dist
+          publish_dir: ./userdoc/docs/.vitepress/dist
