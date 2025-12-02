@@ -2,21 +2,11 @@
 > Un guide pour pouvoir appréhender l'environnement technique du projet.
 
 ## Sommaire
-1. [Introduction](#introduction)
-2. [Librairies & outils](#librairies--outils)
-3. [Architecture & Déploiement](#architecture--déploiement)
-4. [Pré-requis matériels](#pré-requis-matériels)
+1. [Librairies & outils](#librairies-outils)
+2. [Architecture & Déploiement](#architecture-deploiement)
+3. [Pré-requis matériels](#pre-requis-materiels)
 
-
-## Introduction
-
-Le projet SHIMERA est une librairie dite _SDK_ ("_software development kit_" ou kit de développement logiciel) qui a pour but de permettre à son utilisateur (principalement technicien) de mettre en place des effets visuels au dessus de son projet graphique.
-
-L'état final du projet vise à permettre tout projet graphique, indépendemment de son architecture, de greffer SHIMERA au sein de sa boucle de fonctionnement.
-Aussi, la nature des effets visuels disponibles ne se limitent pas une industrie logicielle particulière.
-
-
-### Librairies & Outils
+## Librairies & Outils
 ---
 
 Pour le développement de Shimera, nous utilisons plusieurs librairies, SDK ou autre outils qui sont essentiels pour le bon fonctionnement du projet.
@@ -32,14 +22,14 @@ Pour la discussion principale entre le matériel graphique et notre libraire, vo
 - **ApiTrace** : Un outil de traçage d'API qui nous permet de suivre les appels d'API et de déboguer les problèmes liés à l'API graphique.
 
 
-### Architecture & Déploiement
+## Architecture & Déploiement
 ---
 
 Pour ce qui est du déploiement de Shimera, étant une librairie SDK open-source nous utiliserons GitHub pour héberger le code source. Les utilisateurs pourront alors soit cloner le dépot, soit télécharger une version compilée de la librairie pour l'intégrer dans leurs projets.
 
 La version compilée comprendra un .so (pour Linux) et un .dll (pour Windows) qui pourra être directement utilisée dans les projets ainsi que les définitions des symboles présents dans la libraire.
 
-### Pré-requis matériels
+## Pré-requis matériels
 ---
 
 Pour faire s'exéctuer notre librairie plusieurs prérequis sont nécessaires :
