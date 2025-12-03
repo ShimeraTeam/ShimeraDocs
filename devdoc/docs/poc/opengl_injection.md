@@ -17,3 +17,6 @@ Next, we developed a dedicated OpenGL library that encapsulates all OpenGL calls
 After that, we tried to get the context from each graphics library and pass it to our OpenGL library. Then, we tried to apply a post-processing shaders to the context created by each graphics library and render the final output to the screen.
 
 ## Results
+The POC was not successful in achieving the desired outcome. While we were able to create the dedicated OpenGL library and compile shaders, we encountered significant challenges when trying to integrate it with the graphics libraries.
+
+1. **Context Management**: Some graphics library manages its own OpenGL context, making it difficult to share the context with our OpenGL library. This led to issues where the OpenGL calls made by our library did not affect the rendering done by the graphics libraries.
