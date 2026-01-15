@@ -4,10 +4,11 @@ permissions:
   contents: write
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
-  workflow_dispatch:
+      - fix/70-fix-github-pages
 
 jobs:
   deploy:
