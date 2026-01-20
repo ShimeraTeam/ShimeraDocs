@@ -13,6 +13,7 @@ export default defineConfig({
           { text: 'Home', link: '/' },
           { text: 'Deployment & Environment', link: '/deployment/deployment' },
           { text: 'Library', link: '/library/fonctionnement_lib' },
+          { text: 'POC', link: '/poc/opengl_injection' },
           { text: 'Quality & Testing', link: '/quality/testing_policy' },
           { text: 'Annexes', link: '/annexes/plan-action' }
         ],
@@ -29,6 +30,13 @@ export default defineConfig({
             {
               text: '', items: [
                 { text: 'Library Functionality', link: '/library/fonctionnement_lib' },
+              ]
+            }
+          ],
+          '/poc/': [
+            {
+              text: '', items: [
+                { text: 'OpenGL Injection', link: '/poc/opengl_injection' },
               ]
             }
           ],
@@ -59,6 +67,7 @@ export default defineConfig({
           { text: 'Accueil', link: '/fr' },
           { text: 'Déploiement & Environnement', link: '/fr/deployment/deployment' },
           { text: 'Librairie', link: '/fr/library/fonctionnement_lib' },
+          { text: 'POC', link: '/fr/poc/opengl_injection' },
           { text: 'Qualité & Tests', link: '/fr/quality/testing_policy' },
           { text: 'Annexes', link: '/fr/annexes/plan-action' }
         ],
@@ -75,6 +84,13 @@ export default defineConfig({
             {
               text: '', items: [
                 { text: 'Fonctionnement de la librairie', link: '/fr/library/fonctionnement_lib' },
+              ]
+            }
+          ],
+          '/fr/poc/': [
+            {
+              text: '', items: [
+                { text: 'Injection OpenGL', link: '/fr/poc/opengl_injection' },
               ]
             }
           ],
