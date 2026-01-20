@@ -1,8 +1,8 @@
 import { defineConfig } from 'vitepress'
 
 export default defineConfig({
-  base: '/ShimeraDoc/',
-  title: "ShimeraDoc",
+  base: '/ShimeraDocs/',
+  title: "ShimeraDocs",
   description: "Shimera Official Documentation",
   locales: {
     root: {
