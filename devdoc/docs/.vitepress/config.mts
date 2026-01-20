@@ -21,7 +21,8 @@ export default defineConfig({
             {
               text: '', items: [
                 { text: 'Deployment', link: '/deployment/deployment' },
-                { text: 'Technical Environment', link: '/deployment/technology_environment' }
+                { text: 'Technical Environment', link: '/deployment/technology_environment' },
+                { text: 'Binary Types', link: '/deployment/binary' }
               ]
             }
           ],
@@ -67,7 +68,8 @@ export default defineConfig({
             {
               text: '', items: [
                 { text: 'Déploiement', link: '/fr/deployment/deployment' },
-                { text: 'Environnement Technique', link: '/fr/deployment/technology_environment' }
+                { text: 'Environnement Technique', link: '/fr/deployment/technology_environment' },
+                { text: 'Types de binaires', link: '/fr/deployment/binary' }
               ]
             }
           ],

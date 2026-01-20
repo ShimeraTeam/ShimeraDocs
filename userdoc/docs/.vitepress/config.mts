@@ -11,6 +11,15 @@ export default defineConfig({
       themeConfig: {
         nav: [
           { text: 'Home', link: '/' },
+          { text: 'Installation', link: '/installation' }
+        ],
+        sidebar: [
+          {
+            text: 'Getting Started',
+            items: [
+              { text: 'Installation', link: '/installation' }
+            ]
+          }
         ],
         socialLinks: [
           { icon: 'github', link: 'https://github.com/ShimeraTeam/Shimera' }
@@ -23,6 +32,15 @@ export default defineConfig({
       themeConfig: {
         nav: [
           { text: 'Accueil', link: '/fr' },
+          { text: 'Installation', link: '/fr/installation' }
+        ],
+        sidebar: [
+          {
+            text: 'Démarrage',
+            items: [
+              { text: 'Installation', link: '/fr/installation' }
+            ]
+          }
         ],
         socialLinks: [
           { icon: 'github', link: 'https://github.com/ShimeraTeam/Shimera' }

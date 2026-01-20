@@ -1,59 +1,59 @@
-# Pourquoi Shimera propose les deux types de librairies ?
+# Why does Shimera offer both types of libraries?
 
-Shimera est disponible en deux formats :
-- **Librairie statique** (`libshimera.a`) - Par défaut
-- **Librairie partagée** (`libshimera.so`) - Avec `xmake f --shared=y`
+Shimera is available in two formats:
+- **Static library** (`libshimera.a`) - Default
+- **Shared library** (`libshimera.so`) - With `xmake f --shared=y`
 
-## Différence entre les deux
+## Difference between the two
 
-### Librairie Statique (`.a`)
-Le code de Shimera est copié directement dans votre exécutable lors de la compilation.
+### Static Library (`.a`)
+Shimera's code is copied directly into your executable during compilation.
 
-**Avantages :**
-- ✅ Un seul fichier à distribuer
-- ✅ Pas de dépendances externes
-- ✅ Fonctionne immédiatement partout
+**Advantages:**
+- ✅ Single file to distribute
+- ✅ No external dependencies
+- ✅ Works immediately everywhere
 
-**Inconvénients :**
-- ❌ Exécutable plus gros
-- ❌ Besoin de recompiler pour les mises à jour
+**Disadvantages:**
+- ❌ Larger executable
+- ❌ Need to recompile for updates
 
-### Librairie Partagée (`.so`)
-Le code de Shimera reste dans un fichier séparé, chargé au lancement de votre programme.
+### Shared Library (`.so`)
+Shimera's code remains in a separate file, loaded when your program starts.
 
-**Avantages :**
-- ✅ Exécutable plus petit
-- ✅ Plusieurs programmes peuvent partager la même librairie
-- ✅ Mise à jour sans recompilation
+**Advantages:**
+- ✅ Smaller executable
+- ✅ Multiple programs can share the same library
+- ✅ Update without recompilation
 
-**Inconvénients :**
-- ❌ Deux fichiers à distribuer (exécutable + `.so`)
-- ❌ Configuration supplémentaire (RPATH, LD_LIBRARY_PATH)
+**Disadvantages:**
+- ❌ Two files to distribute (executable + `.so`)
+- ❌ Additional configuration (RPATH, LD_LIBRARY_PATH)
 
-## Pourquoi avoir les deux ?
+## Why have both?
 
-De nombreuses librairies graphiques reconnues comme **SFML**, **SDL**, ou **GLFW** laissent ce choix à l'utilisateur. Nous avons décidé de suivre cette pratique standard pour offrir la même flexibilité.
+Many recognized graphics libraries like **SFML**, **SDL**, or **GLFW** give users this choice. We decided to follow this standard practice to offer the same flexibility.
 
-**Statique par défaut** car Shimera cible principalement :
-- Les jeux indépendants (besoin de simplicité de distribution)
-- Les démonstrations graphiques (portabilité)
-- Les projets éducatifs (facilité d'utilisation)
+**Static by default** because Shimera primarily targets:
+- Indie games (need for simple distribution)
+- Graphics demonstrations (portability)
+- Educational projects (ease of use)
 
-**Partagée disponible** pour les cas avancés :
-- Suite d'outils graphiques partageant la librairie
-- Installations système (plusieurs applications utilisent Shimera)
-- Environnements de développement actif
+**Shared available** for advanced cases:
+- Suite of graphical tools sharing the library
+- System installations (multiple applications use Shimera)
+- Active development environments
 
-## Quelle version choisir ?
+## Which version to choose?
 
-**Utilisez la statique (défaut) si :**
-- Vous distribuez une application standalone
-- Vous voulez la simplicité (un seul fichier)
-- Vous faites un prototype ou un projet éducatif
+**Use static (default) if:**
+- You're distributing a standalone application
+- You want simplicity (single file)
+- You're making a prototype or educational project
 
-**Utilisez la partagée si :**
-- Vous avez plusieurs applications utilisant Shimera
-- Vous faites une installation système
-- Vous voulez économiser de l'espace disque
+**Use shared if:**
+- You have multiple applications using Shimera
+- You're doing a system installation
+- You want to save disk space
 
 ---
