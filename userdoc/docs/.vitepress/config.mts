@@ -12,6 +12,14 @@ export default defineConfig({
         nav: [
           { text: 'Home', link: '/' },
         ],
+        sidebar: [
+          {
+            text: 'Shaders',
+            items: [
+              { text: 'Contrast', link: '/shaders/contrast' }
+            ]
+          }
+        ],
         socialLinks: [
           { icon: 'github', link: 'https://github.com/ShimeraTeam/Shimera' }
         ]
@@ -23,6 +31,14 @@ export default defineConfig({
       themeConfig: {
         nav: [
           { text: 'Accueil', link: '/fr' },
+        ],
+        sidebar: [
+          {
+            text: 'Shaders',
+            items: [
+              { text: 'Contraste', link: '/fr/shaders/contrast' }
+            ]
+          }
         ],
         socialLinks: [
           { icon: 'github', link: 'https://github.com/ShimeraTeam/Shimera' }
