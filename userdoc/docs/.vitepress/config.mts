@@ -16,7 +16,8 @@ export default defineConfig({
           {
             text: 'Shaders',
             items: [
-              { text: 'Contrast', link: '/shaders/contrast' }
+              { text: 'Contrast', link: '/shaders/contrast' },
+              { text: 'Saturation', link: '/shaders/saturation' }
             ]
           }
         ],
@@ -36,7 +37,8 @@ export default defineConfig({
           {
             text: 'Shaders',
             items: [
-              { text: 'Contraste', link: '/fr/shaders/contrast' }
+              { text: 'Contraste', link: '/fr/shaders/contrast' },
+              { text: 'Saturation', link: '/fr/shaders/saturation' }
             ]
           }
         ],
