@@ -1,8 +1,8 @@
 import { defineConfig } from 'vitepress'
 
 export default defineConfig({
-  base: '/ShimeraDocs/',
-  title: "ShimeraDocs",
+  base: '/ShimeraDoc/',
+  title: "ShimeraDoc",
   description: "Shimera Official Documentation",
   locales: {
     root: {
@@ -11,20 +11,12 @@ export default defineConfig({
       themeConfig: {
         nav: [
           { text: 'Home', link: '/' },
-          { text: 'Installation', link: '/installation' }
-        ],
-        sidebar: [
-          {
-            text: 'Getting Started',
-            items: [
-              { text: 'Installation', link: '/installation' }
-            ]
-          }
         ],
         sidebar: [
           {
             text: 'Shaders',
             items: [
+              { text: 'Brightness', link: '/shaders/brightness' },
               { text: 'Contrast', link: '/shaders/contrast' },
               { text: 'Saturation', link: '/shaders/saturation' }
             ]
@@ -41,20 +33,12 @@ export default defineConfig({
       themeConfig: {
         nav: [
           { text: 'Accueil', link: '/fr' },
-          { text: 'Installation', link: '/fr/installation' }
-        ],
-        sidebar: [
-          {
-            text: 'Démarrage',
-            items: [
-              { text: 'Installation', link: '/fr/installation' }
-            ]
-          }
         ],
         sidebar: [
           {
             text: 'Shaders',
             items: [
+              { text: 'Luminosité', link: '/fr/shaders/brightness' },
               { text: 'Contraste', link: '/fr/shaders/contrast' },
               { text: 'Saturation', link: '/fr/shaders/saturation' }
             ]
