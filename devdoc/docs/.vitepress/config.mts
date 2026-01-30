@@ -45,6 +45,7 @@ export default defineConfig({
             {
               text: '', items: [
                 { text: 'Testing Policy', link: '/quality/testing_policy' },
+                { text: 'Git Hooks', link: '/quality/git_hooks' },
                 { text: 'Accessibility', link: '/quality/accessibility' },
               ]
             }
@@ -100,6 +101,7 @@ export default defineConfig({
             {
               text: '', items: [
                 { text: 'Politique de test', link: '/fr/quality/testing_policy' },
+                { text: 'Git Hooks', link: '/fr/quality/git_hooks' },
                 { text: 'Accéssibilité', link: '/fr/quality/accessibility' },
               ]
             }
