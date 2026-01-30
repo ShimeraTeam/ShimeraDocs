@@ -67,3 +67,7 @@ Si vous souhaitez désactiver temporairement les hooks pre-commit, vous pouvez u
 ```bash
 git commit --no-verify -m "Votre message de commit"
 ```
+
+Pour plus d’informations, consultez le site officiel de pre-commit : [https://pre-commit.com/](https://pre-commit.com/)
+
+**Date de mise en place:** Janvier 2026

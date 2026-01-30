@@ -67,3 +67,7 @@ If you need to temporarily disable the pre-commit hooks, you can use the `--no-v
 ```bash
 git commit --no-verify -m "Your commit message"
 ```
+
+For more informations, visit the official pre-commit documentation: [https://pre-commit.com/](https://pre-commit.com/)
+
+**Implementation date:** January 2026
