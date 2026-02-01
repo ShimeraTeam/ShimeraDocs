@@ -15,14 +15,6 @@ export default defineConfig({
         ],
         sidebar: [
           {
-            text: 'Getting Started',
-            items: [
-              { text: 'Installation', link: '/installation' }
-            ]
-          }
-        ],
-        sidebar: [
-          {
             text: 'Shaders',
             items: [
               { text: 'Brightness', link: '/shaders/brightness' },
@@ -43,14 +35,6 @@ export default defineConfig({
         nav: [
           { text: 'Accueil', link: '/fr' },
           { text: 'Installation', link: '/fr/installation' }
-        ],
-        sidebar: [
-          {
-            text: 'Démarrage',
-            items: [
-              { text: 'Installation', link: '/fr/installation' }
-            ]
-          }
         ],
         sidebar: [
           {
