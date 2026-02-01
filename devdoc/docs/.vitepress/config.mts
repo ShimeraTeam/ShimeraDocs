@@ -38,6 +38,7 @@ export default defineConfig({
             {
               text: '', items: [
                 { text: 'OpenGL Injection', link: '/poc/opengl_injection' },
+                { text: 'Raylib', link: '/poc/raylib'}
               ]
             }
           ],
@@ -94,6 +95,7 @@ export default defineConfig({
             {
               text: '', items: [
                 { text: 'Injection OpenGL', link: '/fr/poc/opengl_injection' },
+                { text: 'Raylib', link: '/fr/poc/raylib'}
               ]
             }
           ],
