@@ -18,6 +18,7 @@ export default defineConfig({
             text: 'Shaders',
             items: [
               { text: 'Brightness', link: '/shaders/brightness' },
+              { text: 'Colorshift', link: '/shaders/colorshift' },
               { text: 'Contrast', link: '/shaders/contrast' },
               { text: 'Saturation', link: '/shaders/saturation' }
             ]
@@ -41,6 +42,7 @@ export default defineConfig({
             text: 'Shaders',
             items: [
               { text: 'Luminosité', link: '/fr/shaders/brightness' },
+              { text: 'Changement de couleur', link: '/fr/shaders/colorshift' },
               { text: 'Contraste', link: '/fr/shaders/contrast' },
               { text: 'Saturation', link: '/fr/shaders/saturation' }
             ]
