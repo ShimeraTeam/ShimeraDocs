@@ -304,40 +304,6 @@ Utilise `std::visit` pour dispatcher vers la fonction uniform OpenGL correcte :
 - `Vec4` → `glUniform4f`
 
 
-## File Structure
-
-```
-include/
-  shimera.h                      # Main public header
-  backend/
-    BackendFactory.hpp           # Factory interface
-    IBackend.hpp                 # Backend interface
-    IFrameBuffer.hpp             # Framebuffer interface
-    IPostProccessor.hpp          # Post-processor interface
-    ITexture.hpp                 # Texture interface
-    IShader.hpp                  # Shader interface
-    Color.hpp                    # Color struct
-    sfml/
-      SFMLBackend.hpp            # SFML implementation declarations
-      SFMLFramebuffer.hpp
-      SFMLPostProccessor.hpp
-      SFMLTexture.hpp
-      SFMLShader.hpp
-  uniform/
-    Uniform.hpp                  # Uniform wrapper
-    Vec4.hpp                     # Vector types
-
-src/
-  backend/
-    BackendFactory.cpp           # Factory implementation
-    sfml/
-      SFMLBackend.cpp            # SFML implementations
-      SFMLFramebuffer.cpp
-      SFMLPostProccessor.cpp
-      SFMLTexture.cpp
-      SFMLShader.cpp
-```
-
 ## Système de Build
 ::: warning NOTE IMPORTANTE
 Peut-être que cette section devrait être déplacée vers une section séparée "Instructions de Build" ou similaire.
