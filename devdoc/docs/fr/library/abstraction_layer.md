@@ -299,9 +299,9 @@ effect->setUniform("color", Vec4(1,0,0,1)); // vec4
 ### Sous le Capot
 
 Utilise `std::visit` pour dispatcher vers la fonction uniform OpenGL correcte :
-- `float` → `glUniform1f`
-- `int` → `glUniform1i`
-- `Vec4` → `glUniform4f`
+- `float` -> `glUniform1f`
+- `int` -> `glUniform1i`
+- `Vec4` -> `glUniform4f`
 
 
 ## Système de Build

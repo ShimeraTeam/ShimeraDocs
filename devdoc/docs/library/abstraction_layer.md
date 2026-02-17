@@ -40,7 +40,7 @@ The define of the backend is usually done during build configuration, so users t
 
 **Usage:**
 ```cpp
-#define SHIMERA_BACKEND_SFML  // Set before including shimera.h, usually done durring build configuration
+#define SHIMERA_BACKEND_SFML  // Set before including shimera.h, usually done during build configuration
 #include <shimera.h>
 
 IBackend* backend = BackendFactory::create();
@@ -106,8 +106,8 @@ fbo->unbind();
 **Usage:**
 ```cpp
 IPostProcessor* exempleEffect = backend->createPostProcessor("*...*/post.vert", "*...*/exemple.frag");
-effect->setUniform("time", 0.0f);
-effect->render(fbo->getTexture());
+exempleEffect->setUniform("time", 0.0f);
+exempleEffect->render(fbo->getTexture());
 ```
 
 ### 5. ITexture & IShader Interfaces
@@ -299,9 +299,9 @@ effect->setUniform("color", Vec4(1,0,0,1)); // vec4
 ### Under the Hood
 
 Uses `std::visit` to dispatch to correct OpenGL uniform function:
-- `float` → `glUniform1f`
-- `int` → `glUniform1i`
-- `Vec4` → `glUniform4f`
+- `float` -> `glUniform1f`
+- `int` -> `glUniform1i`
+- `Vec4` -> `glUniform4f`
 
 
 ## Build System
@@ -361,7 +361,7 @@ Exposing native types allows idiomatic usage per backend while maintaining abstr
 ### Planned Features
 
 1. **Automatic Resource Management** - Smart pointers in interfaces to avoid manual cleanup (avoid `delete ...`)
-2. **Effect Library** - More pre-built shaders than actuelly proposed (blur, bloom, vignette, etc.)
+2. **Effect Library** - More pre-built shaders than actually proposed (blur, bloom, vignette, etc.)
 3. **Effect Composition API** - High-level pipeline builder, so "automatic" multi-pass chaining without manual FBO management (concept idea below)
 4. **Shader Hot-Reloading** - Reload shaders without restart
 5. **More Backends** - Vulkan, DirectX, Metal, WebGPU
@@ -388,7 +388,7 @@ See `examples/sfml/src/main.cpp` for a working example demonstrating:
 - Proper context management
 - Resource cleanup
 
-Comment have been added to explain each step in detail.
+Comments have been added to explain each step in detail.
 
 ## Troubleshooting
 

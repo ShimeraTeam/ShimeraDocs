@@ -53,7 +53,7 @@ protected:
 
 **Components:**
 - `sf::RenderTexture` - SFML's off-screen render target
-- `SFMLPostProccessor` - Applies the shader effect
+- `SFMLPostProcessor` - Applies the shader effect
 - CRTP inheritance from `PostProcessingPipelineBase<PostProcessingPipeline>`
 
 **Workflow:**
@@ -144,7 +144,7 @@ Used `#ifdef SHIMERA_BACKEND_*` for compile-time selection, resulting in smaller
 While the **CRTP** approach was an interesting experiment, we tried too hard to make the implementation as performant as possible at the cost of flexibility and usability. The factory-based design, while slightly more verbose, provides a much more powerful and extensible foundation for future features.
 
 What we learned:
-1. **Multi-Pass was Mendatory**: Multi-pass is a big focus for this project, and this wasn't possible with the CRTP design
+1. **Multi-Pass was Mandatory**: Multi-pass is a big focus for this project, and this wasn't possible with the CRTP design
 2. **Flexibility is better**: Negligible virtual call overhead worth the flexibility
 3. **Clear Abstractions**: Interfaces easier to understand than template metaprogramming
 4. **Composition**: Small, focused components more flexible than one big class
@@ -169,7 +169,7 @@ effect->setUniform("time", t);
 effect->render(fbo->getTexture());
 ```
 
-As you can see, while the new method require more steps and the old one is more straightforward for single-pass, it is infinitely more flexible for multi-pass. **Although this will be simplified in the future and will require less steps**.
+As you can see, while the new method requires more steps and the old one is more straightforward for single-pass, it is infinitely more flexible for multi-pass. **Although this will be simplified in the future and will require less steps**.
 
 
 ## Code Preservation
@@ -183,7 +183,7 @@ For now, the CRTP implementation is preserved with `DEPRECATED` markers for:
 ## References
 
 ### CRTP Pattern
-- [CRTP - Wikipedia (General explaination in programming)](https://en.wikipedia.org/wiki/Curiously_recurring_template_pattern)
+- [CRTP - Wikipedia (General explanation in programming)](https://en.wikipedia.org/wiki/Curiously_recurring_template_pattern)
 - [CRTP Explanation - FluentCpp](https://www.fluentcpp.com/2017/05/12/curiously-recurring-template-pattern/)
 - [More C++ Idioms - CRTP](https://en.wikibooks.org/wiki/More_C%2B%2B_Idioms/Curiously_Recurring_Template_Pattern)
 

@@ -53,7 +53,7 @@ protected:
 
 **Composants :**
 - `sf::RenderTexture` - Cible de rendu hors écran de SFML
-- `SFMLPostProccessor` - Applique l'effet du shader
+- `SFMLPostProcessor` - Applique l'effet du shader
 - Héritage CRTP de `PostProcessingPipelineBase<PostProcessingPipeline>`
 
 **Flux de travail :**

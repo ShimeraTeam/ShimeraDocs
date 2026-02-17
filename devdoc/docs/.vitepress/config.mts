@@ -90,7 +90,7 @@ export default defineConfig({
             {
               text: '', items: [
                 { text: 'Fonctionnement de la librairie', link: '/fr/library/fonctionnement_lib' },
-                { text: "Couche d'abstraction", link: '/library/abstraction_layer' },
+                { text: "Couche d'abstraction", link: '/fr/library/abstraction_layer' },
               ]
             }
           ],
