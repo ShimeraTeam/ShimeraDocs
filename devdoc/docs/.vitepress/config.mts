@@ -31,6 +31,7 @@ export default defineConfig({
             {
               text: '', items: [
                 { text: 'Library Functionality', link: '/library/fonctionnement_lib' },
+                { text: 'Abstraction Layer', link: '/library/abstraction_layer' },
               ]
             }
           ],
@@ -38,7 +39,8 @@ export default defineConfig({
             {
               text: '', items: [
                 { text: 'OpenGL Injection', link: '/poc/opengl_injection' },
-                { text: 'Raylib', link: '/poc/raylib'}
+                { text: 'Raylib', link: '/poc/raylib'},
+                { text: 'Abstraction Layer: First Attempt', link: '/poc/old_abstraction_layer'}
               ]
             }
           ],
@@ -88,6 +90,7 @@ export default defineConfig({
             {
               text: '', items: [
                 { text: 'Fonctionnement de la librairie', link: '/fr/library/fonctionnement_lib' },
+                { text: "Couche d'abstraction", link: '/fr/library/abstraction_layer' },
               ]
             }
           ],
@@ -95,7 +98,8 @@ export default defineConfig({
             {
               text: '', items: [
                 { text: 'Injection OpenGL', link: '/fr/poc/opengl_injection' },
-                { text: 'Raylib', link: '/fr/poc/raylib'}
+                { text: 'Raylib', link: '/fr/poc/raylib'},
+                { text: "Couche d'abstraction : Première tentative", link: '/fr/poc/old_abstraction_layer'}
               ]
             }
           ],
