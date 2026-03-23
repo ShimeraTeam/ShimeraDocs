@@ -32,6 +32,7 @@ export default defineConfig({
               text: '', items: [
                 { text: 'Library Functionality', link: '/library/fonctionnement_lib' },
                 { text: 'Abstraction Layer', link: '/library/abstraction_layer' },
+                { text: 'Technology Comparative Briefs', link: '/library/technology_comparative_briefs' },
               ]
             }
           ],
@@ -93,6 +94,7 @@ export default defineConfig({
               text: '', items: [
                 { text: 'Fonctionnement de la librairie', link: '/fr/library/fonctionnement_lib' },
                 { text: "Couche d'abstraction", link: '/fr/library/abstraction_layer' },
+                { text: 'Comparatifs technologiques', link: '/fr/library/technology_comparative_briefs' },
               ]
             }
           ],
