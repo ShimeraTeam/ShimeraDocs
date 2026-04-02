@@ -19,15 +19,15 @@ Shimera is a C++ library designed to allow its users (mainly technicians) to imp
 
 ## Comparative Brief 1: Main Language of the Library
 
-### C++ vs C vs Rust vs C# vs Python
+### C++ vs C vs Rust vs C# vs Java vs Python
 
-| Criterion | C++ | C | Rust | C# | Python |
-| --- | --- | --- | --- | --- | --- |
-| Low-level performance | Excellent | Excellent | Excellent | Good to very good | Low to medium |
-| Direct interop with OpenGL/SFML/raylib/SDL | Excellent | Good (SDL very natural, SFML less so) | Good (FFI required depending on libs) | Medium (bindings/interop layers) | Medium (bindings, frequent C/C++ layers) |
-| Memory control and GPU resource management | Excellent (mature RAII) | Good but more manual | Excellent (ownership/borrow checker) | Medium (GC, native patterns required) | Low to medium (indirect management via wrappers) |
-| Expressiveness for high-level library abstractions | Excellent | Medium | Good to excellent | Good | Excellent |
-| Maturity of native ecosystem for our current stack | Very high | High | Medium to high | Medium | High for scripting, more limited for native core |
+| Criterion | C++ | C | Rust | C# | Java | Python |
+| --- | --- | --- | --- | --- | --- | --- |
+| Low-level performance | Excellent | Excellent | Excellent | Good to very good | Good (JIT) | Low to medium |
+| Direct interop with OpenGL/SFML/raylib/SDL | Excellent | Good (SDL very natural, SFML less so) | Good (FFI required depending on libs) | Medium (bindings/interop layers) | Medium (LWJGL/JOGL for OpenGL, third-party bindings for raylib/SFML) | Medium (bindings, frequent C/C++ layers) |
+| Memory control and GPU resource management | Excellent (mature RAII) | Good but more manual | Excellent (ownership/borrow checker) | Medium (GC, native patterns required) | Medium (GC, indirect management of GPU resources) | Low to medium (indirect management via wrappers) |
+| Expressiveness for high-level library abstractions | Excellent | Medium | Good to excellent | Good | Good to excellent | Excellent |
+| Maturity of native ecosystem for our current stack | Very high | High | Medium to high | Medium | Medium (LWJGL mature for OpenGL, less so for raylib/SFML) | High for scripting, more limited for native core |
 
 Decision:
 - C++ is chosen for its excellent balance between performance, GPU resource control, expressiveness for library abstractions, and ecosystem maturity for our current stack.
@@ -35,7 +35,18 @@ Decision:
 - C remains a very performant foundation, but involves more manual management and offers fewer structuring tools for our current abstraction level.
 - Rust is a promising language for graphics projects, but its ecosystem around OpenGL/SFML/raylib is less mature than C++'s. Additionally, the need for FFI to interact with these libraries could introduce unwanted complexity for our current scope.
 - C# can accelerate certain application use cases, but adds an interop layer for our native graphics core and is not our current target for a low-level library.
+- Java has tools such as LWJGL for OpenGL, but garbage collection, JIT behavior, and the lack of fine-grained control over GPU resources make it less ideal than a native C++ approach for a low-level library. In addition, interop with raylib and SFML requires third-party bindings that are less mature than what is available for C++.
 - Python is excellent for prototyping, tooling, and education, but is not suitable as the main language for Shimera's rendering core (CPU performance, interop overhead, fine-grained GPU resource management).
+
+sources:
+- C++ and OpenGL (documentation): https://www.opengl.org/Documentation/Implementations/Languages.html
+- C++, OpenGL and SFML (documentation): https://www.sfml-dev.org/tutorials/3.0/window/opengl/
+- C++, OpenGL, Java, Python (discussion): https://www.reddit.com/r/opengl/comments/ssxve7/which_language_should_choose_for_opengl/
+- C++ and OpenGL (discussion): https://www.haroldserrano.com/blog/which-programming-language-should-i-learn-to-use-opengl
+- C++, OpenGL, Java, Python (discussion): https://www.reddit.com/r/opengl/comments/fu5eva/which_language_do_you_program_in_with_opengl/
+- Python and OpenGL (discussion): https://www.reddit.com/r/gamedev/comments/n6jre/using_opengl_with_python_prudent/
+- C# and OpenGL (discussion): https://stackoverflow.com/questions/536065/using-opengl-with-c
+- C#, C++ and OpenGL (discussion): https://www.reddit.com/r/opengl/comments/oxcc9z/good_opengl_implementations_for_c/
 
 ## Comparative Brief 2: Graphics API
 
@@ -58,11 +69,16 @@ Decision:
 - Metal is performant in the Apple ecosystem, but its platform scope does not match our current multi-platform target.
 - Short-term non-objective: optimizing a low-level API at the cost of longer development and debugging time.
 
+sources:
+- OpenGL, Vulkan and Direct3D (documentation): https://blog.replaybird.com/graphic-apis-best-alternatives/
+- OpenGL, Vulkan, Direct3D and Metal (documentation): https://gist.github.com/MangaD/b24f4e3052ff7854c6fa5074f22bc9b2
+- OpenGL, Vulkan, Direct3D and Metal (documentation): https://techbuzzonline.com/graphics-api-comparison-game-developers-beginners-guide/#google_vignette
+
 ## Comparative Brief 3: Supported Libraries Around OpenGL
 
-### SFML vs SDL2 vs raylib
+### SFML vs SDL3 vs raylib
 
-| Criterion | SFML | SDL2 | raylib |
+| Criterion | SFML | SDL3 | raylib |
 | --- | --- | --- | --- |
 | 2D drawing ergonomics | Very high | Medium | High |
 | OpenGL interop | Simple | Complex | Simple but more opinionated |
@@ -72,11 +88,15 @@ Decision:
 Decision:
 - SFML is the library on which we have had our first successes and which best matches our current abstraction.
 - raylib is excellent as it allows us to demonstrate our shaders on both 2D and 3D examples.
-- SDL2 is an interesting secondary option to reach a wider audience, but it is not in our short-term objectives due to some more complex OpenGL interop issues.
+- SDL3 is an interesting secondary option to reach a wider audience, but it is not in our short-term objectives due to some more complex OpenGL interop issues.
 - Retained strategy: SFML and raylib as priorities to maximize pedagogical clarity and delivery speed.
 
 Sources:
 - SFML and OpenGL (documentation): https://www.sfml-dev.org/tutorials/2.6/window-opengl.php
+- SFML and SDL3 (documentation): https://junkangworld.com/blog/sdl-vs-sfml-which-c-game-library-is-right-for-you
+- SDL, OpenGL (documentation): https://wikis.khronos.org/opengl/Tutorial1:_Creating_a_Cross_Platform_OpenGL_3.2_Context_in_SDL_(C_/_SDL)
+- SDL, OpenGL (documentation): https://documentation.help/SDL/guidevideoopengl.html
+- SDL, OpenGL (documentation): https://lazyfoo.net/tutorials/SDL/50_SDL_and_opengl_2/index.php
 
 ## Comparative Brief 4: Build System
 
@@ -94,6 +114,9 @@ Sources:
 Decision:
 - xmake appears to us as a modern build tool, fast to onboard, and perfectly suited to our project.
 - CMake remains an important skill to document for users who might want to integrate Shimera into projects using CMake, but we decided not to adopt it as the primary build system for simplicity and ease of use of xmake in our context.
+
+sources:
+- xmake vs CMake (documentation): https://stackshare.io/stackups/cmake-vs-xmake
 
 ## Comparative Brief 5: Shader Languages
 
@@ -115,3 +138,7 @@ Decision:
 - GLSL is directly executed by the OpenGL pipeline: fewer intermediate layers, fewer points of failure, faster debugging.
 - HLSL and MSL do not provide decisive gains for our current scope, but significantly increase maintenance costs (translation, multi-platform validation, rendering differences).
 - A multi-shader-language strategy could be considered later if we decide to support DirectX/Metal backends, but this is not in our current scope.
+
+sources:
+- GLSL, HLSL and MSL (documentation): https://alain.xyz/blog/a-review-of-shader-languages
+- GLSL, HLSL and MSL (documentation): https://pulsegeek.com/articles/slang-glsl-and-hlsl-shader-formats-compared/
