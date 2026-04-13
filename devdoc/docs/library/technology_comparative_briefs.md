@@ -67,7 +67,6 @@ Decision:
 - Vulkan could be reconsidered later, but its complexity cost (explicit synchronization, descriptors, boilerplate) is too high for our current phase.
 - Direct3D is technically very solid, but its Windows orientation does not align with our immediate multi-platform objective.
 - Metal is performant in the Apple ecosystem, but its platform scope does not match our current multi-platform target.
-- Short-term non-objective: optimizing a low-level API at the cost of longer development and debugging time.
 
 sources:
 - OpenGL, Vulkan and Direct3D (documentation): https://blog.replaybird.com/graphic-apis-best-alternatives/
