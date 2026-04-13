@@ -80,7 +80,7 @@ sources:
 | Critere | SFML | SDL3 | raylib |
 | --- | --- | --- | --- |
 | Ergonomie 2D | Tres elevee | Moyenne | Elevee |
-| Interop OpenGL | Simple | Complexe | Simple mais plus opinionne |
+| Interop OpenGL | Simple | Complexe | Simple |
 | Verbosite API | Faible | Moyenne | Faible |
 | Maturite ecosysteme | Elevee | Tres elevee | Elevee |
 

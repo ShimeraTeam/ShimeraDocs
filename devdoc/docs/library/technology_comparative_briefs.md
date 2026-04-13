@@ -80,7 +80,7 @@ sources:
 | Criterion | SFML | SDL3 | raylib |
 | --- | --- | --- | --- |
 | 2D drawing ergonomics | Very high | Medium | High |
-| OpenGL interop | Simple | Complex | Simple but more opinionated |
+| OpenGL interop | Simple | Complex | Simple |
 | API verbosity | Low | Medium | Low |
 | Ecosystem maturity | High | Very high | High |
 
