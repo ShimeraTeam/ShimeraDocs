@@ -11,6 +11,7 @@ export default defineConfig({
       themeConfig: {
         nav: [
           { text: 'Home', link: '/' },
+          { text: 'Technical Architecture', link: '/architecture/technical_architecture' },
           { text: 'Deployment & Environment', link: '/deployment/deployment' },
           { text: 'Library', link: '/library/fonctionnement_lib' },
           { text: 'POC', link: '/poc/opengl_injection' },
@@ -18,6 +19,13 @@ export default defineConfig({
           { text: 'Annexes', link: '/annexes/plan-action' }
         ],
         sidebar: {
+          '/architecture/': [
+            {
+              text: '', items: [
+                { text: 'Current Technical Architecture', link: '/architecture/technical_architecture' }
+              ]
+            }
+          ],
           '/deployment/': [
             {
               text: '', items: [
@@ -72,6 +80,7 @@ export default defineConfig({
       themeConfig: {
         nav: [
           { text: 'Accueil', link: '/fr' },
+          { text: 'Architecture technique', link: '/fr/architecture/technical_architecture' },
           { text: 'Déploiement & Environnement', link: '/fr/deployment/deployment' },
           { text: 'Librairie', link: '/fr/library/fonctionnement_lib' },
           { text: 'POC', link: '/fr/poc/opengl_injection' },
@@ -79,6 +88,13 @@ export default defineConfig({
           { text: 'Annexes', link: '/fr/annexes/plan-action' }
         ],
         sidebar: {
+          '/fr/architecture/': [
+            {
+              text: '', items: [
+                { text: 'Architecture technique actuelle', link: '/fr/architecture/technical_architecture' }
+              ]
+            }
+          ],
           '/fr/deployment/': [
             {
               text: '', items: [
