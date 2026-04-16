@@ -61,7 +61,7 @@ Responsabilités:
 ### Interfaces de ressources
 
 - `IFrameBuffer`: cycle de vie du render target, redimensionnement, accès texture.
-- `IPostProccessor`: orchestration des passes de post-processing fullscreen.
+- `IPostProcessor`: orchestration des passes de post-processing fullscreen.
 - `IShader`: bind/unbind shader et écriture d'uniformes typées.
 - `ITexture`: bind/unbind texture et pont vers handle natif.
 
@@ -167,7 +167,7 @@ Les dépendances de Shimera sont organisées par cible backend dans Xmake.
 | `shimera-opengl` | `SHIMERA_BACKEND_OPENGL` | `glew` | Implémenté |
 | `shimera-sfml` | `SHIMERA_BACKEND_SFML` | `glew`, `sfml` | Implémenté |
 | `shimera-raylib` | `SHIMERA_BACKEND_RAYLIB` | `glew`, `raylib` | Implémenté |
-| `shimera-sdl` | `SHIMERA_BACKEND_SDL` | `glew`, `libsdl3` | Chemain de build existe, mais backend incomplet |
+| `shimera-sdl` | `SHIMERA_BACKEND_SDL` | `glew`, `libsdl3` | Chemin de build existe, mais backend incomplet |
 
 ### OpenGL et GLEW dans l'architecture actuelle
 
@@ -279,7 +279,6 @@ L'implémentation actuelle a des contraintes importantes pour la roadmap:
 2. `SFMLBackend::createTexture` et `RaylibBackend::createTexture` sont incomplets.
 3. La logique post-processor/shader est dupliquée entre les implémentations backend.
 4. Les chemins shaders des effets sont hardcodés en relatif dans les constructeurs.
-5. Une dette de nommage existe (`IPostProccessor` et son typo sur les interfaces).
 
 Ces contraintes n'invalident pas le pattern architectural, mais elles impactent la maintenabilité et la robustesse du packaging.
 

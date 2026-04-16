@@ -61,7 +61,7 @@ Responsibilities:
 ### Resource Interfaces
 
 - `IFrameBuffer`: render target lifecycle, resize, texture access.
-- `IPostProccessor`: fullscreen post-process pass orchestration.
+- `IPostProcessor`: fullscreen post-process pass orchestration.
 - `IShader`: shader bind/unbind and typed uniform writes.
 - `ITexture`: texture bind/unbind and native-handle bridge.
 
@@ -279,7 +279,6 @@ The current implementation has known constraints relevant for roadmap planning:
 2. `SFMLBackend::createTexture` and `RaylibBackend::createTexture` are incomplete.
 3. Post-processor and shader logic is duplicated across backend implementations.
 4. Effect shader paths are hardcoded relative paths in constructors.
-5. Naming technical debt exists (`IPostProccessor` typo carried across interfaces).
 
 These constraints do not invalidate the architecture pattern, but they impact maintainability and packaging robustness.
 
