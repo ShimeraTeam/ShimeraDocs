@@ -256,8 +256,6 @@ Nommage fréquent des branches courtes:
 - `feat/*`
 - `fix/*`
 - `chore/*`
-- `docs/*`
-- `task/*`
 
 ### Style de commits et merges
 

@@ -256,8 +256,6 @@ Short-lived branch naming commonly uses:
 - `feat/*`
 - `fix/*`
 - `chore/*`
-- `docs/*`
-- `task/*`
 
 ### Commit and Merge Style
 
