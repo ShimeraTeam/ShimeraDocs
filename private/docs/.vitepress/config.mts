@@ -15,12 +15,6 @@ export default defineConfig({
         sidebar: {
           '/': [
             {
-              text: 'Technical Architecture',
-              items: [
-                { text: 'Current Technical Architecture', link: '/architecture/technical_architecture' }
-              ]
-            },
-            {
               text: 'Deployment & Environment',
               items: [
                 { text: 'Deployment', link: '/deployment/deployment' },
@@ -74,12 +68,6 @@ export default defineConfig({
         ],
         sidebar: {
           '/fr/': [
-            {
-              text: 'Architecture technique',
-              items: [
-                { text: 'Architecture technique actuelle', link: '/fr/architecture/technical_architecture' }
-              ]
-            },
             {
               text: 'Déploiement & Environnement',
               items: [
