@@ -42,6 +42,7 @@ export default defineConfig({
               text: 'Quality & Testing',
               items: [
                 { text: 'Testing Policy', link: '/quality/testing_policy' },
+                { text: 'Code Standards', link: '/quality/code_standards' },
                 { text: 'Git Hooks', link: '/quality/git_hooks' },
                 { text: 'Accessibility', link: '/quality/accessibility' },
                 { text: 'Branches', link: '/quality/branches' },
@@ -96,6 +97,7 @@ export default defineConfig({
               text: 'Qualité & Tests',
               items: [
                 { text: 'Politique de test', link: '/fr/quality/testing_policy' },
+                { text: 'Standards de code', link: '/fr/quality/code_standards' },
                 { text: 'Git Hooks', link: '/fr/quality/git_hooks' },
                 { text: 'Accéssibilité', link: '/fr/quality/accessibility' },
                 { text: 'Branches', link: '/fr/quality/branches' },
