@@ -35,6 +35,7 @@ export default defineConfig({
               text: 'DevDoc',
               items: [
                 { text: 'Architecture', link: '/devdoc/architecture/technical_architecture' },
+                { text: 'Code Standards', link: '/devdoc/code_standards' },
               ]
             }
           ]
@@ -74,6 +75,7 @@ export default defineConfig({
               text: 'DevDoc',
               items: [
                 { text: 'Architecture', link: '/fr/devdoc/architecture/technical_architecture' },
+                { text: 'Standards de code', link: '/fr/devdoc/code_standards' },
               ]
             }
           ]
