@@ -51,6 +51,7 @@ export default defineConfig({
             {
               text: 'Annexes',
               items: [
+                { text: 'Technical Discussion', link: '/annexes/technical_discussion' },
                 { text: 'Action Plan', link: '/annexes/plan-action' },
                 { text: 'Assets', link: '/annexes/assets' }
               ]
@@ -105,8 +106,9 @@ export default defineConfig({
             {
               text: 'Annexes',
               items: [
+                { text: 'Discussion technique', link: '/fr/annexes/technical_discussion' },
                 { text: 'Plan d\'action', link: '/fr/annexes/plan-action' },
-                { text: 'Assests', link: '/fr/annexes/assets' }
+                { text: 'Assets', link: '/fr/annexes/assets' }
               ]
             }
           ]
