@@ -34,6 +34,7 @@ export default defineConfig({
             {
               text: 'DevDoc',
               items: [
+                { text: 'Git Workflow', link: '/devdoc/git_workflow' },
                 { text: 'Architecture', link: '/devdoc/architecture/technical_architecture' },
               ]
             }
@@ -73,6 +74,7 @@ export default defineConfig({
             {
               text: 'DevDoc',
               items: [
+                { text: 'Git Workflow', link: '/fr/devdoc/git_workflow' },
                 { text: 'Architecture', link: '/fr/devdoc/architecture/technical_architecture' },
               ]
             }
