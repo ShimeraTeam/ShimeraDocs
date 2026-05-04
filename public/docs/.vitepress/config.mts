@@ -22,9 +22,15 @@ export default defineConfig({
                 {
                   text: 'Shaders',
                   items: [
+                    { text: 'Index', link: '/userdoc/shaders/index' },
                     { text: 'Brightness', link: '/userdoc/shaders/brightness' },
+                    { text: 'Chromatic Aberration', link: '/userdoc/shaders/chromatic_aberration' },
+                    { text: 'Colorshift', link: '/userdoc/shaders/colorshift' },
                     { text: 'Contrast', link: '/userdoc/shaders/contrast' },
-                    { text: 'Saturation', link: '/userdoc/shaders/saturation' }
+                    { text: 'Distortion', link: '/userdoc/shaders/distortion' },
+                    { text: 'Grayscale', link: '/userdoc/shaders/grayscale' },
+                    { text: 'Saturation', link: '/userdoc/shaders/saturation' },
+                    { text: 'Vignette', link: '/userdoc/shaders/vignette' }
                   ]
                 }
               ]
@@ -61,9 +67,15 @@ export default defineConfig({
                 {
                   text: 'Shaders',
                   items: [
-                    { text: 'Luminosité', link: '/fr/userdoc/shaders/brightness' },
-                    { text: 'Contraste', link: '/fr/userdoc/shaders/contrast' },
-                    { text: 'Saturation', link: '/fr/userdoc/shaders/saturation' }
+                    { text: 'Index', link: '/fr/userdoc/shaders/index' },
+                    { text: 'Brightness', link: '/fr/userdoc/shaders/brightness' },
+                    { text: 'Chromatic Aberration', link: '/fr/userdoc/shaders/chromatic_aberration' },
+                    { text: 'Colorshift', link: '/fr/userdoc/shaders/colorshift' },
+                    { text: 'Contrast', link: '/fr/userdoc/shaders/contrast' },
+                    { text: 'Distortion', link: '/fr/userdoc/shaders/distortion' },
+                    { text: 'Grayscale', link: '/fr/userdoc/shaders/grayscale' },
+                    { text: 'Saturation', link: '/fr/userdoc/shaders/saturation' },
+                    { text: 'Vignette', link: '/fr/userdoc/shaders/vignette' }
                   ]
                 }
               ]

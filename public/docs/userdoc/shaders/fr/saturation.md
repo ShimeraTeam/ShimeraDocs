@@ -1,27 +1,27 @@
-# Saturation Effect
+# Effet de Saturation
 
-**Header:** `include/effects/SaturationEffect.hpp`  
-**Implementation:** `src/effects/SaturationEffect.cpp`  
+**En-tête:** `include/effects/SaturationEffect.hpp`  
+**Implémentation:** `src/effects/SaturationEffect.cpp`  
 **Shader:** `res/shader/postprocessing/saturation.frag`
 
 ## Description
 
-The Saturation effect adjusts the color saturation of the rendered image by interpolating between a grayscale version and the original colors. This allows you to control how vibrant or muted colors appear, from complete black & white to oversaturated colors.
+L'effet de saturation ajuste la saturation des couleurs de l'image rendue en interpolant entre une version en niveaux de gris et les couleurs originales. Cela vous permet de contrôler à quel point les couleurs apparaissent vibrantes ou muted, du noir et blanc complet aux couleurs sursaturées.
 
-## Parameters
+## Paramètres
 
-| Parameter | Type | Range | Default | Effect |
-|-----------|------|-------|---------|--------|
-| `u_strength` | float | `0.0` to `2.0+` | `1.0` | Saturation intensity |
+| Paramètre | Type | Plage | Défaut | Effet |
+|-----------|------|-------|--------|-------|
+| `u_strength` | float | `0.0` à `2.0+` | `1.0` | Intensité de la saturation |
 
-### Parameter Values
+### Valeurs des Paramètres
 
-- **`0.0`** - Completely desaturated (pure grayscale/black & white)
-- **`1.0`** - No change (original colors)
-- **`> 1.0`** - Oversaturated, colors more vivid (e.g., `1.5` = 50% more saturated)
-- **`< 0.0`** to **`1.0`** - Partially desaturated
+- **`0.0`** - Complètement désaturé (noir et blanc pur)
+- **`1.0`** - Aucun changement (couleurs originales)
+- **`> 1.0`** - Sursaturé, couleurs plus vivantes (ex: `1.5` = 50% plus saturé)
+- **`< 0.0`** à **`1.0`** - Partiellement désaturé
 
-## Usage
+## Utilisation
 
 ```cpp
 #include <SFML/Graphics.hpp>
@@ -30,7 +30,7 @@ The Saturation effect adjusts the color saturation of the rendered image by inte
 #include "effects/SaturationEffect.hpp"
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Saturation Demo");
+    sf::RenderWindow window(sf::VideoMode(800, 600), "Démo de Saturation");
     window.setActive(true);
 
     IBackend *backend = BackendFactory::create();
@@ -47,7 +47,7 @@ int main() {
 
         auto *rt = static_cast<sf::RenderTexture*>(sceneFramebuffer->getNativeRenderTarget());
         rt->clear(sf::Color::Black);
-        // ... draw your scene to rt ...
+        // ... dessinez votre scène sur rt ...
         sceneFramebuffer->unbind();
 
         window.setActive(true);

@@ -1,26 +1,26 @@
-# Brightness Effect
+# Effet de Luminosité
 
-**Header:** `include/effects/BrightnessEffect.hpp`
-**Implementation:** `src/effects/BrightnessEffect.cpp`
+**En-tête:** `include/effects/BrightnessEffect.hpp`
+**Implémentation:** `src/effects/BrightnessEffect.cpp`
 **Shader:** `res/shader/postprocessing/brightness.frag`
 
 ## Description
 
-The Brightness effect adjusts the overall brightness of the rendered image by adding or subtracting a value to all RGB color components. This is a simple linear brightness adjustment that brightens or darkens the entire image uniformly.
+L'effet de luminosité ajuste la luminosité globale de l'image rendue en ajoutant ou soustrayant une valeur à tous les composants de couleur RGB. C'est un ajustement de luminosité linéaire simple qui éclaircit ou assombrit l'ensemble de l'image uniformément.
 
-## Parameters
+## Paramètres
 
-| Parameter | Type | Range | Default | Effect |
-|-----------|------|-------|---------|--------|
-| `u_strength` | float | `-1.0` to `1.0` | `0.0` | Brightness adjustment amount |
+| Paramètre | Type | Plage | Défaut | Effet |
+|-----------|------|-------|--------|-------|
+| `u_strength` | float | `-1.0` à `1.0` | `0.0` | Montant d'ajustement de luminosité |
 
-### Parameter Values
+### Valeurs des Paramètres
 
-- **`< 0.0`** - Darkens the image (e.g., `-0.2` = 20% darker)
-- **`0.0`** - No change (original brightness)
-- **`> 0.0`** - Brightens the image (e.g., `+0.2` = 20% brighter)
+- **`< 0.0`** - Assombrit l'image (ex: `-0.2` = 20% plus sombre)
+- **`0.0`** - Aucun changement (luminosité originale)
+- **`> 0.0`** - Éclaircit l'image (ex: `+0.2` = 20% plus lumineux)
 
-## Usage
+## Utilisation
 
 ```cpp
 #include <SFML/Graphics.hpp>
@@ -29,7 +29,7 @@ The Brightness effect adjusts the overall brightness of the rendered image by ad
 #include "effects/BrightnessEffect.hpp"
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Brightness Demo");
+    sf::RenderWindow window(sf::VideoMode(800, 600), "Démo de Luminosité");
     window.setActive(true);
 
     IBackend *backend = BackendFactory::create();
@@ -46,7 +46,7 @@ int main() {
 
         auto *rt = static_cast<sf::RenderTexture*>(sceneFramebuffer->getNativeRenderTarget());
         rt->clear(sf::Color::Black);
-        // ... draw your scene to rt ...
+        // ... dessinez votre scène sur rt ...
         sceneFramebuffer->unbind();
 
         window.setActive(true);
