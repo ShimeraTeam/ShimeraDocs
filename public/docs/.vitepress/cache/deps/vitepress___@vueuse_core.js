@@ -36,7 +36,7 @@ import {
   unref,
   watch,
   watchEffect
-} from "./chunk-TICTUL3T.js";
+} from "./chunk-YPGKV72B.js";
 
 // node_modules/@vueuse/shared/dist/index.js
 function computedEager(fn, options) {
@@ -2426,7 +2426,7 @@ function useBluetooth(options) {
     error
   };
 }
-var ssrWidthSymbol = Symbol("vueuse-ssr-width");
+var ssrWidthSymbol = /* @__PURE__ */ Symbol("vueuse-ssr-width");
 function useSSRWidth() {
   const ssrWidth = hasInjectionContext() ? injectLocal(ssrWidthSymbol, null) : null;
   return typeof ssrWidth === "number" ? ssrWidth : void 0;
