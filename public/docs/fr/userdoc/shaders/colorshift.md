@@ -1,36 +1,73 @@
-# Shader de Décalage de Couleur
+# Effet de Décalage Couleur
 
-**Fichier :** `res/shader/postprocessing/colorshift.frag`
+**En-tête:** `include/effects/ColorshiftEffect.hpp`  
+**Implémentation:** `src/effects/ColorshiftEffect.cpp`  
+**Shader:** `res/shader/postprocessing/colorshift.frag`
 
 ## Description
-Applique un effet de décalage de couleur à l'image rendue en mélangeant les couleurs originales avec un vecteur de décalage de couleur uniforme, créant une apparence teintée/filtrée.
+
+L'effet de décalage couleur applique une teinte ou un filtre de couleur à l'image rendue en fusionnant les couleurs originales avec une couleur RGB uniforme. Cela crée des superpositions colorées utiles pour les effets atmosphériques, les changements de ton émotionnel, ou le filtrage environnemental.
 
 ## Paramètres
-| Paramètre | Type | Défaut | Description |
-|-----------|------|--------|-------------|
-| `colorShift` | `vec3` | - | Valeurs de décalage de couleur RGB à mélanger avec l'image originale (plage : 0.0 - 1.0 par composante) |
 
-## Détails Techniques
-- Le shader mélange la couleur originale avec la couleur de décalage en utilisant un mélange 50/50 : `(original + décalage) / 2.0`
-- Chaque composante RGB peut aller de `0.0` à `1.0`
-- Le canal alpha est préservé de l'image originale
-- Des valeurs plus élevées dans le vecteur de décalage pousseront les couleurs vers ce canal, créant une teinte dominante
+| Paramètre | Type | Plage | Défaut | Effet |
+|-----------|------|-------|--------|-------|
+| `u_tint` | Vec3<float> | `(0,0,0)` à `(1,1,1)` | `(0,0,0)` | Couleur de teinte RGB à fusionner avec l'original |  
 
-## Exemple d'Utilisation
+### Valeurs de Couleur
+
+Chaque composant RGB varie de `0.0` à `1.0`:
+
+- **`(0.0, 0.0, 0.0)`** - Pas de teinte (couleurs originales)
+- **`(1.0, 0.0, 0.0)`** - Teinte rouge
+- **`(0.0, 1.0, 0.0)`** - Teinte verte
+- **`(0.0, 0.0, 1.0)`** - Teinte bleue
+- **`(1.0, 1.0, 0.0)`** - Teinte jaune
+- **`(1.0, 0.0, 1.0)`** - Teinte magenta
+- **`(0.0, 1.0, 1.0)`** - Teinte cyan
+- **`(0.5, 0.5, 0.5)`** - Gris neutre (désature légèrement)
+
+## Utilisation
+
+![Complete Example](../../../res/shaders/colorShift.gif)
 
 ```cpp
-// Obtenir l'emplacement de l'uniform
-GLint colorShiftLocation = glGetUniformLocation(shaderProgram, "colorShift");
+#include <SFML/Graphics.hpp>
+#include <optional>
+#include "backend/BackendFactory.hpp"
+#include "effects/ColorshiftEffect.hpp"
+#include "uniform/Vec3.hpp"
 
-// Ton chaud (orange/sépia)
-glUniform3f(colorShiftLocation, 0.8f, 0.5f, 0.2f);
+int main() {
+    sf::RenderWindow window(sf::VideoMode(800, 600), "Démo de Décalage Couleur");
+    window.setActive(true);
 
-// Ton froid (bleu/cyan)
-glUniform3f(colorShiftLocation, 0.2f, 0.5f, 0.8f);
+    IBackend *backend = BackendFactory::create();
+    IFrameBuffer *sceneFramebuffer = backend->createFrameBuffer(800, 600);
 
-// Ton vert
-glUniform3f(colorShiftLocation, 0.2f, 0.8f, 0.3f);
+    ColorshiftEffect colorshift(backend);
+    colorshift.withTint(Vec3<float>(1.0f, 0.0f, 0.0f));
 
-// Neutre (aucun décalage)
-glUniform3f(colorShiftLocation, 0.5f, 0.5f, 0.5f);
+    float time = 0.0f;
+    while (window.isOpen()) {
+        while (const std::optional event = window.pollEvent()) {
+            if (event->is<sf::Event::Closed>()) window.close();
+        }
+
+        auto *rt = static_cast<sf::RenderTexture*>(sceneFramebuffer->getNativeRenderTarget());
+        rt->clear(sf::Color::Black);
+        // ... dessinez votre scène sur rt ...
+        sceneFramebuffer->unbind();
+
+        window.setActive(true);
+        colorshift.render(sceneFramebuffer->getTexture());
+        window.display();
+
+        time += 0.016f;
+    }
+
+    delete sceneFramebuffer;
+    delete backend;
+    return 0;
+}
 ```
