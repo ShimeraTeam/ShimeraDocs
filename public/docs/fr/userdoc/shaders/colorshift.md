@@ -12,7 +12,7 @@ L'effet de décalage couleur applique une teinte ou un filtre de couleur à l'im
 
 | Paramètre | Type | Plage | Défaut | Effet |
 |-----------|------|-------|--------|-------|
-| `u_tint` | Vec3<float> | `(0,0,0)` à `(1,1,1)` | `(0,0,0)` | Couleur de teinte RGB à fusionner avec l'original |  
+| `u_tint` | Vec3&lt;float&gt; | `(0,0,0)` à `(1,1,1)` | `(0,0,0)` | Couleur de teinte RGB à fusionner avec l'original |  
 
 ### Valeurs de Couleur
 

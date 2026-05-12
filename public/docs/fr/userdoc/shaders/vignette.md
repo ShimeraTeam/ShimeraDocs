@@ -15,9 +15,9 @@ L'effet vignette assombrit les bords de l'écran tout en gardant le centre lumin
 | `u_strength` | float | `0.0` à `1.0+` | `1.0` | Intensité globale d'obscurité |
 | `u_radius` | float | `0.0` à `1.0` | `0.5` | Distance avant le début du dégradé |
 | `u_gap` | float | `0.0` à `1.0` | `0.3` | Largeur du dégradé de transition |
-| `u_color` | Vec4<float> | RGBA (0-1) | `(0,0,0,1)` | Couleur de la vignette (généralement sombre) |
+| `u_color` | Vec4&lt;float&gt; | RGBA (0-1) | `(0,0,0,1)` | Couleur de la vignette (généralement sombre) |
 | `u_isRounded` | int | `0` ou `1` | `0` | `0`=rectangulaire, `1`=circulaire |
-| `u_resolution` | Vec2<float> | pixels | `(1920, 1080)` | Résolution de l'écran (pour le rapport d'aspect) |
+| `u_resolution` | Vec2&lt;float&gt; | pixels | `(1920, 1080)` | Résolution de l'écran (pour le rapport d'aspect) |
 
 ### Valeurs des Paramètres
 

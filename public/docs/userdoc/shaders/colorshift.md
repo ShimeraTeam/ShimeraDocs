@@ -12,7 +12,7 @@ The Colorshift effect applies a color tint or filter overlay to the rendered ima
 
 | Parameter | Type | Range | Default | Effect |
 |-----------|------|-------|---------|--------|
-| `u_tint` | Vec3<float> | `(0,0,0)` to `(1,1,1)` | `(0,0,0)` | RGB tint color to blend with original |  
+| `u_tint` | Vec3&lt;float&gt; | `(0,0,0)` to `(1,1,1)` | `(0,0,0)` | RGB tint color to blend with original |  
 
 ### Color Values
 
