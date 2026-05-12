@@ -50,6 +50,8 @@ The Vignette effect darkens the edges of the screen while keeping the center bri
 
 ### Basic Usage
 
+![Complete Example](../../res/shaders/vignette.gif)
+
 ```cpp
 #include <SFML/Graphics.hpp>
 #include <optional>
@@ -59,19 +61,19 @@ The Vignette effect darkens the edges of the screen while keeping the center bri
 #include "uniform/Vec2.hpp"
 
 int main() {
-  sf::RenderWindow window(sf::VideoMode(1280, 720), "Vignette Demo");
+  sf::RenderWindow window(sf::VideoMode(960, 540), "Vignette Demo");
   window.setActive(true);
 
   IBackend *backend = BackendFactory::create();
-  IFrameBuffer *sceneFramebuffer = backend->createFrameBuffer(1280, 720);
+  IFrameBuffer *sceneFramebuffer = backend->createFrameBuffer(960, 540);
 
   VignetteEffect vignette(backend);
-  vignette.withStrength(0.8f)
-      .withRadius(0.5f)
-      .withGap(0.3f)
+    vignette.withStrength(0.8f)
+      .withRadius(0.3f)
+      .withGap(0.1f)
       .withColor(Vec4<float>(0.0f, 0.0f, 0.0f, 1.0f))
       .withIsRounded(false)
-      .withResolution(Vec2<float>(1280.0f, 720.0f));
+      .withResolution(Vec2<float>(960.0f, 540.0f));
 
   float time = 0.0f;
   while (window.isOpen()) {
@@ -95,39 +97,4 @@ int main() {
   delete backend;
   return 0;
 }
-```
-
-### Practical Examples
-
-```cpp
-// Cinematic vignette (standard)
-VignetteEffect cinematic(backend);
-cinematic.withStrength(0.6f)
-         .withRadius(0.45f)
-         .withGap(0.25f);
-
-// Tight spotlight effect (dramatic)
-VignetteEffect spotlight(backend);
-spotlight.withStrength(1.0f)
-         .withRadius(0.3f)
-         .withGap(0.2f)
-         .withIsRounded(true)
-         .withResolution(Vec2<float>(1920.0f, 1080.0f));
-
-// Subtle darkening (unobtrusive)
-VignetteEffect subtle(backend);
-subtle.withStrength(0.3f)
-      .withRadius(0.6f)
-      .withGap(0.4f);
-
-// Colored vignette (atmospheric)
-VignetteEffect nightVignette(backend);
-nightVignette.withColor(Vec4<float>(0.1f, 0.1f, 0.3f, 1.0f))  // Dark blue
-            .withStrength(0.7f);
-
-// Warning/danger effect (red vignette)
-VignetteEffect danger(backend);
-danger.withColor(Vec4<float>(0.5f, 0.0f, 0.0f, 1.0f))  // Dark red
-      .withStrength(0.8f)
-      .withRadius(0.4f);
 ```

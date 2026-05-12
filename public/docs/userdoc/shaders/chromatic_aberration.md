@@ -46,6 +46,8 @@ The Chromatic Aberration effect simulates optical distortion by separating the r
 
 ### Basic Usage
 
+![Complete Example](../../res/shaders/chromaticAberration.gif)
+
 ```cpp
 #include <SFML/Graphics.hpp>
 #include <optional>
@@ -87,50 +89,4 @@ int main() {
   delete backend;
   return 0;
 }
-```
-
-### Practical Examples
-
-```cpp
-// Old CRT monitor / VHS tape effect
-ChromaticAberrationEffect crt(backend);
-crt.withStrength(0.3f)
-   .withRadius(false)
-   .withContrast(2.5f)
-   .withSamples(15);
-
-// Sci-fi / cyberpunk HUD effect
-ChromaticAberrationEffect scifi(backend);
-scifi.withStrength(0.6f)
-     .withRadius(true)   // Radial distortion (lens-like)
-     .withContrast(2.0f)
-     .withSamples(20);
-
-// Damaged lens effect
-ChromaticAberrationEffect damaged(backend);
-damaged.withStrength(0.8f)
-       .withRadius(true)
-       .withContrast(3.0f)
-       .withSamples(30);
-
-// Subtle cinematic aberration
-ChromaticAberrationEffect subtle(backend);
-subtle.withStrength(0.1f)
-      .withRadius(false)
-      .withContrast(1.8f)
-      .withSamples(12);
-
-// High-quality artistic effect
-ChromaticAberrationEffect artistic(backend);
-artistic.withStrength(0.4f)
-        .withRadius(false)
-        .withContrast(2.2f)
-        .withSamples(30);
-
-// Fast performance version
-ChromaticAberrationEffect fastVersion(backend);
-fastVersion.withStrength(0.3f)
-           .withRadius(false)
-           .withContrast(2.0f)
-           .withSamples(8);  // Lower samples = faster
 ```

@@ -22,6 +22,8 @@ L'effet de luminosité ajuste la luminosité globale de l'image rendue en ajouta
 
 ## Utilisation
 
+![Complete Example](../../../res/shaders/brightness.gif)
+
 ```cpp
 #include <SFML/Graphics.hpp>
 #include <optional>

@@ -22,6 +22,8 @@ The Brightness effect adjusts the overall brightness of the rendered image by ad
 
 ## Usage
 
+![Complete Example](../../res/shaders/brightness.gif)
+
 ```cpp
 #include <SFML/Graphics.hpp>
 #include <optional>

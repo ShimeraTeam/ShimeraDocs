@@ -46,6 +46,8 @@ L'effet de distorsion déforme et dénature l'image rendue en utilisant du bruit
 
 ### Utilisation Basique
 
+![Complete Example](../../../res/shaders/distortion.gif)
+
 ```cpp
 #include <SFML/Graphics.hpp>
 #include <optional>
@@ -87,44 +89,4 @@ int main() {
   delete backend;
   return 0;
 }
-```
-
-### Exemples Pratiques
-
-```cpp
-// Effet d'ondulation d'eau
-DistortionEffect waterRipple(backend);
-waterRipple.withNoiseScale(4.0f)
-           .withDistortionStrength(0.2f)
-           .withTimeScale(0.15f);
-
-// Effet de vague de chaleur / mirage
-DistortionEffect heatWave(backend);
-heatWave.withNoiseScale(2.0f)
-        .withDistortionStrength(0.1f)
-        .withTimeScale(0.08f);
-
-// Effet magique / mystique
-DistortionEffect magic(backend);
-magic.withNoiseScale(1.5f)
-     .withDistortionStrength(0.25f)
-     .withTimeScale(0.12f);
-
-// Effet sous-marin
-DistortionEffect underwater(backend);
-underwater.withNoiseScale(5.0f)
-          .withDistortionStrength(0.18f)
-          .withTimeScale(0.1f);
-
-// Intoxication / vertige
-DistortionEffect drunk(backend);
-drunk.withNoiseScale(1.0f)
-     .withDistortionStrength(0.3f)
-     .withTimeScale(0.2f);
-
-// Trip acide / psychédélique
-DistortionEffect psychedelic(backend);
-psychedelic.withNoiseScale(0.8f)
-           .withDistortionStrength(0.4f)
-           .withTimeScale(0.25f);
 ```

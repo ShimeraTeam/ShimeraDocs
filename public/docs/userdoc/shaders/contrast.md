@@ -22,6 +22,8 @@ The Contrast effect adjusts the contrast of the rendered image using a multiplic
 
 ## Usage
 
+![Complete Example](../../res/shaders/contrast.gif)
+
 ```cpp
 #include <SFML/Graphics.hpp>
 #include <optional>

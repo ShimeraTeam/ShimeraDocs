@@ -29,6 +29,8 @@ Chaque composant RGB varie de `0.0` à `1.0`:
 
 ## Utilisation
 
+![Complete Example](../../../res/shaders/colorShift.gif)
+
 ```cpp
 #include <SFML/Graphics.hpp>
 #include <optional>

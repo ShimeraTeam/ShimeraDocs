@@ -21,8 +21,8 @@ DistortionEffect distortion(backend);
 
 ### 3. Configure the Effect (Optional)
 ```cpp
-distortion.withNoiseScale(3.0f)
-          .withDistortionStrength(0.15f)
+distortion.withNoiseScale(2.0f)
+          .withDistortionStrength(0.1f)
           .withTimeScale(0.1f);
 ```
 
@@ -42,6 +42,8 @@ distortion.render(sceneFramebuffer->getTexture());
 
 ## Complete Example (SFML)
 
+![Complete Example](../../res/shaders/distortion-chromaticAberration.gif)
+
 ```cpp
 #include <SFML/Graphics.hpp>
 #include <optional>
@@ -59,15 +61,15 @@ int main() {
     IFrameBuffer *tempFramebuffer = backend->createFrameBuffer(960, 540);
 
     DistortionEffect distortion(backend);
-    distortion.withNoiseScale(4.0f)
-              .withDistortionStrength(0.2f)
+    distortion.withNoiseScale(2.0f)
+              .withDistortionStrength(0.1f)
               .withTimeScale(0.1f);
 
     ChromaticAberrationEffect chromatic(backend);
-    chromatic.withStrength(0.4f)
+    chromatic.withStrength(1.0f)
              .withRadius(true)
-             .withContrast(1.5f)
-             .withSamples(20);
+             .withContrast(1.0f)
+             .withSamples(32);
 
     sf::CircleShape circle(80.f);
     circle.setFillColor(sf::Color::Magenta);

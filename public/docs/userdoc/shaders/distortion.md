@@ -46,6 +46,8 @@ The Distortion effect warps and deforms the rendered image using animated Perlin
 
 ### Basic Usage
 
+![Example](../../res/shaders/distortion.gif)  
+
 ```cpp
 #include <SFML/Graphics.hpp>
 #include <optional>
@@ -87,44 +89,4 @@ int main() {
   delete backend;
   return 0;
 }
-```
-
-### Practical Examples
-
-```cpp
-// Water ripple effect
-DistortionEffect waterRipple(backend);
-waterRipple.withNoiseScale(4.0f)
-           .withDistortionStrength(0.2f)
-           .withTimeScale(0.15f);
-
-// Heat wave / mirage effect
-DistortionEffect heatWave(backend);
-heatWave.withNoiseScale(2.0f)
-        .withDistortionStrength(0.1f)
-        .withTimeScale(0.08f);
-
-// Magical / mystical effect
-DistortionEffect magic(backend);
-magic.withNoiseScale(1.5f)
-     .withDistortionStrength(0.25f)
-     .withTimeScale(0.12f);
-
-// Underwater effect
-DistortionEffect underwater(backend);
-underwater.withNoiseScale(5.0f)
-          .withDistortionStrength(0.18f)
-          .withTimeScale(0.1f);
-
-// Intoxication / dizziness
-DistortionEffect drunk(backend);
-drunk.withNoiseScale(1.0f)
-     .withDistortionStrength(0.3f)
-     .withTimeScale(0.2f);
-
-// Acid trip / psychedelic
-DistortionEffect psychedelic(backend);
-psychedelic.withNoiseScale(0.8f)
-           .withDistortionStrength(0.4f)
-           .withTimeScale(0.25f);
 ```

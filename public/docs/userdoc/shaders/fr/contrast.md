@@ -22,6 +22,8 @@ L'effet de contraste ajuste le contraste de l'image rendue en utilisant une appr
 
 ## Utilisation
 
+![Complete Example](../../../res/shaders/contrast.gif)
+
 ```cpp
 #include <SFML/Graphics.hpp>
 #include <optional>

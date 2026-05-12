@@ -23,6 +23,8 @@ L'effet de saturation ajuste la saturation des couleurs de l'image rendue en int
 
 ## Utilisation
 
+![Complete Example](../../../res/shaders/saturation.gif)
+
 ```cpp
 #include <SFML/Graphics.hpp>
 #include <optional>

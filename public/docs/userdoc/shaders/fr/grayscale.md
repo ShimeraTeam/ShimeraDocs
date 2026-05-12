@@ -18,6 +18,8 @@ L'effet échelle de gris utilise en interne le shader Saturation avec `u_strengt
 
 ## Utilisation
 
+![Complete Example](../../../res/shaders/grayscale.gif)
+
 ```cpp
 #include <SFML/Graphics.hpp>
 #include <optional>

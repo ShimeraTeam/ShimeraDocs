@@ -18,6 +18,8 @@ The grayscale effect internally uses the Saturation shader with `u_strength = 0.
 
 ## Usage
 
+![Complete Example](../../res/shaders/grayscale.gif)
+
 ```cpp
 #include <SFML/Graphics.hpp>
 #include <optional>

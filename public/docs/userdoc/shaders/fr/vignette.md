@@ -50,6 +50,8 @@ L'effet vignette assombrit les bords de l'écran tout en gardant le centre lumin
 
 ### Utilisation Basique
 
+![Complete Example](../../../res/shaders/vignette.gif)
+
 ```cpp
 #include <SFML/Graphics.hpp>
 #include <optional>
@@ -95,39 +97,4 @@ int main() {
   delete backend;
   return 0;
 }
-```
-
-### Exemples Pratiques
-
-```cpp
-// Vignette cinématographique (standard)
-VignetteEffect cinematic(backend);
-cinematic.withStrength(0.6f)
-         .withRadius(0.45f)
-         .withGap(0.25f);
-
-// Effet de projecteur serré (dramatique)
-VignetteEffect spotlight(backend);
-spotlight.withStrength(1.0f)
-         .withRadius(0.3f)
-         .withGap(0.2f)
-         .withIsRounded(true)
-         .withResolution(Vec2<float>(1920.0f, 1080.0f));
-
-// Assombrissement subtil (discret)
-VignetteEffect subtle(backend);
-subtle.withStrength(0.3f)
-      .withRadius(0.6f)
-      .withGap(0.4f);
-
-// Vignette colorée (atmosphérique)
-VignetteEffect nightVignette(backend);
-nightVignette.withColor(Vec4<float>(0.1f, 0.1f, 0.3f, 1.0f))  // Bleu foncé
-            .withStrength(0.7f);
-
-// Effet d'alerte/danger (vignette rouge)
-VignetteEffect danger(backend);
-danger.withColor(Vec4<float>(0.5f, 0.0f, 0.0f, 1.0f))  // Rouge foncé
-      .withStrength(0.8f)
-      .withRadius(0.4f);
 ```
