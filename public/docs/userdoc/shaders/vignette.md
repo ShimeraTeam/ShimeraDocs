@@ -15,9 +15,9 @@ The Vignette effect darkens the edges of the screen while keeping the center bri
 | `u_strength` | float | `0.0` to `1.0+` | `1.0` | Overall darkness intensity |
 | `u_radius` | float | `0.0` to `1.0` | `0.5` | Distance before gradient starts |
 | `u_gap` | float | `0.0` to `1.0` | `0.3` | Width of the fade gradient |
-| `u_color` | Vec4<float> | RGBA (0-1) | `(0,0,0,1)` | Vignette color (usually dark) |
+| `u_color` | Vec4&lt;float&gt; | RGBA (0-1) | `(0,0,0,1)` | Vignette color (usually dark) |
 | `u_isRounded` | int | `0` or `1` | `0` | `0`=rectangular, `1`=circular |
-| `u_resolution` | Vec2<float> | pixels | `(1920, 1080)` | Screen resolution (for aspect ratio) |
+| `u_resolution` | Vec2&lt;float&gt;| pixels | `(1920, 1080)` | Screen resolution (for aspect ratio) |
 
 ### Parameter Values
 
