@@ -30,7 +30,8 @@ export default defineConfig({
                     { text: 'Distortion', link: '/userdoc/shaders/distortion' },
                     { text: 'Grayscale', link: '/userdoc/shaders/grayscale' },
                     { text: 'Saturation', link: '/userdoc/shaders/saturation' },
-                    { text: 'Vignette', link: '/userdoc/shaders/vignette' }
+                    { text: 'Vignette', link: '/userdoc/shaders/vignette' },
+                    { text: 'Pixelisation', link: '/userdoc/shaders/pixelisation' }
                   ]
                 }
               ]
@@ -76,7 +77,8 @@ export default defineConfig({
                     { text: 'Distortion', link: '/fr/userdoc/shaders/distortion' },
                     { text: 'Grayscale', link: '/fr/userdoc/shaders/grayscale' },
                     { text: 'Saturation', link: '/fr/userdoc/shaders/saturation' },
-                    { text: 'Vignette', link: '/fr/userdoc/shaders/vignette' }
+                    { text: 'Vignette', link: '/fr/userdoc/shaders/vignette' },
+                    { text: 'Pixelisation', link: '/fr/userdoc/shaders/pixelisation' }
                   ]
                 }
               ]
