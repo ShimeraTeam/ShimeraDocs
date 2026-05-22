@@ -28,6 +28,12 @@ Son objectif est d'assurer cohérence, lisibilité et maintenabilité sur l'ense
 - `UPPER_SNAKE_CASE` : identique à `snake_case` mais en majuscules, utilisé pour les constantes
 - `lowercase` : tout en minuscules, sans séparation
 
+### Styles de Nommage Spécifiques à Shimera : Uniformes des Membres de Classe
+
+Les membres de classe liés à un uniforme de shader doivent utiliser le préfixe `u`.
+
+Exemples: `uTint`, `uStrength`... (devraient très probablement être appelés `m_uTint`, voir [Préfixe des Membres de Classe](#préfixe-des-membres-de-classe-m_))
+
 ## 2. Organisation des Fichiers
 
 Shimera suit une structure modulaire et orientée fonctionnalité.
@@ -44,12 +50,26 @@ Style : `PascalCase` pour les headers et les sources, correspondant au nom de la
 - Headers : `Framebuffer.hpp`
 - Sources : `Framebuffer.cpp`
 
+### Définitions Inline / Template (`.inl`)
+
+Lorsque un header (`.hpp`) contient des définitions de fonctions inline ou des définitions de templates, utiliser l'extension de fichier `.inl` à la place.
+
+- Pas de définitions de fonctions inline ou de templates : `Framebuffer.hpp`
+- Contient des définitions de fonctions inline ou de templates : `Framebuffer.inl`
+
 ## 3. Structure des Classes
 
 ### Règles
 
 - Éviter les variables membres publiques
 - Garder les classes ciblées et concises
+
+### Préfixe des Membres de Classe (`m_`)
+
+Pour distinguer clairement les membres de classe des variables locales et des paramètres, préfixer les variables membres non statiques avec `m_`.
+
+- Variables membres : `m_<camelCase>` (ex. `m_width`, `m_shaderProgram`)
+- Paramètres de fonction/variables locales : `camelCase` sans préfixe (ex. `width`, `shaderProgram`)
 
 ### Ordre Recommandé des Membres
 
@@ -75,8 +95,8 @@ class SHIMERA_API Framebuffer
     protected:
 
     private:
-        unsigned int fbo, texture, rbo;
-        int width, height;
+        Unsigned int m_fbo, m_texture, m_rbo;
+        int m_width, m_height;
 };
 ```
 
@@ -116,6 +136,15 @@ unsigned int Shader::CreateShader(const std::string& vertexShader, const std::st
 
 Les conventions de code existent pour soutenir la clarté et la scalabilité.
 
+## 7. Vérifications Automatiques avec clang-tidy
+
+- Shimera utilise `clang-tidy` pour l'analyse statique et pour faire respecter les conventions de codage.
+- Les vérifications sont configurées dans le fichier `.clang-tidy` à la racine du projet
+
+`clang-tidy` s'exécute automatiquement via des hooks git, voir [Git Workflow](git_workflow.md) pour plus de détails.
+
 ## Références
+
 - [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html)
 - [Microsoft design guidelines](https://learn.microsoft.com/en-us/dotnet/standard/design-guidelines)
+- [Clang-Tidy Checks](https://clang.llvm.org/extra/clang-tidy/)
