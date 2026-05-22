@@ -1,31 +1,66 @@
-# Shader de Saturation
+# Effet de Saturation
 
-**Fichier :** `res/shader/postprocessing/saturation.frag`
+**En-tête:** `include/effects/SaturationEffect.hpp`  
+**Implémentation:** `src/effects/SaturationEffect.cpp`  
+**Shader:** `res/shader/postprocessing/saturation.frag`
 
 ## Description
-Ajuste la saturation des couleurs de l'image rendue en interpolant entre une version en niveaux de gris et les couleurs originales.
+
+L'effet de saturation ajuste la saturation des couleurs de l'image rendue en interpolant entre une version en niveaux de gris et les couleurs originales. Cela vous permet de contrôler à quel point les couleurs apparaissent vibrantes ou muted, du noir et blanc complet aux couleurs sursaturées.
 
 ## Paramètres
-| Valeur | Effet |
-|--------|--------|
-| `0.0` | Complètement désaturé (niveaux de gris) |
-| `1.0` | Couleurs originales (aucun changement) |
-| `> 1.0` | Couleurs sursaturées |
 
-## Détails Techniques
-- Utilise les coefficients de luminance **ITU-R BT.709** pour le calcul de la luminance : `(0.2126, 0.7152, 0.0722)`
-- Ce standard est recommandé pour le contenu HD et les écrans modernes (espace colorimétrique sRGB)
-- Le shader préserve le canal alpha de l'image originale
+| Paramètre | Type | Plage | Défaut | Effet |
+|-----------|------|-------|--------|-------|
+| `u_strength` | float | `0.0` à `2.0+` | `1.0` | Intensité de la saturation |
 
-## Exemple d'Utilisation
+### Valeurs des Paramètres
+
+- **`0.0`** - Complètement désaturé (noir et blanc pur)
+- **`1.0`** - Aucun changement (couleurs originales)
+- **`> 1.0`** - Sursaturé, couleurs plus vivantes (ex: `1.5` = 50% plus saturé)
+- **`< 0.0`** à **`1.0`** - Partiellement désaturé
+
+## Utilisation
+
+![Complete Example](../../../res/shaders/saturation.gif)
 
 ```cpp
-// Définir la saturation à 0.5 (50% désaturé)
-glUniform1f(saturationLocation, 0.5f);
+#include <SFML/Graphics.hpp>
+#include <optional>
+#include "backend/BackendFactory.hpp"
+#include "effects/SaturationEffect.hpp"
 
-// Définir la saturation à 0.0 (niveaux de gris)
-glUniform1f(saturationLocation, 0.0f);
+int main() {
+    sf::RenderWindow window(sf::VideoMode(800, 600), "Démo de Saturation");
+    window.setActive(true);
 
-// Définir la saturation à 2.0 (très saturé)
-glUniform1f(saturationLocation, 2.0f);
+    IBackend *backend = BackendFactory::create();
+    IFrameBuffer *sceneFramebuffer = backend->createFrameBuffer(800, 600);
+
+    SaturationEffect saturation(backend);
+    saturation.withStrength(1.5f);
+
+    float time = 0.0f;
+    while (window.isOpen()) {
+        while (const std::optional event = window.pollEvent()) {
+            if (event->is<sf::Event::Closed>()) window.close();
+        }
+
+        auto *rt = static_cast<sf::RenderTexture*>(sceneFramebuffer->getNativeRenderTarget());
+        rt->clear(sf::Color::Black);
+        // ... dessinez votre scène sur rt ...
+        sceneFramebuffer->unbind();
+
+        window.setActive(true);
+        saturation.render(sceneFramebuffer->getTexture());
+        window.display();
+
+        time += 0.016f;
+    }
+
+    delete sceneFramebuffer;
+    delete backend;
+    return 0;
+}
 ```
