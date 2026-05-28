@@ -48,6 +48,8 @@ The Gaussian Blur effect applies a smooth, isotropic blur to the rendered image 
 
 ### Basic Usage
 
+![Complete Example](../../res/shaders/gaussian-blur.gif)
+
 ```cpp
 #include <SFML/Graphics.hpp>
 #include <optional>

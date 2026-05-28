@@ -48,6 +48,8 @@ L'effet de flou gaussien applique un flou doux et isotrope à l'image rendue en 
 
 ### Utilisation Basique
 
+![Complete Example](../../../res/shaders/gaussian-blur.gif)
+
 ```cpp
 #include <SFML/Graphics.hpp>
 #include <optional>
