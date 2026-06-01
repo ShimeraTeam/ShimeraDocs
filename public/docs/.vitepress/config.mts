@@ -19,6 +19,7 @@ export default defineConfig({
               text: 'UserDoc',
               items: [
                 { text: 'Installation', link: '/userdoc/installation' },
+                { text: 'Effect Pipeline Builder', link: '/userdoc/effect_pipeline_builder' },
                 {
                   text: 'Shaders',
                   items: [
@@ -65,6 +66,7 @@ export default defineConfig({
               text: 'UserDoc',
               items: [
                 { text: 'Installation', link: '/fr/userdoc/installation' },
+                { text: 'Effect Pipeline Builder', link: '/fr/userdoc/effect_pipeline_builder' },
                 {
                   text: 'Shaders',
                   items: [
