@@ -1,6 +1,6 @@
 # Effect Pipeline Builder
 
-**En-tête :** `include/EffectPipeline.inl`
+**Header :** `include/EffectPipeline.inl`
 
 ## Description
 
