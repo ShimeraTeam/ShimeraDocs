@@ -6,7 +6,7 @@
 
 ## Description
 
-The Gaussian Blur effect applies a smooth, isotropic blur to the rendered image using a true Gaussian distribution. It is commonly used for depth-of-field, motion softening, frosted glass UI backgrounds, bloom pre-passes, or general image smoothing.
+The Gaussian Blur effect applies a smooth, isotropic blur to the rendered image using a true Gaussian distribution. It is commonly used for frosted glass UI backgrounds, bloom pre-passes, or general image smoothing.
 
 ## Parameters
 
