@@ -6,7 +6,7 @@
 
 ## Description
 
-L'effet de flou gaussien applique un flou doux et isotrope à l'image rendue en utilisant une véritable distribution gaussienne. Il est couramment utilisé pour la profondeur de champ, l'adoucissement de mouvement, les arrière-plans d'interface en verre dépoli, les pré-passes de bloom, ou le lissage général d'image.
+L'effet de flou gaussien applique un flou doux et isotrope à l'image rendue en utilisant une véritable distribution gaussienne. Il est couramment utilisé pour les arrière-plans d'interface en verre dépoli, les pré-passes de bloom, ou le lissage général d'image.
 
 ## Paramètres
 
