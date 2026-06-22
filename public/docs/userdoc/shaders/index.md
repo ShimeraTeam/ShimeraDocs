@@ -149,7 +149,7 @@ vignette.render(temp2->getTexture());
 
 ## Available Effects
 
-Shimera provides **8 post-processing effects**:
+Shimera provides **11 post-processing effects**:
 
 ### Simple Effects (Single Parameter)
 - [**Brightness**](./brightness.md) - Brighten or darken the entire image
@@ -162,6 +162,9 @@ Shimera provides **8 post-processing effects**:
 - [**Vignette**](./vignette.md) - Darken image edges with customizable shape
 - [**Distortion**](./distortion.md) - Warp image with Perlin noise animation
 - [**Chromatic Aberration**](./chromatic_aberration.md) - RGB color channel separation effect
+- [**Pixelisation**](./pixelisation.md) - Reduce the image to blocky pixels for a retro look
+- [**Gaussian Blur**](./gaussian_blur.md) - Smooth the image with a separable two-pass Gaussian blur
+- [**HDR Bloom**](./hdr_bloom.md) - Make bright areas glow with ACES tone mapping
 
 ## Backend Compatibility
 

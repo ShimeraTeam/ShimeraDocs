@@ -29,6 +29,7 @@ export default defineConfig({
                     { text: 'Contrast', link: '/userdoc/shaders/contrast' },
                     { text: 'Distortion', link: '/userdoc/shaders/distortion' },
                     { text: 'Grayscale', link: '/userdoc/shaders/grayscale' },
+                    { text: 'HDR Bloom', link: '/userdoc/shaders/hdr_bloom' },
                     { text: 'Saturation', link: '/userdoc/shaders/saturation' },
                     { text: 'Vignette', link: '/userdoc/shaders/vignette' }
                   ]
@@ -75,6 +76,7 @@ export default defineConfig({
                     { text: 'Contrast', link: '/fr/userdoc/shaders/contrast' },
                     { text: 'Distortion', link: '/fr/userdoc/shaders/distortion' },
                     { text: 'Grayscale', link: '/fr/userdoc/shaders/grayscale' },
+                    { text: 'HDR Bloom', link: '/fr/userdoc/shaders/hdr_bloom' },
                     { text: 'Saturation', link: '/fr/userdoc/shaders/saturation' },
                     { text: 'Vignette', link: '/fr/userdoc/shaders/vignette' }
                   ]
