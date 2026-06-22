@@ -149,7 +149,7 @@ vignette.render(temp2->getTexture());
 
 ## Available Effects
 
-Shimera provides **11 effects** — 10 screen-space post-processing effects plus one 3D depth-aware effect:
+Shimera provides **11 effects**, 10 screen-space post-processing effects plus one 3D depth-aware effect:
 
 ### Simple Effects (Single Parameter)
 - [**Brightness**](./brightness.md) - Brighten or darken the entire image

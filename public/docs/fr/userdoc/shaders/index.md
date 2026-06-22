@@ -149,7 +149,7 @@ vignette.render(temp2->getTexture());
 
 ## Effets Disponibles
 
-Shimera fournit **11 effets** — 10 effets de post-traitement en espace écran plus un effet 3D sensible à la profondeur:
+Shimera fournit **11 effets**, 10 effets de post-traitement en espace écran plus un effet 3D sensible à la profondeur:
 
 ### Effets Simples (Paramètre Unique)
 - [**Luminosité**](./brightness.md) - Éclaircir ou assombrir l'image entière
