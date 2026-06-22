@@ -28,6 +28,7 @@ export default defineConfig({
                     { text: 'Colorshift', link: '/userdoc/shaders/colorshift' },
                     { text: 'Contrast', link: '/userdoc/shaders/contrast' },
                     { text: 'Distortion', link: '/userdoc/shaders/distortion' },
+                    { text: 'Gaussian Blur', link: '/userdoc/shaders/gaussian_blur' },
                     { text: 'Grayscale', link: '/userdoc/shaders/grayscale' },
                     { text: 'Saturation', link: '/userdoc/shaders/saturation' },
                     { text: 'Vignette', link: '/userdoc/shaders/vignette' }
@@ -74,6 +75,7 @@ export default defineConfig({
                     { text: 'Colorshift', link: '/fr/userdoc/shaders/colorshift' },
                     { text: 'Contrast', link: '/fr/userdoc/shaders/contrast' },
                     { text: 'Distortion', link: '/fr/userdoc/shaders/distortion' },
+                    { text: 'Gaussian Blur', link: '/fr/userdoc/shaders/gaussian_blur' },
                     { text: 'Grayscale', link: '/fr/userdoc/shaders/grayscale' },
                     { text: 'Saturation', link: '/fr/userdoc/shaders/saturation' },
                     { text: 'Vignette', link: '/fr/userdoc/shaders/vignette' }
