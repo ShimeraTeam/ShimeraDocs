@@ -149,7 +149,7 @@ vignette.render(temp2->getTexture());
 
 ## Effets Disponibles
 
-Shimera fournit **8 effets de post-traitement**:
+Shimera fournit **11 effets** — 10 effets de post-traitement en espace écran plus un effet 3D sensible à la profondeur:
 
 ### Effets Simples (Paramètre Unique)
 - [**Luminosité**](./brightness.md) - Éclaircir ou assombrir l'image entière
@@ -162,14 +162,21 @@ Shimera fournit **8 effets de post-traitement**:
 - [**Vignette**](./vignette.md) - Assombrir les bords de l'image avec forme personnalisable
 - [**Distorsion**](./distortion.md) - Déformer l'image avec animation Perlin noise
 - [**Aberration Chromatique**](./chromatic_aberration.md) - Effet de séparation du canal de couleur RGB
+- [**Flou Gaussien**](./gaussian_blur.md) - Flou lisse et isotrope avec une vraie distribution gaussienne
+- [**Pixelisation**](./pixelisation.md) - Rendu pixel-art rétro par alignement sur une grille configurable
+
+### Effets 3D (Sensibles à la Profondeur)
+- [**Diffusion Atmosphérique**](./atmospheric_scattering.md) - Atmosphère planétaire d'inspiration physique (backends 3D uniquement)
 
 ## Compatibilité des Backends
 
-Tous les effets fonctionnent avec:
+La plupart des effets sont en espace écran et fonctionnent avec tous les backends:
 - ✅ **OpenGL** (GLFW, SDL)
 - ✅ **SFML** (sf::RenderWindow)
 - ✅ **Raylib**
 - ✅ **SDL2**
+
+> **Exception :** La [Diffusion Atmosphérique](./atmospheric_scattering.md) est un effet 3D qui nécessite une caméra en perspective et un tampon de profondeur. Elle est prise en charge sur **OpenGL** et **Raylib**, mais **pas sur SFML** (2D).
 
 ## Prochaines Étapes
 

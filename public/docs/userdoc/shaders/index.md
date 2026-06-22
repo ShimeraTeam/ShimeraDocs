@@ -149,7 +149,7 @@ vignette.render(temp2->getTexture());
 
 ## Available Effects
 
-Shimera provides **8 post-processing effects**:
+Shimera provides **11 effects** — 10 screen-space post-processing effects plus one 3D depth-aware effect:
 
 ### Simple Effects (Single Parameter)
 - [**Brightness**](./brightness.md) - Brighten or darken the entire image
@@ -162,14 +162,21 @@ Shimera provides **8 post-processing effects**:
 - [**Vignette**](./vignette.md) - Darken image edges with customizable shape
 - [**Distortion**](./distortion.md) - Warp image with Perlin noise animation
 - [**Chromatic Aberration**](./chromatic_aberration.md) - RGB color channel separation effect
+- [**Gaussian Blur**](./gaussian_blur.md) - Smooth isotropic blur with a true Gaussian distribution
+- [**Pixelisation**](./pixelisation.md) - Retro pixel-art look by snapping to a configurable grid
+
+### 3D Effects (Depth-aware)
+- [**Atmospheric Scattering**](./atmospheric_scattering.md) - Physically-inspired planetary atmosphere (3D backends only)
 
 ## Backend Compatibility
 
-All effects work with:
+Most effects are screen-space and work with all backends:
 - ✅ **OpenGL** (GLFW, SDL)
 - ✅ **SFML** (sf::RenderWindow)
 - ✅ **Raylib**
 - ✅ **SDL2**
+
+> **Exception:** [Atmospheric Scattering](./atmospheric_scattering.md) is a 3D effect that requires a perspective camera and a depth buffer. It is supported on **OpenGL** and **Raylib**, but **not on SFML** (2D).
 
 ## Next Steps
 

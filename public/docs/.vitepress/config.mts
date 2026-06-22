@@ -23,6 +23,7 @@ export default defineConfig({
                   text: 'Shaders',
                   items: [
                     { text: 'Index', link: '/userdoc/shaders/index' },
+                    { text: 'Atmospheric Scattering', link: '/userdoc/shaders/atmospheric_scattering' },
                     { text: 'Brightness', link: '/userdoc/shaders/brightness' },
                     { text: 'Chromatic Aberration', link: '/userdoc/shaders/chromatic_aberration' },
                     { text: 'Colorshift', link: '/userdoc/shaders/colorshift' },
@@ -71,6 +72,7 @@ export default defineConfig({
                   text: 'Shaders',
                   items: [
                     { text: 'Index', link: '/fr/userdoc/shaders/index' },
+                    { text: 'Atmospheric Scattering', link: '/fr/userdoc/shaders/atmospheric_scattering' },
                     { text: 'Brightness', link: '/fr/userdoc/shaders/brightness' },
                     { text: 'Chromatic Aberration', link: '/fr/userdoc/shaders/chromatic_aberration' },
                     { text: 'Colorshift', link: '/fr/userdoc/shaders/colorshift' },
