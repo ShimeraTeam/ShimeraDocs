@@ -54,6 +54,8 @@ The HDR Bloom effect makes the bright areas of an image glow, bleeding light int
 
 ### Basic Usage
 
+![Complete Example](../../res/shaders/hdr-bloom.gif)
+
 ```cpp
 #include <SFML/Graphics.hpp>
 #include <optional>

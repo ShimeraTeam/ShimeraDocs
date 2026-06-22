@@ -54,6 +54,8 @@ L'effet HDR Bloom fait briller les zones claires d'une image en faisant déborde
 
 ### Utilisation Basique
 
+![Complete Example](../../../res/shaders/hdr-bloom.gif)
+
 ```cpp
 #include <SFML/Graphics.hpp>
 #include <optional>
