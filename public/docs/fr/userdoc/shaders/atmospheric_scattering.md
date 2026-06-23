@@ -6,7 +6,7 @@
 
 ## Description
 
-L'effet de diffusion atmosphérique est une atmosphère planétaire inspiré de son fonctionnement en physique en post-traitement. Il effectue un ray-marching à travers une coquille atmosphérique sphérique autour d'une planète, en accumulant la lumière solaire diffusée pour produire un halo lumineux, un terminateur jour/nuit et une couleur de ciel dépendante de la longueur d'onde (ciels bleus, couchers de soleil rougeoyants).
+L'effet de diffusion atmosphérique est une atmosphère planétaire, inspiré de son fonctionnement en physique, fonctionnant en post-traitement. Il effectue un ray-marching à travers une coquille atmosphérique sphérique autour d'une planète, en accumulant la lumière solaire diffusée pour produire un halo lumineux, un terminateur jour/nuit et une couleur de ciel dépendante de la longueur d'onde (ciels bleus, couchers de soleil rougeoyants).
 
 Contrairement aux autres effets, celui-ci est **uniquement en 3D** : il reconstruit les rayons de vue en espace monde à partir de la caméra et lit le **depth buffer** de la scène pour savoir où la géométrie solide masque l'atmosphère. Vous fournissez des informations de haut niveau sur la caméra et la planète, la bibliothèque construit les matrices nécessaires en interne, vous ne touchez donc jamais au calcul matriciel.
 
@@ -74,7 +74,7 @@ Le depth buffer de la scène est créé en utilisant la projection de votre mote
 
 ### Utilisation Basique (Raylib)
 
-![Example](../../res/shaders/atmospheric_scattering.gif)
+![Example](../../../res/shaders/atmospheric_scattering.gif)
 
 ```cpp
 #include "raylib.h"
