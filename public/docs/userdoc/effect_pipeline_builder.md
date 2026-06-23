@@ -24,7 +24,7 @@ EffectPipeline(IBackend* backend, unsigned int width, unsigned int height);
 
 ---
 
-### `addEffect`: construct in place
+### `addEffect`: construct in place (recommended)
 
 ```cpp
 template<typename TEffect, typename... Args>
@@ -37,8 +37,15 @@ Returns `*this` to allow chaining.
 
 ```cpp
 pipeline.addEffect<DistortionEffect>()
-        .addEffect<GaussianBlurEffect>()
+        .addEffect<GaussianBlurEffect>() // Create it there to configure it afterward
         .addEffect<VignetteEffect>(1.0f, 0.4f, 0.3f); // Can also define the shader's parameters like that
+        .addEffect<ChromaticAberrationEffect>(); // You can also add effects without configuring it, the default constructor will be used
+
+// The recommended way to use and configure an effect is to create it inside the pipeline with empty parameters and retrieve it afterward to configure it:
+auto &blur = pipeline.get<GaussianBlurEffect>();
+blur.withSigma(5.0f)
+    .withSamples(15)
+    .withResolution(Vec2(960.0f, 540.0f));
 ```
 
 ---
@@ -62,7 +69,7 @@ pipeline.addEffect(std::move(distortion));  // distortion is now owned by the pi
 ```
 
 ::: warning
-After `std::move`, the original variable is empty (distortion = nullptr). Access the effect through `pipeline.get<DistortionEffect>()` instead.
+After `std::move`, the original object is in a valid but unspecified state. Do not use it; access the effect through `pipeline.get<DistortionEffect>()` instead.
 :::
 
 ---
@@ -82,7 +89,7 @@ Throws `std::out_of_range` if no effect of that type exists at the given index.
 pipeline.get<DistortionEffect>().m_uTime = time; // index 0 by default
 pipeline.get<GaussianBlurEffect>(0).m_uSigma = 4.0f; // first blur
 pipeline.get<GaussianBlurEffect>(1).m_uSigma = 8.0f; // second blur
-pipeline.get<DistortionEffect>().withTime(time); // ! This also works, but should not be used when frequently updating an uniform !
+pipeline.get<DistortionEffect>().withTime(time); // ! This also works, but should not be used when frequently updating a uniform !
 
 ```
 
@@ -118,6 +125,29 @@ Same as above but writes the final pass into `target` instead of the screen. Use
 
 ---
 
+### `render` with scene depth (3D effects)
+
+```cpp
+void render(ITexture& input, ITexture* depth = nullptr);
+void render(ITexture& input, IFrameBuffer& target, ITexture* depth = nullptr);
+```
+
+Optional `depth` parameter provides the scene's depth buffer to effects that need it. **Only effects with `isDepthNeeded() == true`** (like [Atmospheric Scattering](../shaders/atmospheric_scattering.md)) use this, all other effects ignore it.
+
+| Parameter | Description |
+|-----------|-------------|
+| `depth` | Optional pointer to a sampleable depth texture from your scene framebuffer (obtained via `framebuffer->getDepthTexture()`). Only needed if the pipeline contains depth-aware effects. |
+
+When an effect needs depth but none is provided, `render()` throws `std::runtime_error`.
+
+#### When to use
+
+Pass scene depth when:
+- Your pipeline contains a 3D effect like [Atmospheric Scattering](../shaders/atmospheric_scattering.md) that reads the scene's depth buffer.
+- Your scene framebuffer was created with **depth sampling enabled** (`createFrameBuffer(width, height, true)`).
+
+---
+
 ### `resize`
 
 ```cpp
@@ -140,9 +170,10 @@ Returns the total number of effects in the pipeline (including disabled ones).
 
 ## Usage
 
-### Basic construct effects inside the pipeline
+### Basic: construct effects inside the pipeline
 
 ```cpp
+#include "backend/BackendFactory.hpp"
 #include "EffectPipeline.inl"
 #include "effects/DistortionEffect.hpp"
 #include "effects/GaussianBlurEffect.hpp"
@@ -154,12 +185,14 @@ EffectPipeline pipeline(backend, 960, 540);
 pipeline.addEffect<DistortionEffect>()
         .addEffect<GaussianBlurEffect>()
         .build();  // optional, allocates FBOs now instead of on first render
+    
+auto &distortion = pipeline.get<DistortionEffect>();
 
 float time = 0.0f;
 while (window.isOpen()) {
     // ... render scene into sceneFramebuffer ...
 
-    pipeline.get<DistortionEffect>().m_uTime = time;
+    distortion.m_uTime = time;
     pipeline.render(sceneFramebuffer->getTexture());
 
     time += 0.016f;
@@ -223,10 +256,12 @@ int main() {
             .addEffect<GaussianBlurEffect>()
             .build();
 
-    effects.get<GaussianBlurEffect>()
-            .withSigma(5.0f)
-            .withSamples(15)
-            .withResolution(Vec2(960.0f, 540.0f));
+    auto &blur = effects.get<GaussianBlurEffect>();
+    blur.withSigma(5.0f)
+        .withSamples(15)
+        .withResolution(Vec2(960.0f, 540.0f));
+    
+    auto &distortion = effects.get<DistortionEffect>();
 
     sf::Texture texture;
     texture.loadFromFile("path/to/image.jpg");
@@ -249,7 +284,7 @@ int main() {
         sceneFramebuffer->unbind();
 
         // Apply pipeline: distortion -> gaussian blur -> screen
-        effects.get<DistortionEffect>().m_uTime = clock.getElapsedTime().asSeconds();
+        distortion.m_uTime = clock.getElapsedTime().asSeconds();
         glClear(GL_COLOR_BUFFER_BIT);
         effects.render(sceneFramebuffer->getTexture());
 
