@@ -38,16 +38,16 @@ Résultats de performance de Shimera sur 5 000 frames par effet.
 | ColortintEffect | 22 123 | 5 446 | 4 911 |
 | ContrastEffect | 22 123 | 5 376 | 4 743 |
 | DistortionEffect | 20 080 | 5 091 | 3 965 |
-| GaussianBlurEffect | 9 416 | — | 4 019 |
+| GaussianBlurEffect | 9 416 |  | 4 019 |
 | GrayscaleEffect | 22 222 | 5 076 | 4 582 |
 | PixelisationEffect | 21 645 | 4 916 | 4 633 |
 | SaturationEffect | 22 026 | 5 055 | 4 625 |
-| VignetteEffect | 21 834 | — | 5 010 |
-| ContrastEffect + SaturationEffect | 16 778 | — | 4 930 |
-| Contrast + Grayscale + Blur | 7 898 | — | 4 006 |
+| VignetteEffect | 21 834 |  | 5 010 |
+| ContrastEffect + SaturationEffect | 16 778 |  | 4 930 |
+| Contrast + Grayscale + Blur | 7 898 |   | 4 006 |
 
 ::: warning Anomalie SFML - Quadro RTX 5000
-Le test `no_effects` sur SFML retourne **578 FPS** (attendu : ~4 500 FPS). Sur une machine dédiée sans bruit, cette valeur est d'autant plus suspecte et pointe vers un problème propre à l'environnement Linux — probablement une interaction entre SFML et Xvfb (display virtuel `:99`), un vsync mal géré, ou une interférence entre `glFinish()` et le contexte OpenGL interne de SFML. Ce résultat est exclu des graphes comparatifs.
+Le test `no_effects` sur SFML retourne **578 FPS** (attendu : ~4 500 FPS).
 :::
 
 ### NVIDIA GeForce RTX 5060 *(local - indicatif)*

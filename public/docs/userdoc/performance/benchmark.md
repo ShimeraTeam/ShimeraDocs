@@ -38,13 +38,13 @@ Performance results for Shimera over 5,000 frames per effect.
 | ColortintEffect | 22,123 | 5,446 | 4,911 |
 | ContrastEffect | 22,123 | 5,376 | 4,743 |
 | DistortionEffect | 20,080 | 5,091 | 3,965 |
-| GaussianBlurEffect | 9,416 | - | 4,019 |
+| GaussianBlurEffect | 9,416 |  | 4,019 |
 | GrayscaleEffect | 22,222 | 5,076 | 4,582 |
 | PixelisationEffect | 21,645 | 4,916 | 4,633 |
 | SaturationEffect | 22,026 | 5,055 | 4,625 |
-| VignetteEffect | 21,834 | - | 5,010 |
-| ContrastEffect + SaturationEffect | 16,778 | - | 4,930 |
-| Contrast + Grayscale + Blur | 7,898 | - | 4,006 |
+| VignetteEffect | 21,834 |  | 5,010 |
+| ContrastEffect + SaturationEffect | 16,778 |  | 4,930 |
+| Contrast + Grayscale + Blur | 7,898 |  | 4,006 |
 
 ::: warning SFML anomaly - Quadro RTX 5000
 The `no_effects` test on SFML returns **578 FPS** (expected: ~4,500 FPS). On a dedicated machine with no background noise, this value is especially suspicious and likely points to a Linux-specific issue — probably an interaction between SFML and Xvfb (virtual display `:99`), a mishandled vsync, or interference between `glFinish()` and SFML's internal OpenGL context. This result is excluded from the comparative charts.

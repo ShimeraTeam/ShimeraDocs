@@ -19,7 +19,7 @@ export default defineConfig({
               text: 'UserDoc',
               items: [
                 { text: 'Installation', link: '/userdoc/installation' },
-                { text: 'Performances', link: '/userdoc/performances/benchmark'},
+                { text: 'Performance', link: '/userdoc/performance/benchmark'},
                 {
                   text: 'Shaders',
                   items: [
@@ -76,7 +76,7 @@ export default defineConfig({
               text: 'UserDoc',
               items: [
                 { text: 'Installation', link: '/fr/userdoc/installation' },
-                { text: 'Performances', link: '/fr/userdoc/performances/benchmark'},
+                { text: 'Performances', link: '/fr/userdoc/performance/benchmark'},
                 {
                   text: 'Shaders',
                   items: [
