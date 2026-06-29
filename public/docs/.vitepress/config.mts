@@ -51,7 +51,8 @@ export default defineConfig({
                     { text: 'Index', link: '/devdoc/testing/index' },
                     { text: 'Testing Guide', link:'/devdoc/testing/testing_guide' }
                   ]
-                }
+                },
+                { text: 'Code Standards', link: '/devdoc/code_standards' },
               ]
             }
           ]
@@ -110,6 +111,9 @@ export default defineConfig({
                 },
               ],
             },
+                { text: 'Standards de code', link: '/fr/devdoc/code_standards' },
+              ]
+            }
           ]
         },
         socialLinks: [
