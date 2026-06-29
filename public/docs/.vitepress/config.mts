@@ -19,6 +19,7 @@ export default defineConfig({
               text: 'UserDoc',
               items: [
                 { text: 'Installation', link: '/userdoc/installation' },
+                { text: 'Performances', link: '/userdoc/performances/benchmark'},
                 {
                   text: 'Shaders',
                   items: [
@@ -44,6 +45,13 @@ export default defineConfig({
               items: [
                 { text: 'Git Workflow', link: '/devdoc/git_workflow' },
                 { text: 'Architecture', link: '/devdoc/architecture/technical_architecture' },
+                {
+                  text: 'Testing',
+                  items: [
+                    { text: 'Index', link: '/devdoc/testing/index' },
+                    { text: 'Testing Guide', link:'/devdoc/testing/testing_guide' }
+                  ]
+                }
               ]
             }
           ]
@@ -67,6 +75,7 @@ export default defineConfig({
               text: 'UserDoc',
               items: [
                 { text: 'Installation', link: '/fr/userdoc/installation' },
+                { text: 'Performances', link: '/fr/userdoc/performances/benchmark'},
                 {
                   text: 'Shaders',
                   items: [
@@ -92,8 +101,15 @@ export default defineConfig({
               items: [
                 { text: 'Git Workflow', link: '/fr/devdoc/git_workflow' },
                 { text: 'Architecture', link: '/fr/devdoc/architecture/technical_architecture' },
-              ]
-            }
+                {
+                  text: 'Tests',
+                  items: [
+                    { text: 'Index', link: '/fr/devdoc/testing/index' },
+                    { text: 'Guide de test', link:'/fr/devdoc/testing/testing_guide' }
+                  ]
+                },
+              ],
+            },
           ]
         },
         socialLinks: [
