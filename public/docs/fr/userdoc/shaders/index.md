@@ -149,7 +149,7 @@ vignette.render(temp2->getTexture());
 
 ## Effets Disponibles
 
-Shimera fournit **8 effets de post-traitement**:
+Shimera fournit **11 effets de post-traitement**:
 
 ### Effets Simples (Paramètre Unique)
 - [**Luminosité**](./brightness.md) - Éclaircir ou assombrir l'image entière
@@ -162,6 +162,9 @@ Shimera fournit **8 effets de post-traitement**:
 - [**Vignette**](./vignette.md) - Assombrir les bords de l'image avec forme personnalisable
 - [**Distorsion**](./distortion.md) - Déformer l'image avec animation Perlin noise
 - [**Aberration Chromatique**](./chromatic_aberration.md) - Effet de séparation du canal de couleur RGB
+- [**Pixelisation**](./pixelisation.md) - Réduire l'image en gros pixels pour un rendu rétro
+- [**Gaussian Blur**](./gaussian_blur.md) - Adoucir l'image avec un flou gaussien séparable en deux passes
+- [**HDR Bloom**](./hdr_bloom.md) - Faire briller les zones claires avec tone mapping ACES
 
 ## Compatibilité des Backends
 

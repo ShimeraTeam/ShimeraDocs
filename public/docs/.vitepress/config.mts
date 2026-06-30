@@ -30,6 +30,7 @@ export default defineConfig({
                     { text: 'Distortion', link: '/userdoc/shaders/distortion' },
                     { text: 'Gaussian Blur', link: '/userdoc/shaders/gaussian_blur' },
                     { text: 'Grayscale', link: '/userdoc/shaders/grayscale' },
+                    { text: 'HDR Bloom', link: '/userdoc/shaders/hdr_bloom' },
                     { text: 'Saturation', link: '/userdoc/shaders/saturation' },
                     { text: 'Vignette', link: '/userdoc/shaders/vignette' },
                     { text: 'Pixelisation', link: '/userdoc/shaders/pixelisation' }
@@ -79,6 +80,7 @@ export default defineConfig({
                     { text: 'Distortion', link: '/fr/userdoc/shaders/distortion' },
                     { text: 'Gaussian Blur', link: '/fr/userdoc/shaders/gaussian_blur' },
                     { text: 'Grayscale', link: '/fr/userdoc/shaders/grayscale' },
+                    { text: 'HDR Bloom', link: '/fr/userdoc/shaders/hdr_bloom' },
                     { text: 'Saturation', link: '/fr/userdoc/shaders/saturation' },
                     { text: 'Vignette', link: '/fr/userdoc/shaders/vignette' },
                     { text: 'Pixelisation', link: '/fr/userdoc/shaders/pixelisation' }
