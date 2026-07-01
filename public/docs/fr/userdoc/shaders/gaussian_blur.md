@@ -1,8 +1,8 @@
 # Effet de Flou Gaussien
 
-**En-tête:** `include/effects/GaussianBlurEffect.hpp`
-**Implémentation:** `src/effects/GaussianBlurEffect.cpp`
-**Shader:** `res/shader/postprocessing/gaussian_blur.frag`
+**En-tête:** `include/effects/GaussianBlurEffect.hpp`  
+**Implémentation:** `src/effects/GaussianBlurEffect.cpp`  
+**Shader:** `res/shader/postprocessing/gaussian_blur.frag`  
 
 ## Description
 
@@ -14,7 +14,7 @@ L'effet de flou gaussien applique un flou doux et isotrope à l'image rendue en 
 |-----------|------|-------|--------|-------|
 | `sigma` | float | `0.5` à `30.0+` | `3.0` | Écart-type de la courbe gaussienne (intensité du flou) |
 | `samples` | int | `3` à `60+` | `10` | Rayon du kernel en pixels (nombre de voisins par côté) |
-| `resolution` | Vec2<float> | correspond à la cible | `(1920, 1080)` | Résolution de la cible de rendu en pixels |
+| `resolution` | Vec2&lt;float&gt; | correspond à la cible | `(1920, 1080)` | Résolution de la cible de rendu en pixels |
 
 ### Valeurs des Paramètres
 
