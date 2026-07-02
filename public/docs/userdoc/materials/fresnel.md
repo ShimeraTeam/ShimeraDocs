@@ -52,7 +52,7 @@ Because Fresnel depends on the surface normal, it behaves very differently on cu
 - **Curved surfaces** (spheres) have continuously varying normals, so you get a smooth gradient, a solid-looking object with a bright glowing rim.
 - **Flat faces** (cubes) share a single normal per face, so the whole face gets one near-`0` value: the faces are nearly invisible and only the **edges** glow. This is expected Fresnel behavior, not a bug.
 
-The shader outputs `alpha = fresnel`, so under alpha blending a flat face is mostly transparent. If you want a box to read as solid, give it a base color underneath (mix a base color into the shader, or draw a base pass first) rather than relying on Fresnel alone (currently no base materials is available).
+The shader outputs `alpha = fresnel`, so under alpha blending a flat face is mostly transparent. If you want a box to read as solid, give it a base color underneath (mix a base color into the shader, or draw a base pass first) rather than relying on Fresnel alone (currently no base materials are available).
 
 ## Usage
 
