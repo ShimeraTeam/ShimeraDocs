@@ -149,7 +149,7 @@ vignette.render(temp2->getTexture());
 
 ## Available Effects
 
-Shimera provides **11 effects**, 10 screen-space post-processing effects plus one 3D depth-aware effect:
+Shimera provides **12 effects**, 11 screen-space post-processing effects plus one 3D depth-aware effect:
 
 ### Simple Effects (Single Parameter)
 - [**Brightness**](./brightness.md) - Brighten or darken the entire image
@@ -162,8 +162,9 @@ Shimera provides **11 effects**, 10 screen-space post-processing effects plus on
 - [**Vignette**](./vignette.md) - Darken image edges with customizable shape
 - [**Distortion**](./distortion.md) - Warp image with Perlin noise animation
 - [**Chromatic Aberration**](./chromatic_aberration.md) - RGB color channel separation effect
-- [**Gaussian Blur**](./gaussian_blur.md) - Smooth isotropic blur with a true Gaussian distribution
-- [**Pixelisation**](./pixelisation.md) - Retro pixel-art look by snapping to a configurable grid
+- [**Gaussian Blur**](./gaussian_blur.md) - Smooth the image with a separable two-pass Gaussian blur
+- [**Pixelisation**](./pixelisation.md) - Reduce the image to blocky pixels for a retro look
+- [**HDR Bloom**](./hdr_bloom.md) - Make bright areas glow with ACES tone mapping
 
 ### 3D Effects (Depth-aware)
 - [**Atmospheric Scattering**](./atmospheric_scattering.md) - Physically-inspired planetary atmosphere (3D backends only)

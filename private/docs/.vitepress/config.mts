@@ -18,6 +18,7 @@ export default defineConfig({
               text: 'Deployment & Environment',
               items: [
                 { text: 'Deployment', link: '/deployment/deployment' },
+                { text: 'Diffusion Strategy', link: '/deployment/diffusion_strategy'},
                 { text: 'Technical Environment', link: '/deployment/technology_environment' },
                 { text: 'Binary Types', link: '/deployment/binary' }
               ]
@@ -72,6 +73,7 @@ export default defineConfig({
               text: 'Déploiement & Environnement',
               items: [
                 { text: 'Déploiement', link: '/fr/deployment/deployment' },
+                { text: 'Stratégie de diffusion', link: '/fr/deployment/diffusion_strategy'},
                 { text: 'Environnement Technique', link: '/fr/deployment/technology_environment' },
                 { text: 'Types de binaires', link: '/fr/deployment/binary' }
               ]

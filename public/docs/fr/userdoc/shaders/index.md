@@ -149,7 +149,7 @@ vignette.render(temp2->getTexture());
 
 ## Effets Disponibles
 
-Shimera fournit **11 effets**, 10 effets de post-traitement en espace écran plus un effet 3D sensible à la profondeur:
+Shimera fournit **12 effets**, 11 effets de post-traitement en espace écran plus un effet 3D sensible à la profondeur:
 
 ### Effets Simples (Paramètre Unique)
 - [**Luminosité**](./brightness.md) - Éclaircir ou assombrir l'image entière
@@ -162,8 +162,9 @@ Shimera fournit **11 effets**, 10 effets de post-traitement en espace écran plu
 - [**Vignette**](./vignette.md) - Assombrir les bords de l'image avec forme personnalisable
 - [**Distorsion**](./distortion.md) - Déformer l'image avec animation Perlin noise
 - [**Aberration Chromatique**](./chromatic_aberration.md) - Effet de séparation du canal de couleur RGB
-- [**Flou Gaussien**](./gaussian_blur.md) - Flou lisse et isotrope avec une vraie distribution gaussienne
-- [**Pixelisation**](./pixelisation.md) - Rendu pixel-art rétro par alignement sur une grille configurable
+- [**Flou Gaussien**](./gaussian_blur.md) - Adoucir l'image avec un flou gaussien séparable en deux passes
+- [**Pixelisation**](./pixelisation.md) - Réduire l'image en gros pixels pour un rendu rétro
+- [**HDR Bloom**](./hdr_bloom.md) - Faire briller les zones claires avec tone mapping ACES
 
 ### Effets 3D (Sensibles à la Profondeur)
 - [**Diffusion Atmosphérique**](./atmospheric_scattering.md) - Atmosphère planétaire d'inspiration physique (backends 3D uniquement)
