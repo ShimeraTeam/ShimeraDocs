@@ -21,6 +21,12 @@ export default defineConfig({
                 { text: 'Installation', link: '/userdoc/installation' },
                 { text: 'Effect Pipeline Builder', link: '/userdoc/effect_pipeline_builder' },
                 {
+                  text: 'Materials',
+                  items: [
+                    { text: 'Index', link: '/userdoc/materials/material_shaders' }
+                  ]
+                },
+                {
                   text: 'Shaders',
                   items: [
                     { text: 'Index', link: '/userdoc/shaders/index' },
@@ -72,6 +78,12 @@ export default defineConfig({
               items: [
                 { text: 'Installation', link: '/fr/userdoc/installation' },
                 { text: 'Effect Pipeline Builder', link: '/fr/userdoc/effect_pipeline_builder' },
+                {
+                  text: 'Matériaux',
+                  items: [
+                    { text: 'Index', link: '/fr/userdoc/materials/material_shaders' }
+                  ]
+                },
                 {
                   text: 'Shaders',
                   items: [
