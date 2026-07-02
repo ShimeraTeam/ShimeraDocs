@@ -45,6 +45,7 @@ export default defineConfig({
                 { text: 'Testing Policy', link: '/quality/testing_policy' },
                 { text: 'Git Hooks', link: '/quality/git_hooks' },
                 { text: 'Accessibility', link: '/quality/accessibility' },
+                { text: 'Security Map', link: '/quality/security_map'},
                 { text: 'Branches', link: '/quality/branches' },
                 { text: 'Commits', link: '/quality/commits' }
               ]
@@ -100,6 +101,7 @@ export default defineConfig({
                 { text: 'Politique de test', link: '/fr/quality/testing_policy' },
                 { text: 'Git Hooks', link: '/fr/quality/git_hooks' },
                 { text: 'Accéssibilité', link: '/fr/quality/accessibility' },
+                { text: 'Security Map', link: '/fr/quality/security_map'},
                 { text: 'Branches', link: '/fr/quality/branches' },
                 { text: 'Commits', link: '/fr/quality/commits' }
               ]
