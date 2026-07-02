@@ -262,4 +262,7 @@ int main() {
 
 ## Available Materials
 
-- See the individual material pages for the effects Shimera ships and the parameters each one exposes.
+See the individual material pages for the effects Shimera ships and the parameters each one exposes.
+
+For now, Shimera provides **1 material effect**:
+- [**Fresnel**](./fresnel.md): Highlights surfaces at grazing viewing angles (rim lighting, force fields, holograms)
