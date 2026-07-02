@@ -9,7 +9,7 @@
 
 Because materials are drawn as part of the scene, they **compose correctly with everything else you render**: they respect depth, occlude and are occluded by other objects, and move naturally with the camera. You provide a mesh, a camera, and a transform, the library renders the object with the material through the active backend's native pipeline.
 
-A single material shader is written once and works across every dimension specific backend (a 2D material shader will work in 2D backends but could work in 3D backends too, a 3D material shader will only work in 3D backends). You never touch matrix math or backend-specific shader plumbing, the library builds the model/view/projection matrices and feeds them to the shader for you.
+A single material shader is written once and works across every dimension specific-backend (a 2D material shader will work in 2D backends but could work in 3D backends too, a 3D material shader will only work in 3D backends). You never touch matrix math or backend-specific shader plumbing, the library builds the model/view/projection matrices and feeds them to the shader for you.
 
 ::: warning SFML not integrated yet
 The material system is **not inherently 3D-only**. The same architecture can just as well drive 2D surface materials, so a backend like SFML could support materials too. It simply isn't wired up on SFML **yet**: Shimera currently ships no 2D material shaders, so we skipped that integration for now rather than add unused plumbing. Until it lands, calling a material method on the SFML backend throws a clear runtime error.
@@ -94,7 +94,7 @@ Camera camera = shimera::RaylibCamera::toShimera(camera3d);
 
 ### 6. Render the Object
 ```cpp
-material.render(*mesh, camera);
+material.render(*mesh, camera); // or `*mesh` 
 ```
 
 - On **OpenGL**, enable depth testing once (`glEnable(GL_DEPTH_TEST)`) and render each frame.

@@ -94,7 +94,7 @@ Camera camera = shimera::RaylibCamera::toShimera(camera3d);
 
 ### 6. Rendre l'Objet
 ```cpp
-material.render(*mesh, camera);
+material.render(*mesh, camera); // ou `*mesh` 
 ```
 
 - Sur **OpenGL**, activez le test de profondeur une fois (`glEnable(GL_DEPTH_TEST)`) et rendez à chaque image.
