@@ -19,6 +19,7 @@ export default defineConfig({
               text: 'UserDoc',
               items: [
                 { text: 'Installation', link: '/userdoc/installation' },
+                { text: 'Why Shimera', link: '/userdoc/why_shimera' },
                 { text: 'Effect Pipeline Builder', link: '/userdoc/effect_pipeline_builder' },
                 {
                   text: 'Materials',
@@ -77,6 +78,7 @@ export default defineConfig({
               text: 'UserDoc',
               items: [
                 { text: 'Installation', link: '/fr/userdoc/installation' },
+                { text: 'Pourquoi Shimera', link: '/fr/userdoc/why_shimera' },
                 { text: 'Effect Pipeline Builder', link: '/fr/userdoc/effect_pipeline_builder' },
                 {
                   text: 'Matériaux',
