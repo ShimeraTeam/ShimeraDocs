@@ -24,6 +24,12 @@ export default defineConfig({
               ]
             },
             {
+              text: 'Legal & Licensing',
+              items: [
+                { text: 'Legal Protection Strategy', link: '/legal/legal_protection_strategy' }
+              ]
+            },
+            {
               text: 'Library',
               items: [
                 { text: 'Library Functionality', link: '/library/fonctionnement_lib' },
@@ -76,6 +82,12 @@ export default defineConfig({
                 { text: 'Stratégie de diffusion', link: '/fr/deployment/diffusion_strategy'},
                 { text: 'Environnement Technique', link: '/fr/deployment/technology_environment' },
                 { text: 'Types de binaires', link: '/fr/deployment/binary' }
+              ]
+            },
+            {
+              text: 'Juridique & Licence',
+              items: [
+                { text: 'Stratégie de protection juridique', link: '/fr/legal/legal_protection_strategy' }
               ]
             },
             {
