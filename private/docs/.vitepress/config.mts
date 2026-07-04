@@ -38,6 +38,12 @@ export default defineConfig({
               ]
             },
             {
+              text: 'Technology Watch',
+              items: [
+                { text: 'Technology Watch', link: '/technology_watch/' }
+              ]
+            },
+            {
               text: 'POC',
               items: [
                 { text: 'OpenGL Injection', link: '/poc/opengl_injection' },
@@ -96,6 +102,12 @@ export default defineConfig({
                 { text: 'Fonctionnement de la librairie', link: '/fr/library/fonctionnement_lib' },
                 { text: "Couche d'abstraction", link: '/fr/library/abstraction_layer' },
                 { text: 'Comparatifs technologiques', link: '/fr/library/technology_comparative_briefs' }
+              ]
+            },
+            {
+              text: 'Veille technologique',
+              items: [
+                { text: 'Veille technologique', link: '/fr/technology_watch/' }
               ]
             },
             {
