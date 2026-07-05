@@ -235,6 +235,7 @@ TEST_F(ContextTest, AddEffect) {
 | `BackendFactory::CreateBackendWithoutContext` | Backend created successfully |
 | `BackendFactory::CreateBackend` | Backend created successfully |
 | `IFrameBuffer::CreateFrameBufferWithoutContext` | Throw an exception (no valid context) |
+| `ContextTest::CreateFrameBufferWithBadSize` | Throw an exception (invalid size) |
 | `ContextTest::CreateFrameBuffer` | Framebuffer created successfully |
 | `EffectPipeline::CreateEffectPipelineWithoutContext` | Empty pipeline, no crash |
 | `ContextTest::CreateEffectPipeline` | Empty pipeline created |

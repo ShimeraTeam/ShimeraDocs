@@ -9,4 +9,4 @@ It covers the testing strategy, infrastructure, and measured results.
 
 - [Testing Guide](./testing_guide.md) : test categories, how to run locally, CI pipeline
 
-For performance results and backend comparisons, see the [user documentation](/userdoc/benchmarks).
+For performance results and backend comparisons, see the [user documentation](/userdoc/performance/benchmark).

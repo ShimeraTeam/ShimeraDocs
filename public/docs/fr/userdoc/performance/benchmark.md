@@ -22,52 +22,63 @@ Résultats de performance de Shimera sur 5 000 frames par effet.
 
 ## Graphes comparatifs
 
+::: warning Comportements observés (Quadro)
+Certains effets comme le GaussianBlur et le HDRBloom ne passent pas encore sur Raylib avec la machine de référence. Cela s'explique probablement par le driver NVIDIA datacenter de la Quadro RTX 5000, plus strict sur la validation OpenGL que le driver GeForce grand public de la machine locale (RTX 5060), où ces mêmes effets fonctionnent normalement.
+
+Le résultat de SFML sans effets sort également du lot, avec un FPS plus bas qu'avec des effets actifs. Une piste probable est un souci de synchronisation verticale propre à la machine quadro. L'investigation est en cours.
+:::
+
 <BenchmarkCharts />
 
----
 
 ## Données brutes
 
 ### Quadro RTX 5000 *(référence)*
 
+::: info AtmosphericScatteringEffect sur OpenGL
+Les tests de performance du AtmosphericScatteringEffect ne sont pas encore implémentés sur le backend OpenGL, arrivera prochainement.
+:::
+
+::: info Fresnel / AtmosphericScattering sur SFML
+Ces deux effets reposent sur des shaders exclusivement 3D et ne sont pas applicables au backend SFML (rendu 2D).
+:::
+
 | Effet | OpenGL (FPS) | Raylib (FPS) | SFML (FPS) |
 |---|---|---|---|
-| no_effects | 25 510 | 5 257 | 578 ⚠️ |
-| BrightnessEffect | 22 123 | 5 086 | 4 480 |
-| ChromaticAberrationEffect | 12 919 | 4 849 | 4 452 |
-| ColortintEffect | 22 123 | 5 446 | 4 911 |
-| ContrastEffect | 22 123 | 5 376 | 4 743 |
-| DistortionEffect | 20 080 | 5 091 | 3 965 |
-| GaussianBlurEffect | 9 416 |  | 4 019 |
-| GrayscaleEffect | 22 222 | 5 076 | 4 582 |
-| PixelisationEffect | 21 645 | 4 916 | 4 633 |
-| SaturationEffect | 22 026 | 5 055 | 4 625 |
-| VignetteEffect | 21 834 |  | 5 010 |
-| ContrastEffect + SaturationEffect | 16 778 |  | 4 930 |
-| Contrast + Grayscale + Blur | 7 898 |   | 4 006 |
-
-::: warning Anomalie SFML - Quadro RTX 5000
-Le test `no_effects` sur SFML retourne **578 FPS** (attendu : ~4 500 FPS).
-:::
+| no_effects | 5 040 | 5 567 | 583 |
+| BrightnessEffect | 5 000 | 5 393 | 4 480 |
+| AtmosphericScatteringEffect | - | 4 873 | - |
+| ChromaticAberrationEffect | 4 344 | 5 020 | 4 452 |
+| ColortintEffect | 5 010 | 5 630 | 4 911 |
+| ContrastEffect | 4 995 | 5 630 | 4 743 |
+| DistortionEffect | 4 995 | 5 382 | 3 965 |
+| FresnelEffect | 4 950 | 5 701 | - |
+| GaussianBlurEffect | 3 961 | - | 4 019 |
+| GrayscaleEffect | 4 980 | 5 208 | 4 633 |
+| HDRBloom | 3 333 | - | 3 591 |
+| PixelisationEffect | 4 965 | 5 102 | 4 633 |
+| SaturationEffect | 4 965 | 5 133 | 4 604 |
+| VignetteEffect | 5 010 | 5 452 | 5 010 |
+| ContrastEffect + SaturationEffect | 4 945 | - | 4 930 |
+| Contrast + Grayscale + Blur | 3 591 | - | 4 006 |
 
 ### NVIDIA GeForce RTX 5060 *(local - indicatif)*
 
 | Effet | OpenGL (FPS) | Raylib (FPS) | SFML (FPS) |
 |---|---|---|---|
-| no_effects | 5 268 | 3 828 | 4 472 |
-| BrightnessEffect | 5 241 | 4 364 | 4 918 |
+| no_effects | 6 090 | 3 620 | 4 599 |
+| BrightnessEffect | 5 186 | 4 374 | 4 926 |
+| AtmosphericScatteringEffect | - | 3 017 | - |
 | ChromaticAberrationEffect | 4 761 | 4 506 | 4 887 |
-| ColortintEffect | 5 192 | 4 558 | 4 699 |
+| ColortintEffect | 4 591 | 4 558 | 4 699 |
 | ContrastEffect | 4 975 | 4 627 | 4 984 |
-| DistortionEffect | 5 065 | 4 420 | 4 366 |
-| GaussianBlurEffect | 4 184 | 3 836 | 4 599 |
-| GrayscaleEffect | 5 045 | 4 398 | 5 064 |
-| PixelisationEffect | 4 911 | 4 442 | 5 030 |
-| SaturationEffect | 4 975 | 4 555 | 4 882 |
-| VignetteEffect | 3 903 | 3 668 | 3 950 |
-| ContrastEffect + SaturationEffect | 4 022 | 3 669 | 3 770 |
-| Contrast + Grayscale + Blur | 3 717 | 3 550 | 3 733 |
-
-::: info Machines locales
-Ces résultats proviennent de machines de développement et sont fournis à titre indicatif. Ils ne constituent pas les chiffres officiels de Shimera.
-:::
+| DistortionEffect | 4 878 | 4 420 | 4 374 |
+| FresnelEffect | 4 703 | 5 005 | - |
+| GaussianBlurEffect | 4 145 | 3 676 | 4 599 |
+| GrayscaleEffect | 5 045 | 4 863 | 5 064 |
+| HDRBloom | 4 012 | 3 687 | 4 022 |
+| PixelisationEffect | 4 955 | 4 295 | 5 030 |
+| SaturationEffect | 5 149 | 4 555 | 4 882 |
+| VignetteEffect | 3 918 | 3 657 | 3 897 |
+| ContrastEffect + SaturationEffect | 3 996 | 3 940 | 3 891 |
+| Contrast + Grayscale + Blur | 3 819 | 3 337 | 3 733 |

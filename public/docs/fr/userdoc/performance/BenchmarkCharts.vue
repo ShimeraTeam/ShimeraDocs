@@ -28,9 +28,9 @@
     </div>
 
     <div class="benchmark-section">
-      <h3>Comparaison GPU - baseline <code>no_effects</code></h3>
+      <h3>Comparaison GPU - moyenne tous effets confondus</h3>
       <div class="chart-wrap" style="height:220px">
-        <canvas ref="c4" role="img" aria-label="Comparaison FPS baseline entre les deux GPU"></canvas>
+        <canvas ref="c4" role="img" aria-label="Comparaison FPS moyenne entre les deux GPU"></canvas>
       </div>
     </div>
   </div>
@@ -44,10 +44,14 @@ const c2 = ref<HTMLCanvasElement | null>(null)
 const c3 = ref<HTMLCanvasElement | null>(null)
 const c4 = ref<HTMLCanvasElement | null>(null)
 
+// Ordre commun à tous les graphes. `null` = effet non supporté / non testé
+// sur ce backend (voir notes sous les tableaux : Atmospheric non implémenté
+// sur OpenGL, Fresnel/Atmospheric non applicables sur SFML, GaussianBlur/
+// HDRBloom cassés sur Raylib+Quadro).
 const EFFECTS_SHORT: string[] = [
-  'no_effects', 'Brightness', 'Chromatic', 'Colortint', 'Contrast',
-  'Distortion', 'GaussianBlur', 'Grayscale', 'Pixelisation',
-  'Saturation', 'Vignette', 'C+Sat', 'C+G+Blur',
+  'no_effects', 'Brightness', 'Atmospheric', 'Chromatic', 'Colortint',
+  'Contrast', 'Distortion', 'Fresnel', 'GaussianBlur', 'Grayscale',
+  'HDRBloom', 'Pixelisation', 'Saturation', 'Vignette', 'C+Sat', 'C+G+Blur',
 ]
 
 interface BackendData {
@@ -57,21 +61,21 @@ interface BackendData {
 }
 
 const fpsQuadro: BackendData = {
-  opengl: [25510, 22123, 12919, 22123, 22123, 20080, 9416, 22222, 21645, 22026, 21834, 16778, 7898],
-  raylib: [5257,  5086,  4849,  5446,  5376,  5091,  null, 5076,  4916,  5055,  null,  null,  null],
-  sfml:   [null,  4480,  4452,  4911,  4743,  3965,  4019, 4582,  4633,  4625,  5010,  4930,  4006],
+  opengl: [5040, 5000, null,  4344, 5010, 4995, 4995, 4950, 3961, 4980, 3333, 4965, 4965, 5010, 4945, 3591],
+  raylib: [5567, 5393, 4873,  5020, 5630, 5630, 5382, 5701, null, 5208, null, 5102, 5133, 5452, null, null],
+  sfml:   [583,  4480, null,  4452, 4911, 4743, 3965, null, 4019, 4633, 3591, 4633, 4604, 5010, 4930, 4006],
 }
 
 const fps5060: BackendData = {
-  opengl: [5268, 5241, 4761, 5192, 4975, 5065, 4184, 5045, 4911, 4975, 3903, 4022, 3717],
-  raylib: [3828, 4364, 4506, 4558, 4627, 4420, 3836, 4398, 4442, 4555, 3668, 3669, 3550],
-  sfml:   [4472, 4918, 4887, 4699, 4984, 4366, 4599, 5064, 5030, 4882, 3950, 3770, 3733],
+  opengl: [6090, 5186, null,    4761,   4591,   4975,    4878,   4703, 4145,    5045,   4012, 4955,    5149,   3918, 3996, 3819],
+  raylib: [3620, 4374, 3017,    4505.8, 4557.9, 4627.2,  4419.8, 5005, 3676,    4863,   3687, 4295,    4555,   3657, 3940, 3337],
+  sfml:   [4599, 4926, null,    4887,   4699,   4984.15, 4374,   null, 4599.27, 5064.4, 4022, 5030.17, 4881.8, 3897, 3891, 3732.5],
 }
 
 const vramQuadro: BackendData = {
-  opengl: [13568, 13568, 13568, 13568, 13568, 14080, 16192, 13568, 13568, 13568, 13568, 13568, 16192],
-  raylib: [6976,  6912,  6912,  6912,  6912,  6912,  null,  6912,  6912,  6912,  null,  null,  null],
-  sfml:   [6656,  6656,  6656,  6656,  6656,  7168,  7936,  6656,  6656,  6656,  6656,  6656,  7936],
+  opengl: [0,    13568, null, 13568, 13568, 13568, 14080, 0,    16192, 13568, 16192, 13568, 13568, 13568, 13568, 16192],
+  raylib: [6912, 6912,  4096, 6912,  6912,  6912,  6912,  4096, null,  6912,  null,  6912,  6912,  6912,  null,  null],
+  sfml:   [0,    6656,  null, 6656,  6656,  6656,  7168,  null, 7936,  6656,  7936,  6656,  6656,  6656,  6656,  7936],
 }
 
 onMounted(async () => {
@@ -129,18 +133,20 @@ onMounted(async () => {
   if (c2.value) new Chart(c2.value, { type: 'bar', data: { labels: EFFECTS_SHORT, datasets: mkDs(fps5060)   }, options: baseOpts('FPS moyen') })
   if (c3.value) new Chart(c3.value, { type: 'bar', data: { labels: EFFECTS_SHORT, datasets: mkDs(vramQuadro)}, options: baseOpts('VRAM (KB)') })
 
+  // Comparaison générale : FPS moyen tous effets confondus, par backend et par GPU
+  // (remplace l'ancienne comparaison limitée à no_effects, peu représentative)
   if (c4.value) {
     new Chart(c4.value, {
       type: 'bar',
       data: {
         labels: ['Quadro RTX 5000 (réf.)', 'RTX 5060 (local)'],
         datasets: [
-          { label: 'OpenGL', data: [25510, 5268], backgroundColor: C.opengl, borderRadius: 3 },
-          { label: 'Raylib', data: [5257,  3828], backgroundColor: C.raylib, borderRadius: 3 },
-          { label: 'SFML',   data: [null,   4472], backgroundColor: C.sfml,  borderRadius: 3 },
+          { label: 'OpenGL', data: [4672, 4682], backgroundColor: C.opengl, borderRadius: 3 },
+          { label: 'Raylib', data: [5341, 4134], backgroundColor: C.raylib, borderRadius: 3 },
+          { label: 'SFML',   data: [4183, 4542], backgroundColor: C.sfml,  borderRadius: 3 },
         ],
       },
-      options: baseOpts('FPS moyen (no_effects)'),
+      options: baseOpts('FPS moyen (tous effets)'),
     })
   }
 })

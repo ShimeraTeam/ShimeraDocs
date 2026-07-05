@@ -109,8 +109,6 @@ export default defineConfig({
                     { text: 'Guide de test', link:'/fr/devdoc/testing/testing_guide' }
                   ]
                 },
-              ],
-            },
                 { text: 'Standards de code', link: '/fr/devdoc/code_standards' },
               ]
             }
