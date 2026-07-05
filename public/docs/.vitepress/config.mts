@@ -57,6 +57,7 @@ export default defineConfig({
                 { text: 'Architecture', link: '/devdoc/architecture/technical_architecture' },
                 { text: 'Architecture Diagram', link: '/devdoc/architecture/architecture_diagram' },
                 { text: 'Code Standards', link: '/devdoc/code_standards' },
+                { text: 'Technical Brief', link: '/devdoc/technical_brief'}
               ]
             }
           ]
@@ -118,6 +119,7 @@ export default defineConfig({
                 { text: 'Architecture', link: '/fr/devdoc/architecture/technical_architecture' },
                 { text: 'Diagramme d\'architecture', link: '/fr/devdoc/architecture/architecture_diagram' },
                 { text: 'Standards de code', link: '/fr/devdoc/code_standards' },
+                { text: 'Brief Technique', link: '/fr/devdoc/technical_brief'}
               ]
             }
           ]
