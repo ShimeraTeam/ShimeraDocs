@@ -24,7 +24,8 @@ export default defineConfig({
                 {
                   text: 'Materials',
                   items: [
-                    { text: 'Index', link: '/userdoc/materials/material_shaders' }
+                    { text: 'Index', link: '/userdoc/materials/material_shaders' },
+                    { text: 'Fresnel', link: '/userdoc/materials/fresnel' }
                   ]
                 },
                 {
@@ -83,7 +84,8 @@ export default defineConfig({
                 {
                   text: 'Matériaux',
                   items: [
-                    { text: 'Index', link: '/fr/userdoc/materials/material_shaders' }
+                    { text: 'Index', link: '/fr/userdoc/materials/material_shaders' },
+                    { text: 'Fresnel', link: '/fr/userdoc/materials/fresnel' }
                   ]
                 },
                 {
