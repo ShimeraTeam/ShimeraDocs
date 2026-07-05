@@ -20,6 +20,7 @@ export default defineConfig({
               items: [
                 { text: 'Installation', link: '/userdoc/installation' },
                 { text: 'Why Shimera', link: '/userdoc/why_shimera' },
+                { text: 'Performance', link: '/userdoc/performance/benchmark'},
                 { text: 'Effect Pipeline Builder', link: '/userdoc/effect_pipeline_builder' },
                 {
                   text: 'Materials',
@@ -55,6 +56,13 @@ export default defineConfig({
               items: [
                 { text: 'Git Workflow', link: '/devdoc/git_workflow' },
                 { text: 'Architecture', link: '/devdoc/architecture/technical_architecture' },
+                {
+                  text: 'Testing',
+                  items: [
+                    { text: 'Index', link: '/devdoc/testing/index' },
+                    { text: 'Testing Guide', link:'/devdoc/testing/testing_guide' }
+                  ]
+                },
                 { text: 'Architecture Diagram', link: '/devdoc/architecture/architecture_diagram' },
                 { text: 'Code Standards', link: '/devdoc/code_standards' },
                 { text: 'Technical Brief', link: '/devdoc/technical_brief'}
@@ -82,6 +90,7 @@ export default defineConfig({
               items: [
                 { text: 'Installation', link: '/fr/userdoc/installation' },
                 { text: 'Pourquoi Shimera', link: '/fr/userdoc/why_shimera' },
+                { text: 'Performances', link: '/fr/userdoc/performance/benchmark'},
                 { text: 'Effect Pipeline Builder', link: '/fr/userdoc/effect_pipeline_builder' },
                 {
                   text: 'Matériaux',
@@ -117,6 +126,13 @@ export default defineConfig({
               items: [
                 { text: 'Git Workflow', link: '/fr/devdoc/git_workflow' },
                 { text: 'Architecture', link: '/fr/devdoc/architecture/technical_architecture' },
+                {
+                  text: 'Tests',
+                  items: [
+                    { text: 'Index', link: '/fr/devdoc/testing/index' },
+                    { text: 'Guide de test', link:'/fr/devdoc/testing/testing_guide' }
+                  ]
+                },
                 { text: 'Diagramme d\'architecture', link: '/fr/devdoc/architecture/architecture_diagram' },
                 { text: 'Standards de code', link: '/fr/devdoc/code_standards' },
                 { text: 'Brief Technique', link: '/fr/devdoc/technical_brief'}
