@@ -39,7 +39,7 @@ Reddit est notre principal canal informel car l'écosystème C++/gamedev y est t
 | Subreddit | Ce que nous surveillons |
 | --- | --- |
 | r/cpp | Adoption de C++23, actualité des compilateurs, conventions de conception de librairies |
-| r/opengl | Bizarreries de pilotes, portabilité des shaders, patterns de framebuffer et de post-processing, techniques de rendu en espace monde |
+| r/opengl | Bizarreries de pilotes, portabilité des shaders, patterns de framebuffer et de post-processing, techniques de rendu world-space et de matériaux |
 | r/raylib | Interopérabilité OpenGL avec raylib, intégration de shaders dans raylib, exemples de la communauté |
 | r/sfml | Interopérabilité OpenGL avec SFML, exemples de la communauté |
 | r/sdl | Interopérabilité OpenGL avec SDL, exemples de la communauté |
