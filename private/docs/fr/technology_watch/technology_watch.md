@@ -64,7 +64,7 @@ Lorsque nous butons sur un obstacle technique précis (un shader qui compile sur
 | `[glew]` | Chargement des extensions et ordre d'initialisation |
 | `[framebuffer]` | Rendu vers texture, le pattern au cœur de notre pipeline de post-processing |
 
-**Apport au projet :** les thèmes d'ingénierie récurrents du code (le pipeline framebuffer/rendu vers texture, les abstractions shader et texture par backend, l'ordre correct d'initialisation de GLEW) sont exactement les domaines où les réponses Stack Overflow font gagner des heures.
+**Apport au projet :** les thèmes d'ingénierie récurrents du code (la pipeline framebuffer/rendu vers texture, les abstractions shader et texture par backend, l'ordre correct d'initialisation de GLEW) sont exactement les domaines où les réponses Stack Overflow font gagner des heures.
 
 **Règle pratique :** nous privilégions les réponses acceptées, récentes et fortement votées, et nous vérifions l'API référencée dans la documentation officielle avant de fusionner. Les extraits sont adaptés à nos wrappers RAII, jamais copiés tels quels.
 
