@@ -1,4 +1,4 @@
-import { defineComponent, h, nextTick, onMounted, watch } from 'vue';
+import { defineComponent, h, onMounted, watch } from 'vue';
 import type { Theme } from 'vitepress';
 import DefaultTheme from 'vitepress/theme';
 import { useData } from 'vitepress';
