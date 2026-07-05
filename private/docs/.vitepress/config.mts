@@ -18,8 +18,15 @@ export default defineConfig({
               text: 'Deployment & Environment',
               items: [
                 { text: 'Deployment', link: '/deployment/deployment' },
+                { text: 'Diffusion Strategy', link: '/deployment/diffusion_strategy'},
                 { text: 'Technical Environment', link: '/deployment/technology_environment' },
                 { text: 'Binary Types', link: '/deployment/binary' }
+              ]
+            },
+            {
+              text: 'Legal & Licensing',
+              items: [
+                { text: 'Legal Protection Strategy', link: '/legal/legal_protection_strategy' }
               ]
             },
             {
@@ -44,6 +51,7 @@ export default defineConfig({
                 { text: 'Testing Policy', link: '/quality/testing_policy' },
                 { text: 'Git Hooks', link: '/quality/git_hooks' },
                 { text: 'Accessibility', link: '/quality/accessibility' },
+                { text: 'Security Map', link: '/quality/security_map'},
                 { text: 'Branches', link: '/quality/branches' },
                 { text: 'Commits', link: '/quality/commits' }
               ]
@@ -72,8 +80,15 @@ export default defineConfig({
               text: 'Déploiement & Environnement',
               items: [
                 { text: 'Déploiement', link: '/fr/deployment/deployment' },
+                { text: 'Stratégie de diffusion', link: '/fr/deployment/diffusion_strategy'},
                 { text: 'Environnement Technique', link: '/fr/deployment/technology_environment' },
                 { text: 'Types de binaires', link: '/fr/deployment/binary' }
+              ]
+            },
+            {
+              text: 'Juridique & Licence',
+              items: [
+                { text: 'Stratégie de protection juridique', link: '/fr/legal/legal_protection_strategy' }
               ]
             },
             {
@@ -98,6 +113,7 @@ export default defineConfig({
                 { text: 'Politique de test', link: '/fr/quality/testing_policy' },
                 { text: 'Git Hooks', link: '/fr/quality/git_hooks' },
                 { text: 'Accéssibilité', link: '/fr/quality/accessibility' },
+                { text: 'Security Map', link: '/fr/quality/security_map'},
                 { text: 'Branches', link: '/fr/quality/branches' },
                 { text: 'Commits', link: '/fr/quality/commits' }
               ]

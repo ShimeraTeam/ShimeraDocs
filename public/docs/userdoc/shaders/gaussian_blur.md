@@ -1,8 +1,8 @@
 # Gaussian Blur Effect
 
-**Header:** `include/effects/GaussianBlurEffect.hpp`
-**Implementation:** `src/effects/GaussianBlurEffect.cpp`
-**Shader:** `res/shader/postprocessing/gaussian_blur.frag`
+**Header:** `include/effects/GaussianBlurEffect.hpp`  
+**Implementation:** `src/effects/GaussianBlurEffect.cpp`  
+**Shader:** `res/shader/postprocessing/gaussian_blur.frag`  
 
 ## Description
 
@@ -14,7 +14,7 @@ The Gaussian Blur effect applies a smooth, isotropic blur to the rendered image 
 |-----------|------|-------|---------|--------|
 | `sigma` | float | `0.5` to `30.0+` | `3.0` | Standard deviation of the Gaussian curve (blur intensity) |
 | `samples` | int | `3` to `60+` | `10` | Kernel radius in pixels (number of neighbors per side) |
-| `resolution` | Vec2<float> | matches target | `(1920, 1080)` | Resolution of the render target in pixels |
+| `resolution` | Vec2&lt;float&gt; | matches target | `(1920, 1080)` | Resolution of the render target in pixels |
 
 ### Parameter Values
 

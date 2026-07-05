@@ -19,11 +19,21 @@ export default defineConfig({
               text: 'UserDoc',
               items: [
                 { text: 'Installation', link: '/userdoc/installation' },
+                { text: 'Why Shimera', link: '/userdoc/why_shimera' },
                 { text: 'Performance', link: '/userdoc/performance/benchmark'},
+                { text: 'Effect Pipeline Builder', link: '/userdoc/effect_pipeline_builder' },
+                {
+                  text: 'Materials',
+                  items: [
+                    { text: 'Index', link: '/userdoc/materials/material_shaders' },
+                    { text: 'Fresnel', link: '/userdoc/materials/fresnel' }
+                  ]
+                },
                 {
                   text: 'Shaders',
                   items: [
                     { text: 'Index', link: '/userdoc/shaders/index' },
+                    { text: 'Atmospheric Scattering', link: '/userdoc/shaders/atmospheric_scattering' },
                     { text: 'Brightness', link: '/userdoc/shaders/brightness' },
                     { text: 'Chromatic Aberration', link: '/userdoc/shaders/chromatic_aberration' },
                     { text: 'Colorshift', link: '/userdoc/shaders/colorshift' },
@@ -31,6 +41,7 @@ export default defineConfig({
                     { text: 'Distortion', link: '/userdoc/shaders/distortion' },
                     { text: 'Gaussian Blur', link: '/userdoc/shaders/gaussian_blur' },
                     { text: 'Grayscale', link: '/userdoc/shaders/grayscale' },
+                    { text: 'HDR Bloom', link: '/userdoc/shaders/hdr_bloom' },
                     { text: 'Saturation', link: '/userdoc/shaders/saturation' },
                     { text: 'Vignette', link: '/userdoc/shaders/vignette' },
                     { text: 'Pixelisation', link: '/userdoc/shaders/pixelisation' }
@@ -52,7 +63,9 @@ export default defineConfig({
                     { text: 'Testing Guide', link:'/devdoc/testing/testing_guide' }
                   ]
                 },
+                { text: 'Architecture Diagram', link: '/devdoc/architecture/architecture_diagram' },
                 { text: 'Code Standards', link: '/devdoc/code_standards' },
+                { text: 'Technical Brief', link: '/devdoc/technical_brief'}
               ]
             }
           ]
@@ -76,11 +89,21 @@ export default defineConfig({
               text: 'UserDoc',
               items: [
                 { text: 'Installation', link: '/fr/userdoc/installation' },
+                { text: 'Pourquoi Shimera', link: '/fr/userdoc/why_shimera' },
                 { text: 'Performances', link: '/fr/userdoc/performance/benchmark'},
+                { text: 'Effect Pipeline Builder', link: '/fr/userdoc/effect_pipeline_builder' },
+                {
+                  text: 'Matériaux',
+                  items: [
+                    { text: 'Index', link: '/fr/userdoc/materials/material_shaders' },
+                    { text: 'Fresnel', link: '/fr/userdoc/materials/fresnel' }
+                  ]
+                },
                 {
                   text: 'Shaders',
                   items: [
                     { text: 'Index', link: '/fr/userdoc/shaders/index' },
+                    { text: 'Atmospheric Scattering', link: '/fr/userdoc/shaders/atmospheric_scattering' },
                     { text: 'Brightness', link: '/fr/userdoc/shaders/brightness' },
                     { text: 'Chromatic Aberration', link: '/fr/userdoc/shaders/chromatic_aberration' },
                     { text: 'Colorshift', link: '/fr/userdoc/shaders/colorshift' },
@@ -88,6 +111,7 @@ export default defineConfig({
                     { text: 'Distortion', link: '/fr/userdoc/shaders/distortion' },
                     { text: 'Gaussian Blur', link: '/fr/userdoc/shaders/gaussian_blur' },
                     { text: 'Grayscale', link: '/fr/userdoc/shaders/grayscale' },
+                    { text: 'HDR Bloom', link: '/fr/userdoc/shaders/hdr_bloom' },
                     { text: 'Saturation', link: '/fr/userdoc/shaders/saturation' },
                     { text: 'Vignette', link: '/fr/userdoc/shaders/vignette' },
                     { text: 'Pixelisation', link: '/fr/userdoc/shaders/pixelisation' }
@@ -109,7 +133,9 @@ export default defineConfig({
                     { text: 'Guide de test', link:'/fr/devdoc/testing/testing_guide' }
                   ]
                 },
+                { text: 'Diagramme d\'architecture', link: '/fr/devdoc/architecture/architecture_diagram' },
                 { text: 'Standards de code', link: '/fr/devdoc/code_standards' },
+                { text: 'Brief Technique', link: '/fr/devdoc/technical_brief'}
               ]
             }
           ]

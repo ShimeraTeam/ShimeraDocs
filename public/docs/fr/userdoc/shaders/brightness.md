@@ -1,8 +1,8 @@
 # Effet de Luminosité
 
-**En-tête:** `include/effects/BrightnessEffect.hpp`
-**Implémentation:** `src/effects/BrightnessEffect.cpp`
-**Shader:** `res/shader/postprocessing/brightness.frag`
+**En-tête:** `include/effects/BrightnessEffect.hpp`  
+**Implémentation:** `src/effects/BrightnessEffect.cpp`  
+**Shader:** `res/shader/postprocessing/brightness.frag`  
 
 ## Description
 
