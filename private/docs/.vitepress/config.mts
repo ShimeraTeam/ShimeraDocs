@@ -15,6 +15,12 @@ export default defineConfig({
         sidebar: {
           '/': [
             {
+              text: 'Organization & Resources',
+              items: [
+                { text: 'Resource Allocation', link: '/organization/resource_allocation' }
+              ]
+            },
+            {
               text: 'Deployment & Environment',
               items: [
                 { text: 'Diffusion Strategy', link: '/deployment/diffusion_strategy'},
@@ -78,6 +84,12 @@ export default defineConfig({
         ],
         sidebar: {
           '/fr/': [
+            {
+              text: 'Organisation & Ressources',
+              items: [
+                { text: 'Allocation des ressources', link: '/fr/organization/resource_allocation' }
+              ]
+            },
             {
               text: 'Déploiement & Environnement',
               items: [
