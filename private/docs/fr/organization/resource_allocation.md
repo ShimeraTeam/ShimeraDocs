@@ -25,6 +25,37 @@ Nous avons trois rôles principaux. Ce sont nos responsabilités de référence,
 
 Nous répartissons les tâches en priorité selon ce socle de rôles et selon l'expertise de chacun, mais nous restons polyvalents : les revues croisées et le fait que tout le monde touche au code, aux tests et à la doc nous évitent les points de blocage quand l'un d'entre nous est moins disponible à cause de l'université.
 
+### 2.1 Identifier les ressources humaines nécessaires
+
+Pour Shimera, identifier les ressources humaines dont le projet a besoin a été une véritable décision : l'équipe pouvait compter trois ou quatre personnes. Nous avons cherché une éventuelle quatrième personne, mais Shimera est un projet de recherche dont la solution n'avait pas encore été trouvée, et nous n'avons trouvé personne d'assez motivé pour s'engager dans cette incertitude. Nous l'avons pris comme un filtre plutôt qu'un frein : un projet aussi exploratoire ne se porte qu'avec des personnes réellement investies, et nous préférions trois personnes pleinement engagées à une quatrième qui ne le serait pas. La vraie question est alors devenue plus précise : à trois, couvrions-nous déjà ce dont le projet a besoin, et pouvions-nous développer le reste nous-mêmes ?
+
+À nous trois, nous couvrions déjà les domaines les plus essentiels du projet, et nos profils se complétaient :
+
+- **Léo** est à l'origine de l'idée de Shimera et avait déjà des bases en création de shaders, le cœur technique de la librairie.
+- **Paul** était le plus organisé des trois et n'a aucune difficulté à prendre le lead sur la coordination, ce qui lui a naturellement confié l'organisation du projet et de la documentation. Paul et Léo avaient par ailleurs déjà travaillé ensemble sur des projets graphiques : ils connaissaient leurs façons de travailler et savaient qu'ils formaient un bon binôme.
+- **Eddy** n'avait jamais travaillé avec Léo ni Paul auparavant, mais il apportait des compétences DevOps qu'aucun d'eux n'avait, le projet l'intéressait réellement, et nous savions qu'il était fiable et travailleur.
+
+Les rôles se sont donc répartis proprement sur nos trois profils (voir le tableau ci-dessus) : l'architecture et le rendu cœur à Léo, l'organisation du projet et de la documentation à Paul, la CI/CD et l'infrastructure GPU à Eddy. Les compétences qu'aucun de nous ne possédait au départ (exploitation du runner GPU, benchmarking, backends SFML et Raylib, voir 2.2) étaient de celles que nous pouvions développer dans nos cycles de travail plutôt que des manques justifiant un recrutement : nous avons donc traité chacune comme une tâche à part entière, planifiée et acquise pendant le projet.
+
+### 2.2 Les compétences requises par le projet
+
+Les compétences dont nous avons besoin sont dictées par ce qu'est Shimera et par la façon dont nous le construisons : une librairie C++ orientée GPU exposant douze effets configurables sur trois backends (OpenGL, SFML, Raylib) sous Windows et Linux, diffusée en open source et construite par une équipe répartie sur plusieurs fuseaux horaires. Le tableau ci-dessous liste chaque compétence requise, pourquoi le contexte technologique et organisationnel du projet l'exige, et si nous la possédions déjà ou l'avons développée en cours de route.
+
+| Compétence requise | Pourquoi le projet en a besoin | Présente ou développée | Principalement portée par |
+|---|---|---|---|
+| C++ moderne (C++23) et gestion bas niveau des ressources GPU | La librairie manipule directement buffers, textures et shaders GPU ; la sûreté et la correction en dépendent | Présente, approfondie pendant le projet | Tous |
+| Programmation OpenGL et shaders GLSL | Les effets et le pipeline de rendu sont écrits directement en OpenGL et GLSL | Présente, approfondie pendant le projet | Léo |
+| Architecture multi-backend et conception d'API publique | Une librairie consommée par des tiers sur trois backends exige une abstraction propre et stable | Présente | Tous |
+| Intégration SFML et Raylib | Supporter trois backends de fenêtrage fait partie du cahier des charges | Développée pendant le projet | Tous |
+| CI/CD et GitHub Actions | Une diffusion open source exige des builds multiplateformes reproductibles, des tests et des releases versionnées | Présente, approfondie pendant le projet | Eddy |
+| Exploitation d'un runner GPU self-hosted | Les runners cloud n'ont pas de GPU ; les tests et benchmarks sur vrai GPU exigent une machine que nous installons et maintenons nous-mêmes | Développée pendant le projet | Eddy |
+| Benchmarking de performance (FPS, VRAM, mémoire) | Nous devons mesurer et prouver le faible surcoût de la librairie à l'exécution | Développée pendant le projet | Eddy |
+| Gestion juridique et de licence | Diffuser sous GPL tout en laissant chaque auteur conserver le droit d'auteur sur sa contribution exige une stratégie de licence délibérée et documentée | Présente, approfondie pendant le projet | Paul |
+| Organisation du projet et gestion d'équipe | Coordonner une équipe de trois répartie et à temps partiel exige de la planification, des cycles d'un mois, une repriorisation en début de cycle, l'affectation des tâches sur GitHub Projects et une documentation bilingue à jour pour livrer la bêta dans les temps | Présente, formalisée pendant le projet | Paul |
+| Collaboration distribuée et asynchrone | Travailler à travers de gros décalages horaires impose un workflow git et de revue rigoureux | Présente, formalisée pendant le projet | Tous |
+
+Plutôt que d'ajouter une quatrième personne, nous avons comblé chaque manque de ce tableau en **apprenant sur le projet** : les compétences marquées « développée » (exploitation du runner GPU, benchmarking, backends SFML et Raylib) ont été planifiées comme un travail à part entière et prises en charge par la personne dont elles prolongeaient le rôle. C'est aussi ainsi que nous gardons réalistes les contraintes de **temps et d'effort** du cahier des charges : nous ne nous engageons que sur des fonctionnalités dont nous détenons déjà les compétences requises ou que nous pouvons développer dans un cycle, compte tenu de la disponibilité universitaire fluctuante de chacun.
+
 ## 3. Ressources matérielles
 
 ### 3.1 Le runner GPU de référence

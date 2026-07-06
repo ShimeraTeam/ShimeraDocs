@@ -25,6 +25,37 @@ We have three primary roles. These are our reference responsibilities, but in pr
 
 We assign tasks primarily along this base of roles and each person's expertise, but we stay versatile: cross-reviews and the fact that everyone touches code, tests and docs keep us from hitting bottlenecks when one of us is less available because of university.
 
+### 2.1 Identifying the human resources we need
+
+For Shimera, identifying the human resources the project needs was a real decision: the team could be three or four. We did look for a possible fourth member, but Shimera is a research project whose solution had not yet been found, and we did not find anyone motivated enough to commit to that kind of uncertainty. We took that as a filter rather than a setback: a project this exploratory is only carried by people genuinely invested in it, and we preferred three fully committed builders to a fourth who would not be. The real question then became sharper: did the three of us already cover what the project needs, and could we develop the rest ourselves?
+
+Between us, we already held the project's most essential domains, and our profiles fit together:
+
+- **Léo** came up with the original idea for Shimera and already had a foundation in shader creation, the technical heart of the library.
+- **Paul** was the most organized of the three and has no trouble taking the lead on coordination, which is why project and documentation organization naturally fell to him. Paul and Léo had also worked together on graphics projects before, so they knew each other's way of working and knew they made a good pair.
+- **Eddy** had not worked with Léo or Paul before, but he brought DevOps skills neither of them had, the project genuinely interested him, and we knew he was reliable and hard-working.
+
+The roles therefore mapped cleanly onto our three profiles (see the table above): architecture and core rendering to Léo, project and documentation organization to Paul, CI/CD and GPU infrastructure to Eddy. The skills none of us held at the start (operating the GPU runner, benchmarking, the SFML and Raylib backends, see 2.2) were ones we could develop within our work cycles rather than gaps that justified a new hire, so we treated each as a task in its own right, planned and learned during the project.
+
+### 2.2 The skills the project requires
+
+The skills we need are dictated by what Shimera is and how we build it: a GPU-facing C++ library exposing twelve configurable effects across three backends (OpenGL, SFML, Raylib) on Windows and Linux, released as open source and built by a team spread across several time zones. The table below lists each required skill, why the project's technological and organizational context demands it, and whether we already had it or developed it along the way.
+
+| Required skill | Why the project needs it | Present or developed | Mainly carried by |
+|---|---|---|---|
+| Modern C++ (C++23) and low-level GPU resource management | The library manipulates GPU buffers, textures and shaders directly; safety and correctness rest on it | Present, deepened during the project | All |
+| OpenGL and GLSL shader programming | The effects and the rendering pipeline are written directly against OpenGL and GLSL | Present, deepened during the project | Léo |
+| Multi-backend architecture and public API design | A library consumed by third parties over three backends needs a clean, stable abstraction | Present | Léo |
+| SFML and Raylib integration | Supporting three windowing backends is part of the specification | Developed during the project | All |
+| CI/CD and GitHub Actions | An open-source release needs reproducible cross-platform builds, tests and versioned releases | Present, deepened during the project | Eddy |
+| Operating a self-hosted GPU runner | Cloud runners have no GPU; real-GPU tests and benchmarks require a machine we set up and maintain ourselves | Developed during the project | Eddy |
+| Performance benchmarking (FPS, VRAM, memory) | We have to measure and prove the library's low runtime overhead | Developed during the project | Eddy |
+| Legal and licensing management | Releasing under the GPL while each author keeps the copyright to their own contributions requires a deliberate, documented licensing strategy | Present, deepened during the project | Paul |
+| Project organization and team management | Coordinating a distributed, part-time team needs planning, start-of-cycle prioritization and task assignment on GitHub Projects to deliver the beta on schedule | Present, formalized during the project | Paul |
+| Distributed, asynchronous collaboration | Working across large time-zone gaps demands a disciplined git and review workflow | Present, formalized during the project | All |
+
+Rather than adding a fourth member, we closed every gap in this table by **learning on the project**: the skills marked "developed" (running the GPU runner, benchmarking, the SFML and Raylib backends) were planned as work of their own and picked up by the person whose role they extended. This is also how we keep the specification's **time and effort** constraints realistic: we only commit to features whose required skills we either already hold or can develop within a cycle, given each person's fluctuating university availability.
+
 ## 3. Material resources
 
 ### 3.1 The reference GPU runner
