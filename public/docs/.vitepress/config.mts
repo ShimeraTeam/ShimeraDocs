@@ -54,6 +54,7 @@ export default defineConfig({
                 { text: 'Git Workflow', link: '/devdoc/git_workflow' },
                 { text: 'Architecture', link: '/devdoc/architecture/technical_architecture' },
                 { text: 'Code Standards', link: '/devdoc/code_standards' },
+                { text: 'Roadmap', link: '/devdoc/roadmap' },
               ]
             }
           ]
@@ -112,6 +113,7 @@ export default defineConfig({
                 { text: 'Git Workflow', link: '/fr/devdoc/git_workflow' },
                 { text: 'Architecture', link: '/fr/devdoc/architecture/technical_architecture' },
                 { text: 'Standards de code', link: '/fr/devdoc/code_standards' },
+                { text: 'Roadmap', link: '/fr/devdoc/roadmap' }
               ]
             }
           ]
