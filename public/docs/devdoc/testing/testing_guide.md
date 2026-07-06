@@ -181,7 +181,7 @@ int main() {
 
 :::
 
-Results are saved to `benchmark-results.json`. See [user documentation](userdoc/benchmarks) for the benchmark results.
+Results are saved to `benchmark-results.json`. See [user documentation](../../userdoc/performance/benchmark.md) for the benchmark results.
 
 ## 3. Resilience Tests
 

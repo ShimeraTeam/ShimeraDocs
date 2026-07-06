@@ -38,7 +38,7 @@ Mesures sur 5 000 frames par effet (100 frames de chauffe), sur un runner GitHub
 | Raylib | 5 257 fps | 5 000 – 5 400 fps |
 | SFML | 5 012 fps | 4 400 – 5 000 fps |
 
-Détail complet : [Documentation des performances](../performance/benchmarks.md)
+Détail complet : [Documentation des performances](../userdoc/performance/benchmark.md)
 
 ## Roadmap
 
