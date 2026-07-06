@@ -34,7 +34,7 @@ Measured over 5,000 frames per effect (100-frame warm-up), on a dedicated GitHub
 
 | Backend | Average FPS (no effects) | Average FPS (typical single effect) |
 |---|---|---|
-| Native OpenGL | 25,510 fps | 22,000 fps |
+| Native OpenGL | 5,035 fps | 4,800 – 5,200 fps |
 | Raylib | 5,257 fps | 5,000 – 5,400 fps |
 | SFML | 5,012 fps  | 4,400 – 5,000 fps |
 

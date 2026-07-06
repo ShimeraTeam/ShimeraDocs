@@ -21,7 +21,7 @@ Simplifying code doesn't mean sacrificing performance. Shimera is designed to st
 
 | Backend | Average FPS | Average frame time | GPU |
 |---|---|---|---|
-| Native OpenGL | 15,540 fps | 0.0644 ms | Quadro RTX 5000 |
+| Native OpenGL | 4,632 fps | 0.216 ms | Quadro RTX 5000 |
 | Raylib | 5,128 fps | 0.195 ms | Quadro RTX 5000 |
 | SFML | 4,588 fps | 0.220 ms | Quadro RTX 5000 |
 

@@ -21,9 +21,9 @@ Simplifier l'écriture du code ne veut pas dire sacrifier les performances. Shim
 
 | Backend | FPS moyen | Frame time moyen | GPU |
 |---|---|---|---|
-| OpenGL natif | 15 540 fps | 0,0644 ms | Quadro RTX 5000 |
-| Raylib | 5 128 fps | 0,195 ms | Quadro RTX 5000 |
-| SFML | 4 588 fps | 0,220 ms | Quadro RTX 5000 |
+| OpenGL natif | 4,632 fps | 0.216 ms | Quadro RTX 5000 |
+| Raylib | 5,128 fps | 0,195 ms | Quadro RTX 5000 |
+| SFML | 4,588 fps | 0,220 ms | Quadro RTX 5000 |
 
 Ces résultats, mesurés sur un serveur dédié, montrent que Shimera tient la cadence quel que soit le backend choisi. Le détail complet est disponible sur la page [Benchmarks](./performance/benchmark.md).
 
