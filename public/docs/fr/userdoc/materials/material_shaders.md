@@ -262,4 +262,7 @@ int main() {
 
 ## Matériaux Disponibles
 
-- Consultez les pages de chaque matériau pour les effets fournis par Shimera et les paramètres que chacun expose.
+Consultez les pages de chaque matériau pour les effets fournis par Shimera et les paramètres que chacun expose.
+
+Pour l'instant, Shimera fournit **1 matériau** :
+- [**Fresnel**](./fresnel.md) : met en valeur les surfaces vues sous un angle rasant (éclairage de bordure, champs de force, hologrammes)

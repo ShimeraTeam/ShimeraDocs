@@ -132,7 +132,7 @@ void render(ITexture& input, ITexture* depth = nullptr);
 void render(ITexture& input, IFrameBuffer& target, ITexture* depth = nullptr);
 ```
 
-Optional `depth` parameter provides the scene's depth buffer to effects that need it. **Only effects with `isDepthNeeded() == true`** (like [Atmospheric Scattering](../shaders/atmospheric_scattering.md)) use this, all other effects ignore it.
+Optional `depth` parameter provides the scene's depth buffer to effects that need it. **Only effects with `isDepthNeeded() == true`** (like [Atmospheric Scattering](./shaders/atmospheric_scattering.md)) use this, all other effects ignore it.
 
 | Parameter | Description |
 |-----------|-------------|
@@ -143,7 +143,7 @@ When an effect needs depth but none is provided, `render()` throws `std::runtime
 #### When to use
 
 Pass scene depth when:
-- Your pipeline contains a 3D effect like [Atmospheric Scattering](../shaders/atmospheric_scattering.md) that reads the scene's depth buffer.
+- Your pipeline contains a 3D effect like [Atmospheric Scattering](./shaders/atmospheric_scattering.md) that reads the scene's depth buffer.
 - Your scene framebuffer was created with **depth sampling enabled** (`createFrameBuffer(width, height, true)`).
 
 ---

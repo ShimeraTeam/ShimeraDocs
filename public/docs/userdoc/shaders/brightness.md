@@ -1,8 +1,8 @@
 # Brightness Effect
 
-**Header:** `include/effects/BrightnessEffect.hpp`
-**Implementation:** `src/effects/BrightnessEffect.cpp`
-**Shader:** `res/shader/postprocessing/brightness.frag`
+**Header:** `include/effects/BrightnessEffect.hpp`  
+**Implementation:** `src/effects/BrightnessEffect.cpp`  
+**Shader:** `res/shader/postprocessing/brightness.frag`  
 
 ## Description
 
