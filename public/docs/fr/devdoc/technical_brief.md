@@ -34,9 +34,9 @@ Mesures sur 5 000 frames par effet (100 frames de chauffe), sur un runner GitHub
 
 | Backend | FPS moyen (sans effet) | FPS moyen (effet simple typique) |
 |---|---|---|
-| OpenGL natif | 25 510 fps | 22 000 fps |
-| Raylib | 5 257 fps | 5 000 – 5 400 fps |
-| SFML | 5 012 fps | 4 400 – 5 000 fps |
+| OpenGL natif | 5,035 fps | 4,800 – 5,200 fps |
+| Raylib | 5,257 fps | 5,000 – 5,400 fps |
+| SFML | 5,012 fps  | 4,400 – 5,000 fps |
 
 Détail complet : [Documentation des performances](../userdoc/performance/benchmark.md)
 
