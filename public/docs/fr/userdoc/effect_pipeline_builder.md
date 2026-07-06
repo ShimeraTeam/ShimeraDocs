@@ -131,7 +131,7 @@ void render(ITexture& input, ITexture* depth = nullptr);
 void render(ITexture& input, IFrameBuffer& target, ITexture* depth = nullptr);
 ```
 
-Le paramètre optionnel `depth` fournit le tampon de profondeur de la scène aux effets qui en ont besoin. **Seuls les effets avec `isDepthNeeded() == true`** (comme la [Diffusion Atmosphérique](../shaders/atmospheric_scattering.md)) l'utilisent, tous les autres effets l'ignorent.
+Le paramètre optionnel `depth` fournit le tampon de profondeur de la scène aux effets qui en ont besoin. **Seuls les effets avec `isDepthNeeded() == true`** (comme la [Diffusion Atmosphérique](./shaders/atmospheric_scattering.md)) l'utilisent, tous les autres effets l'ignorent.
 
 | Paramètre | Description |
 |-----------|-------------|
@@ -142,7 +142,7 @@ Lorsqu'un effet a besoin de la profondeur mais qu'aucune n'est fournie, `render(
 #### Quand l'utiliser
 
 Passez la profondeur de scène lorsque :
-- Votre pipeline contient un effet 3D comme la [Diffusion Atmosphérique](../shaders/atmospheric_scattering.md) qui lit le tampon de profondeur de la scène.
+- Votre pipeline contient un effet 3D comme la [Diffusion Atmosphérique](./shaders/atmospheric_scattering.md) qui lit le tampon de profondeur de la scène.
 - Votre framebuffer de scène a été créé avec **l'échantillonnage de profondeur activé** (`createFrameBuffer(width, height, true)`).
 
 ---

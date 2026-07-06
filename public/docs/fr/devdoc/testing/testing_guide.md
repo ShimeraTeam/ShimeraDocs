@@ -181,7 +181,7 @@ int main() {
 
 :::
 
-Les résultats sont sauvegardés dans `benchmark-results.json`. Voir la [documentation utilisateur](userdoc/benchmarks) pour les résultats des benchmarks.
+Les résultats sont sauvegardés dans `benchmark-results.json`. Voir la [documentation utilisateur](../../userdoc/performance/benchmark.md) pour les résultats des benchmarks.
 
 ## 3. Tests de résilience
 

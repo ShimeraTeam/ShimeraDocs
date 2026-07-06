@@ -13,7 +13,7 @@ Shimera therefore introduces an abstraction layer that unifies these conventions
 - The ability to use Shimera with the backend of your choice (native OpenGL, Raylib, or SFML), without changing how you work.
 - Simplified management of one or several visual effects, organized into a multi-pass pipeline.
 
-For more details on Shimera's architecture, see the [Architecture](./architecture/technical_architecture.md) page.
+For more details on Shimera's architecture, see the [Architecture](../devdoc/architecture/technical_architecture.md) page.
 
 ## Performance
 
@@ -25,7 +25,7 @@ Simplifying code doesn't mean sacrificing performance. Shimera is designed to st
 | Raylib | 5,128 fps | 0.195 ms | Quadro RTX 5000 |
 | SFML | 4,588 fps | 0.220 ms | Quadro RTX 5000 |
 
-These results, measured on a dedicated server, show that Shimera keeps pace regardless of the chosen backend. Full details are available on the [Benchmarks](./performance/benchmarks.md) page.
+These results, measured on a dedicated server, show that Shimera keeps pace regardless of the chosen backend. Full details are available on the [Benchmarks](./performance/benchmark.md) page.
 
 ## Simplified shader integration
 
