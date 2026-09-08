@@ -40,7 +40,7 @@ curl -fsSL https://xmake.io/shget.text | bash
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/shimera.git
+git clone https://github.com/ShimeraTeam/Shimera.git
 cd shimera
 ```
 
