@@ -43,7 +43,7 @@ The rest of this document details each layer.
   **each author keeps the copyright to their own contributions**, and every source
   file must carry the `Copyright (C) 2025-2026 The Shimera Authors` notice with an
   `SPDX-License-Identifier: GPL-3.0-only` header (not yet the case everywhere, see
-  the [Open Source Scope](/legal/open_source_scope), section 6).
+  the [Open Source Scope](/legal/open_source_scope)).
 - Two roles are separated on purpose: **copyright** is held by all authors, while
   the **right to relicense the whole project** is granted to the **maintainers**
   only (Léo Maurel, Paul Arbez, Eddy Gardes). This separation is what keeps a
@@ -79,7 +79,7 @@ The GPL-3.0-only is not only a distribution choice, it is the main legal shield:
 ## 5. Proof of anteriority and authorship
 
 Copyright is automatic, but in a dispute the burden is on us to **prove** we
-wrote what we wrote, and *when*. Shimera relies on three complementary proofs, so
+wrote what we wrote, and *when*. Shimera relies on two complementary proofs, so
 that no single weakness (jurisdiction, tamperability, longevity) sinks the case.
 
 ### 5.1 e-Soleau deposit (INPI)
@@ -129,7 +129,7 @@ when.
 | e-Soleau (INPI) | Content + certain date, sealed by a public authority | High before French courts | France-centric | Renew every 5 years |
 | Public Git history | Continuous authorship record, milestones | Medium now, stronger once commits are signed | International | Sign commits/tags (planned), cut releases |
 
-Together these cover the three failure modes: e-Soleau covers France with the
+Together these cover the two failure modes: e-Soleau covers France with the
 strongest formal weight, the public Git history gives the continuous narrative
 (stronger once commits are signed), and independent archival provides the
 tamper-resistant, international anchor.
@@ -206,4 +206,4 @@ automatic copyright, activated by the GPL-3.0-only copyleft, backed by contribut
 governance that preserves the maintainers' freedom to relicense, and made
 enforceable by a three-part proof of anteriority. The **e-Soleau** deposit gives
 the strongest formal proof in France; the **public Git history** provides the
-continuous authorship record (to be reinforced by signing commits); and
+continuous authorship record (to be reinforced by signing commits).

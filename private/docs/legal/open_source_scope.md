@@ -201,7 +201,7 @@ Before each release or documentation deployment:
 Shimera opens **the whole library repository** (code, shaders, examples, build
 scripts, history), **its binaries** and **its public documentation**: everything
 someone needs to use, understand, and improve the library. It keeps **its
-internal documentation, its templates, its proofs, its brand and its
+internal documentation, its proofs, its brand and its
 infrastructure** private. The open part is protected by the GPL-3.0-only; the
 private part is what lets the team prove authorship, defend the name, and keep the
 future licensing options described in the
