@@ -4,7 +4,8 @@ This document describes how Shimera protects its authors, its code, and its
 future licensing options. It complements the [Diffusion Strategy](/deployment/diffusion_strategy),
 which covers the open-source distribution model, and relies on the same legal
 foundations declared in the Shimera repository: `LICENSE` (`GPL-3.0-only`),
-`AUTHORS.md`, and `CONTRIBUTING.md`.
+`AUTHORS.md`, and `CONTRIBUTING.md`. The exact list of what is opened and what
+stays private is maintained in the [Open Source Scope](/legal/open_source_scope).
 
 Shimera is developed and distributed openly. Being open source does
 **not** mean giving up protection: it means choosing which rights to keep, which
@@ -14,7 +15,7 @@ to grant, and how to prove authorship. This strategy makes those choices explici
 
 | Asset | Threat | Primary instrument |
 |---|---|---|
-| **Authorship / paternity** (who wrote it) | Someone claiming the code or the idea as their own | Automatic copyright + provable anteriority (e-Soleau, Git history, Software Heritage) |
+| **Authorship / paternity** (who wrote it) | Someone claiming the code or the idea as their own | Automatic copyright + provable anteriority (e-Soleau, Git history) |
 | **Anteriority** (we created it first, at a known date) | A later party claiming prior creation, or contesting ours | Dated, sealed proofs: e-Soleau deposit, timestamped public Git history, independent archival |
 | **License integrity** (copyleft is respected) | A third party shipping a closed derivative of Shimera | GPL-3.0-only copyleft + enforcement (section 8 termination) |
 | **Relicensing capability** (future dual-license / MPL) | Losing control of contributor copyright, blocking any license change | Contribution grant consolidating relicensing rights to the maintainers |
@@ -40,12 +41,19 @@ The rest of this document details each layer.
 - Shimera's copyright is held collectively by **The Shimera Authors**. As stated
   in `AUTHORS.md`,
   **each author keeps the copyright to their own contributions**, and every source
-  file carries the `Copyright (C) 2025-2026 The Shimera Authors` notice with an
-  `SPDX-License-Identifier: GPL-3.0-only` header.
+  file must carry the `Copyright (C) 2025-2026 The Shimera Authors` notice with an
+  `SPDX-License-Identifier: GPL-3.0-only` header (not yet the case everywhere, see
+  the [Open Source Scope](/legal/open_source_scope), section 6).
 - Two roles are separated on purpose: **copyright** is held by all authors, while
   the **right to relicense the whole project** is granted to the **maintainers**
   only (Léo Maurel, Paul Arbez, Eddy Gardes). This separation is what keeps a
   future license change possible without hunting down every past contributor.
+- **Between maintainers**, the code is a collaborative work (*œuvre de
+  collaboration*, CPI art. L113-2 and L113-3): the three maintainers co-own it and
+  must agree together to exploit or relicense it. The contribution grant does not
+  cover this, so a short written agreement between maintainers must define how a
+  relicensing decision is taken (unanimity or majority) and what happens if one
+  of them leaves the project.
 
 ## 4. The license as protection (GPL-3.0-only)
 
@@ -114,25 +122,12 @@ when.
   maintainers, cut **signed, versioned releases**, and rely on the independent
   archival below to anchor dates outside our own control.
 
-### 5.3 Independent archival (planned)
-
-To give the Git history an anchor **no one on the team controls**:
-
-- **Software Heritage** archives public repositories and issues a permanent,
-  citable identifier (SWHID) with an independent timestamp. This is a strong,
-  internationally recognized anteriority proof that we plan to set up for the repo.
-- **OpenTimestamps** (or an equivalent) can cryptographically timestamp a hash of
-  the codebase against a public blockchain, giving a free, internationally
-  verifiable date for the exact content, complementary to the France-centric
-  e-Soleau.
-
 ### Combined anteriority chain
 
 | Proof | What it establishes | Strength | Geography | Upkeep |
 |---|---|---|---|---|
 | e-Soleau (INPI) | Content + certain date, sealed by a public authority | High before French courts | France-centric | Renew every 5 years |
 | Public Git history | Continuous authorship record, milestones | Medium now, stronger once commits are signed | International | Sign commits/tags (planned), cut releases |
-| Software Heritage / OpenTimestamps | Independent, tamper-resistant timestamp of the content | High, third-party | International | One-time setup, re-archive on milestones |
 
 Together these cover the three failure modes: e-Soleau covers France with the
 strongest formal weight, the public Git history gives the continuous narrative
@@ -152,9 +147,13 @@ rights from every contributor.
 - **The grant is non-exclusive:** contributors keep full copyright to their own
   work. This is deliberately friendlier than an FSF-style copyright assignment,
   while still preserving the maintainers' freedom to dual-license.
-- **Hardening measures we plan to add:**
-  - Require a `Signed-off-by` line (Developer Certificate of Origin) on commits,
-    so acceptance of the terms is recorded per contribution.
+- **The grant only covers contributions made after it was published**
+  (30/06/2026). Earlier work by non-maintainers must be either removed, or
+  covered by an explicit written consent from its author.
+- **Hardening measures:**
+  - Contributors must not import code or shaders under an incompatible license
+    (for example Shadertoy or LearnOpenGL, both non-commercial licenses), which
+    would block both the GPL distribution and any future relicensing.
   - Keep the PR/merge history as the durable evidence that each contributor agreed
     to the CONTRIBUTING.md terms in force at merge time.
   - If a contribution is substantial or comes from an employed/affiliated author,
@@ -179,7 +178,7 @@ The GPL covers the **code**, not the **name**. "Shimera" is a distinct asset:
 | Scenario | Response |
 |---|---|
 | **GPL violation** (closed derivative, missing source) | Document the violation with dated evidence, contact the party, request compliance. Under GPL-3.0 section 8 their rights are already terminated; offer the defined cure window before escalating. |
-| **Plagiarism / uncredited copying** | Assert copyright and anteriority using the combined proof chain (e-Soleau + public Git history + Software Heritage). The dated deposit is decisive here. |
+| **Plagiarism / uncredited copying** | Assert copyright and anteriority using the combined proof chain (e-Soleau + public Git history). The dated deposit is decisive here. |
 | **Hostile fork claiming to be official** | Rely on brand consistency and, if registered, the trademark; keep Shimera the active reference implementation (regular releases). |
 | **Security flaw disclosed publicly** | Follow the responsible-disclosure process referenced in the [Diffusion Strategy](/deployment/diffusion_strategy); a disclosed bug is a maintenance item, not a legal exposure. |
 
@@ -189,17 +188,15 @@ The GPL covers the **code**, not the **name**. "Shimera" is a distinct asset:
 |---|---|---|
 | **Unprovable authorship in a dispute** | Copyright is automatic but must be proven; weak evidence loses cases. | The three-layer proof chain in section 5; keep it current. |
 | **e-Soleau lapses** | The deposit is only kept for a fixed, renewable term. | Track the renewal date in the action plan; the independent archival is a permanent backstop. |
-| **Fragmented copyright blocks relicensing** | A single contributor who did not grant relicensing rights can block a future dual-license. | Enforce the CONTRIBUTING.md grant + DCO on every merge; record agreement per contribution. |
+| **Fragmented copyright blocks relicensing** | A single contributor who did not grant relicensing rights can block a future dual-license. | Enforce the CONTRIBUTING.md grant; record agreement per contribution. |
 | **Brand hijack** | The name is not covered by the license. | Defensive use now, optional INPI trademark later. |
-| **International recognition gap for e-Soleau** | Its weight is strongest in France. | Software Heritage / OpenTimestamps provide the internationally verifiable anchor. |
 
 ## 10. Action plan
 
-- [ ] Enable signed commits and tags (GPG/SSH) for all maintainers.
-- [ ] Archive the repository on **Software Heritage** and note the SWHID.
-- [ ] Optionally timestamp a repository hash with **OpenTimestamps** on each release.
-- [ ] Keep `AUTHORS.md` current as contributors are added.
-- [ ] Add a `Signed-off-by` (DCO) requirement to the contribution flow.
+- [ ] Add the SPDX license header to every source file of the library.
+- [ ] Ship `LICENSE` and `AUTHORS.md` in every release archive (missing in `v0.3.6`).
+- [ ] Sign a written relicensing agreement between the three maintainers.
+- [ ] Choose a license for the public documentation and split it from the private docs repository.
 - [ ] Decide whether to register "Shimera" as a trademark with the INPI.
 
 ## Conclusion
@@ -210,7 +207,3 @@ governance that preserves the maintainers' freedom to relicense, and made
 enforceable by a three-part proof of anteriority. The **e-Soleau** deposit gives
 the strongest formal proof in France; the **public Git history** provides the
 continuous authorship record (to be reinforced by signing commits); and
-**independent archival** (Software Heritage,
-OpenTimestamps) supplies the tamper-resistant, international anchor. Maintained
-together, and kept renewed, this lets Shimera stay fully open today while
-protecting its authors and keeping every future licensing option on the table.
