@@ -24,7 +24,8 @@ export default defineConfig({
             {
               text: 'Legal & Licensing',
               items: [
-                { text: 'Legal Protection Strategy', link: '/legal/legal_protection_strategy' }
+                { text: 'Legal Protection Strategy', link: '/legal/legal_protection_strategy' },
+                { text: 'Open Source Scope', link: '/legal/open_source_scope' }
               ]
             },
             {
@@ -88,7 +89,8 @@ export default defineConfig({
             {
               text: 'Juridique & Licence',
               items: [
-                { text: 'Stratégie de protection juridique', link: '/fr/legal/legal_protection_strategy' }
+                { text: 'Stratégie de protection juridique', link: '/fr/legal/legal_protection_strategy' },
+                { text: 'Périmètre open source', link: '/fr/legal/open_source_scope' }
               ]
             },
             {
