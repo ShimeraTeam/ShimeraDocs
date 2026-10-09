@@ -42,11 +42,17 @@ export default defineConfig({
               ]
             },
             {
-              text: 'POC',
+              text: 'Report',
               items: [
-                { text: 'OpenGL Injection', link: '/poc/opengl_injection' },
-                { text: 'Raylib', link: '/poc/raylib' },
-                { text: 'Abstraction Layer: First Attempt', link: '/poc/old_abstraction_layer' }
+                { text: 'Reproducibility Test', link: '/report/reproducibility_test' },
+                {
+                  text: 'POC',
+                  items: [
+                    { text: 'OpenGL Injection', link: '/report/poc/opengl_injection' },
+                    { text: 'Raylib', link: '/report/poc/raylib' },
+                    { text: 'Abstraction Layer: First Attempt', link: '/report/poc/old_abstraction_layer' }
+                  ]
+                }
               ]
             },
             {
@@ -106,11 +112,17 @@ export default defineConfig({
               ]
             },
             {
-              text: 'POC',
+              text: 'Rapport',
               items: [
-                { text: 'Injection OpenGL', link: '/fr/poc/opengl_injection' },
-                { text: 'Raylib', link: '/fr/poc/raylib' },
-                { text: "Couche d'abstraction : Première tentative", link: '/fr/poc/old_abstraction_layer' }
+                { text: 'Test de reproductibilité', link: '/fr/report/reproducibility_test' },
+                {
+                  text: 'POC',
+                  items: [
+                    { text: 'Injection OpenGL', link: '/fr/report/poc/opengl_injection' },
+                    { text: 'Raylib', link: '/fr/report/poc/raylib' },
+                    { text: "Couche d'abstraction : Première tentative", link: '/fr/report/poc/old_abstraction_layer' }
+                  ]
+                }
               ]
             },
             {
