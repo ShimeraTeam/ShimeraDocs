@@ -24,7 +24,8 @@ export default defineConfig({
             {
               text: 'Legal & Licensing',
               items: [
-                { text: 'Legal Protection Strategy', link: '/legal/legal_protection_strategy' }
+                { text: 'Legal Protection Strategy', link: '/legal/legal_protection_strategy' },
+                { text: 'Open Source Scope', link: '/legal/open_source_scope' }
               ]
             },
             {
@@ -42,11 +43,17 @@ export default defineConfig({
               ]
             },
             {
-              text: 'POC',
+              text: 'Report',
               items: [
-                { text: 'OpenGL Injection', link: '/poc/opengl_injection' },
-                { text: 'Raylib', link: '/poc/raylib' },
-                { text: 'Abstraction Layer: First Attempt', link: '/poc/old_abstraction_layer' }
+                { text: 'Reproducibility Test', link: '/report/reproducibility_test' },
+                {
+                  text: 'POC',
+                  items: [
+                    { text: 'OpenGL Injection', link: '/report/poc/opengl_injection' },
+                    { text: 'Raylib', link: '/report/poc/raylib' },
+                    { text: 'Abstraction Layer: First Attempt', link: '/report/poc/old_abstraction_layer' }
+                  ]
+                }
               ]
             },
             {
@@ -88,7 +95,8 @@ export default defineConfig({
             {
               text: 'Juridique & Licence',
               items: [
-                { text: 'Stratégie de protection juridique', link: '/fr/legal/legal_protection_strategy' }
+                { text: 'Stratégie de protection juridique', link: '/fr/legal/legal_protection_strategy' },
+                { text: 'Périmètre open source', link: '/fr/legal/open_source_scope' }
               ]
             },
             {
@@ -106,11 +114,17 @@ export default defineConfig({
               ]
             },
             {
-              text: 'POC',
+              text: 'Rapport',
               items: [
-                { text: 'Injection OpenGL', link: '/fr/poc/opengl_injection' },
-                { text: 'Raylib', link: '/fr/poc/raylib' },
-                { text: "Couche d'abstraction : Première tentative", link: '/fr/poc/old_abstraction_layer' }
+                { text: 'Test de reproductibilité', link: '/fr/report/reproducibility_test' },
+                {
+                  text: 'POC',
+                  items: [
+                    { text: 'Injection OpenGL', link: '/fr/report/poc/opengl_injection' },
+                    { text: 'Raylib', link: '/fr/report/poc/raylib' },
+                    { text: "Couche d'abstraction : Première tentative", link: '/fr/report/poc/old_abstraction_layer' }
+                  ]
+                }
               ]
             },
             {
