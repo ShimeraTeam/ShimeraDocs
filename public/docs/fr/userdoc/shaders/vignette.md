@@ -1,100 +1,104 @@
 # Effet Vignette
 
-**En-tête:** `include/effects/VignetteEffect.hpp`  
-**Implémentation:** `src/effects/VignetteEffect.cpp`  
-**Shader:** `res/shader/postprocessing/vignette.frag`
+**Classe :** `shimera::Vignette`  
+**En-tête :** `effects/Vignette.hpp`  
+**Implémentation :** `src/effects/Vignette.cpp`  
+**Shader :** `res/shader/postprocessing/vignette.slang`
 
 ## Description
 
-L'effet vignette assombrit les bords de l'écran tout en gardant le centre lumineux. Cela crée un point focal naturel, améliore l'apparence cinématographique, ou fournit des effets de bord personnalisables. La vignette peut être circulaire ou rectangulaire et supporte des paramètres de couleur, de force et de forme personnalisables.
+L'effet vignette assombrit les bords de l'écran tout en laissant le centre intact. Il attire le regard vers le milieu de l'écran et donne un aspect cinématographique. La couleur de la vignette peut être changée (une vignette rouge pour signaler des dégâts, par exemple), et sa forme peut soit suivre les proportions de l'écran, soit être un cercle parfait.
+
+La résolution de l'écran, nécessaire pour la forme circulaire, est fournie automatiquement par le pipeline. Il n'y a rien à régler quand la fenêtre est redimensionnée.
+
+## Constructeur
+
+```cpp
+explicit Vignette(float strength = 1.0f,
+                  float radius = 0.5f,
+                  float gap = 0.3f,
+                  Vec4<float> color = Vec4(0.0f, 0.0f, 0.0f, 1.0f),
+                  bool rounded = false);
+```
 
 ## Paramètres
 
-| Paramètre | Type | Plage | Défaut | Effet |
-|-----------|------|-------|--------|-------|
-| `u_strength` | float | `0.0` à `1.0+` | `1.0` | Intensité globale d'obscurité |
-| `u_radius` | float | `0.0` à `1.0` | `0.5` | Distance avant le début du dégradé |
-| `u_gap` | float | `0.0` à `1.0` | `0.3` | Largeur du dégradé de transition |
-| `u_color` | Vec4&lt;float&gt; | RGBA (0-1) | `(0,0,0,1)` | Couleur de la vignette (généralement sombre) |
-| `u_isRounded` | int | `0` ou `1` | `0` | `0`=rectangulaire, `1`=circulaire |
-| `u_resolution` | Vec2&lt;float&gt; | pixels | `(1920, 1080)` | Résolution de l'écran (pour le rapport d'aspect) |
+| Paramètre | Setter | Type | Plage | Défaut | Effet |
+|-----------|--------|------|-------|--------|-------|
+| `strength` | `withStrength()` | float | `0.0` à `1.0` | `1.0` | Opacité de la couleur de vignette au plus sombre |
+| `radius` | `withRadius()` | float | `0.0` à `1.0` | `0.5` | Distance au centre où commence la vignette |
+| `gap` | `withGap()` | float | `0.0` à `1.0` | `0.3` | Largeur du fondu, de `radius` jusqu'à la force maximale |
+| `color` | `withColor()` | Vec4&lt;float&gt; | RGBA, `0` à `1` | `(0, 0, 0, 1)` | Couleur de la vignette |
+| `rounded` | `withRounded()` | bool | `true` / `false` | `false` | `false` = suit la forme de l'écran, `true` = cercle parfait |
 
-### Valeurs des Paramètres
+Seul `getStrength()` est disponible comme getter.
 
-- **`u_strength`**:
-  - `0.0` - Pas d'effet vignette
-  - `0.5` - Assombrissement subtil aux bords
-  - `1.0` - Vignette normale
-  - `> 1.0` - Bords très sombres
+### Valeurs des paramètres
 
-- **`u_radius`**:
-  - `0.3` - La zone vignetée commence près du centre (vignette serré)
-  - `0.5` - Point de départ standard de la vignette
-  - `0.7` - La zone vignetée commence loin du centre (vignette lâche)
+Les distances sont mesurées depuis le centre de l'écran, en unités d'écran : le centre est à `0.0`, le milieu de chaque bord à `0.5`, et les coins à environ `0.7`.
 
-- **`u_gap`**:
-  - `0.1` - Transition nette (transition fine)
-  - `0.3` - Transition lisse (transition normale)
-  - `0.6` - Transition très progressive (transition large)
+- **`strength`** :
+  - `0.0` - Pas de vignette
+  - `0.5` - Les bords vont à mi-chemin vers la couleur de vignette
+  - `1.0` - Les bords atteignent complètement la couleur de vignette
+  - `> 1.0` - La couleur de vignette est atteinte avant la fin du fondu, ce qui donne un bord plus dur
 
-- **`u_color`**:
+- **`radius`** :
+  - `0.3` - Vignette serrée, commence près du centre
+  - `0.5` - Standard, commence au milieu des bords
+  - `0.7` - Vignette lâche, seuls les coins sont touchés
+
+- **`gap`** :
+  - `0.1` - Transition nette
+  - `0.3` - Transition douce
+  - `0.6` - Transition très progressive
+
+- **`color`** :
   - `(0, 0, 0, 1)` - Vignette noire (standard)
-  - `(1, 0, 0, 1)` - Vignette rouge (atmosphérique)
-  - `(0.1, 0.2, 0.5, 1)` - Vignette bleue (ton frais)
+  - `(1, 0, 0, 1)` - Vignette rouge (dégâts, danger)
+  - `(0.1, 0.2, 0.5, 1)` - Vignette bleue (froid, nuit)
+  - Seules les composantes RGB sont utilisées : la composante alpha est ignorée. Utilisez `strength` pour rendre la vignette plus transparente.
 
-- **`u_isRounded`**:
-  - `0` - Vignette rectangulaire/carrée
-  - `1` - Vignette circulaire (nécessite une résolution correcte pour le bon rapport d'aspect)
+- **`rounded`** :
+  - `false` - La vignette est étirée selon les proportions de l'écran : une ellipse sur un écran large
+  - `true` - La vignette est un cercle parfait, quelles que soient les proportions de l'écran
 
 ## Utilisation
 
-### Utilisation Basique
+### Utilisation de base
 
 ![Complete Example](../../../res/shaders/vignette.gif)
 
 ```cpp
-#include <SFML/Graphics.hpp>
-#include <optional>
-#include "backend/BackendFactory.hpp"
-#include "effects/VignetteEffect.hpp"
-#include "uniform/Vec4.hpp"
-#include "uniform/Vec2.hpp"
+#include <shimera.hpp>
 
-int main() {
-  sf::RenderWindow window(sf::VideoMode(1280, 720), "Démo de Vignette");
-  window.setActive(true);
+shimera::EffectPipeline fx(960, 540);
+fx.add<shimera::Vignette>();
 
-  IBackend *backend = BackendFactory::create();
-  IFrameBuffer *sceneFramebuffer = backend->createFrameBuffer(1280, 720);
+fx.get<shimera::Vignette>()
+  .withStrength(0.8f)
+  .withRadius(0.3f)
+  .withGap(0.1f)
+  .withColor(shimera::Vec4(0.0f, 0.0f, 0.0f, 1.0f))
+  .withRounded(false);
 
-  VignetteEffect vignette(backend);
-  vignette.withStrength(0.8f)
-      .withRadius(0.5f)
-      .withGap(0.3f)
-      .withColor(Vec4<float>(0.0f, 0.0f, 0.0f, 1.0f))
-      .withIsRounded(false)
-      .withResolution(Vec2<float>(1280.0f, 720.0f));
-
-  float time = 0.0f;
-  while (window.isOpen()) {
-    while (const std::optional event = window.pollEvent()) {
-      if (event->is<sf::Event::Closed>()) window.close();
-    }
-
-    auto *rt = static_cast<sf::RenderTexture*>(sceneFramebuffer->getNativeRenderTarget());
-    rt->clear(sf::Color::Black);
-    // ... dessinez votre scène sur rt ...
-    sceneFramebuffer->unbind();
-
-    window.setActive(true);
-    vignette.render(sceneFramebuffer->getTexture());
-    window.display();
-
-    time += 0.016f;
-  }
-
-  delete sceneFramebuffer;
-  delete backend;
-  return 0;
-}
+// À chaque frame, après avoir dessiné la scène dans la cible hôte
+fx.render(scene);
 ```
+
+### Retour visuel de dégâts
+
+Une vignette rouge et circulaire qui s'estompe avec le temps :
+
+```cpp
+fx.add<shimera::Vignette>(0.0f, 0.35f, 0.4f, shimera::Vec4(0.8f, 0.0f, 0.0f, 1.0f), true);
+auto& damage = fx.get<shimera::Vignette>();
+
+// quand le joueur est touché
+damage.withStrength(1.0f);
+
+// à chaque frame
+damage.withStrength(std::max(0.0f, damage.getStrength() - deltaTime * 2.0f));
+```
+
+Voir [Shaders & Effets](./index.md#exemple-complet-sfml) pour un programme complet.

@@ -1,92 +1,91 @@
 # Effet d'Aberration Chromatique
 
-**En-tête:** `include/effects/ChromaticAberrationEffect.hpp`  
-**Implémentation:** `src/effects/ChromaticAberrationEffect.cpp`  
-**Shader:** `res/shader/postprocessing/chromatic_aberration.frag`
+**Classe :** `shimera::ChromaticAberration`  
+**En-tête :** `effects/ChromaticAberration.hpp`  
+**Implémentation :** `src/effects/ChromaticAberration.cpp`  
+**Shader :** `res/shader/postprocessing/chromatic_aberration.slang`
 
 ## Description
 
-L'effet d'aberration chromatique simule la distorsion optique en séparant les canaux de couleur rouge, vert et bleu. Cela crée des franges colorées aux bords à contraste élevé, couramment vues dans les anciens objectifs, les interfaces sci-fi, ou les effets artistiques. L'effet supporte les modèles de distorsion linéaire et radial (basé sur l'objectif).
+L'effet d'aberration chromatique simule un objectif qui ne fait pas converger toutes les longueurs d'onde au même endroit, en écartant les canaux rouge, vert et bleu. Il crée des franges colorées le long des bords très contrastés, que l'on retrouve avec les vieux objectifs, dans les interfaces de science-fiction, ou comme effet d'impact.
+
+L'image est échantillonnée plusieurs fois le long d'un court segment : les échantillons d'une extrémité sont pondérés vers le rouge, ceux du milieu vers le vert, et ceux de l'autre extrémité vers le bleu. Le segment peut soit avoir la même direction partout (mode linéaire), soit partir du centre de l'écran (mode radial, comme un vrai objectif).
+
+## Constructeur
+
+```cpp
+explicit ChromaticAberration(float strength = 1.0f,
+                             bool radius = false,
+                             float contrast = 2.0f,
+                             int samples = 20);
+```
 
 ## Paramètres
 
-| Paramètre | Type | Plage | Défaut | Effet |
-|-----------|------|-------|--------|-------|
-| `strength` | float | `0.0` à `1.0+` | `1.0` | Magnitude de la séparation des couleurs |
-| `radius` | int | `0` ou `1` | `0` | `0`=distorsion linéaire, `1`=radiale depuis le centre |
-| `contrast` | float | `0.5` à `3.0+` | `2.0` | Contraste de fusion entre les canaux |
-| `samples` | int | `5` à `64` | `20` | Nombre d'échantillons pour la qualité/performance |
+| Paramètre | Setter / Getter | Type | Plage | Défaut | Effet |
+|-----------|-----------------|------|-------|--------|-------|
+| `strength` | `withStrength()` / `getStrength()` | float | `0.0` à `1.0+` | `1.0` | Écart entre les canaux de couleur |
+| `radius` | `withRadius()` / `getRadius()` | bool | `true` / `false` | `false` | `false` = linéaire, `true` = radial depuis le centre |
+| `contrast` | `withContrast()` / `getContrast()` | float | `0.5` à `3.0+` | `2.0` | Netteté de la séparation des canaux |
+| `samples` | `withSamples()` / `getSamples()` | int | `1` à `64` | `20` | Nombre d'échantillons, qualité contre performance |
 
-### Valeurs des Paramètres
+### Valeurs des paramètres
 
-- **`strength`**:
+- **`strength`** :
   - `0.0` - Pas d'aberration
-  - `0.3` - Frangement de couleur subtil
-  - `0.5` - Effet notable
-  - `1.0` - Décalage chromatique fort
+  - `0.3` - Franges colorées subtiles
+  - `0.5` - Effet perceptible
+  - `1.0` - Forte séparation
   - `> 1.0` - Séparation extrême
 
-- **`radius`**:
-  - `0` - Motif linéaire (uniforme sur l'écran)
-  - `1` - Motif radial (depuis le centre de l'écran, comme une distorsion d'objectif)
+- **`radius`** :
+  - `false` - Linéaire : les canaux sont décalés en diagonale, de la même quantité sur tout l'écran
+  - `true` - Radial : aucun décalage au centre de l'écran, de plus en plus fort vers les bords, comme un vrai objectif
 
-- **`contrast`**:
-  - `1.0` - Fusion subtile
-  - `2.0` - Contraste normal (par défaut)
-  - `3.0+` - Bords nets à haut contraste
+- **`contrast`** :
+  - `1.0` - Mélange doux entre les canaux
+  - `2.0` - Canaux clairement séparés (défaut)
+  - `3.0+` - Franges très nettes et saturées
 
-- **`samples`**:
-  - `5` - Très rapide, qualité inférieure
-  - `10` - Bon équilibre, qualité moyenne
-  - `20` - Haute qualité (standard)
+- **`samples`** :
+  - `5` - Très rapide, effet d'escalier visible
+  - `10` - Bon compromis
+  - `20` - Haute qualité (défaut)
   - `30+` - Très haute qualité, plus lent
-  - `64` - Qualité maximale
+  - Les valeurs inférieures à `1` sont traitées comme `1`. Augmentez-le en même temps que `strength`, sinon les échantillons individuels deviennent visibles.
 
 ## Utilisation
-
-### Utilisation Basique
 
 ![Complete Example](../../../res/shaders/chromaticAberration.gif)
 
 ```cpp
-#include <SFML/Graphics.hpp>
-#include <optional>
-#include "backend/BackendFactory.hpp"
-#include "effects/ChromaticAberrationEffect.hpp"
+#include <shimera.hpp>
 
-int main() {
-  sf::RenderWindow window(sf::VideoMode(800, 600), "Démo d'Aberration Chromatique");
-  window.setActive(true);
+shimera::EffectPipeline fx(960, 540);
+fx.add<shimera::ChromaticAberration>();
 
-  IBackend *backend = BackendFactory::create();
-  IFrameBuffer *sceneFramebuffer = backend->createFrameBuffer(800, 600);
+fx.get<shimera::ChromaticAberration>()
+  .withStrength(0.5f)
+  .withRadius(true)
+  .withContrast(2.0f)
+  .withSamples(20);
 
-  ChromaticAberrationEffect chromatic(backend);
-  chromatic.withStrength(0.5f)
-       .withRadius(false)
-       .withContrast(2.0f)
-       .withSamples(20);
-
-  float time = 0.0f;
-  while (window.isOpen()) {
-    while (const std::optional event = window.pollEvent()) {
-      if (event->is<sf::Event::Closed>()) window.close();
-    }
-
-    auto *rt = static_cast<sf::RenderTexture*>(sceneFramebuffer->getNativeRenderTarget());
-    rt->clear(sf::Color::Black);
-    // ... dessinez votre scène sur rt ...
-    sceneFramebuffer->unbind();
-
-    window.setActive(true);
-    chromatic.render(sceneFramebuffer->getTexture());
-    window.display();
-
-    time += 0.016f;
-  }
-
-  delete sceneFramebuffer;
-  delete backend;
-  return 0;
-}
+// À chaque frame, après avoir dessiné la scène dans la cible hôte
+fx.render(scene);
 ```
+
+### Effet d'impact
+
+Une courte bouffée d'aberration qui s'estompe, par exemple quand le joueur est touché :
+
+```cpp
+auto& aberration = fx.get<shimera::ChromaticAberration>();
+
+// quand le joueur est touché
+aberration.withStrength(1.5f);
+
+// à chaque frame
+aberration.withStrength(std::max(0.0f, aberration.getStrength() - deltaTime * 3.0f));
+```
+
+Voir [Shaders & Effets](./index.md#exemple-complet-sfml) pour un programme complet.

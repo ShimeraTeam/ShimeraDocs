@@ -1,92 +1,89 @@
 # Effet de Distorsion
 
-**En-tête:** `include/effects/DistortionEffect.hpp`  
-**Implémentation:** `src/effects/DistortionEffect.cpp`  
-**Shader:** `res/shader/postprocessing/distortion.frag`
+**Classe :** `shimera::Distortion`  
+**En-tête :** `effects/Distortion.hpp`  
+**Implémentation :** `src/effects/Distortion.cpp`  
+**Shader :** `res/shader/postprocessing/distortion.slang`
 
 ## Description
 
-L'effet de distorsion déforme et dénature l'image rendue en utilisant du bruit Perlin animé. Cela crée des déformations organiques et fluides utiles pour les ondulations d'eau, les vagues de chaleur, les effets magiques, ou les retours visuels désorientants. L'effet est entièrement animable avec des paramètres basés sur le temps.
+L'effet de distorsion déforme l'image en décalant chaque pixel selon un bruit de gradient animé (un bruit proche du bruit de Perlin). Il crée des déformations organiques et fluides, utiles pour des ondulations d'eau, des vagues de chaleur, des effets magiques ou un retour visuel désorientant.
+
+L'effet ne gère pas le temps lui-même : vous lui donnez le temps actuel à chaque frame avec `withTime()`. Sans cela, la distorsion est quand même appliquée, mais figée.
+
+## Constructeur
+
+```cpp
+explicit Distortion(float noiseScale = 3.0f,
+                    float distortionStrength = 0.13f,
+                    float timeScale = 0.1f);
+```
+
+Le temps démarre à `0.0` et n'est réglé qu'avec `withTime()`.
 
 ## Paramètres
 
-| Paramètre | Type | Plage | Défaut | Effet |
-|-----------|------|-------|--------|-------|
-| `time` | float | `0.0` à `∞` | `0.0` | Temps d'animation en secondes |
-| `noiseScale` | float | `0.1` à `10.0+` | `3.0` | Fréquence du motif de bruit |
-| `distortionStrength` | float | `0.0` à `0.5+` | `0.13` | Magnitude de la déformation |
-| `timeScale` | float | `0.01` à `1.0+` | `0.1` | Multiplicateur de vitesse d'animation |
+| Paramètre | Setter / Getter | Type | Plage | Défaut | Effet |
+|-----------|-----------------|------|-------|--------|-------|
+| `time` | `withTime()` / `getTime()` | float | `0.0` à `∞` | `0.0` | Temps de l'animation, en général en secondes |
+| `noiseScale` | `withNoiseScale()` / `getNoiseScale()` | float | `0.1` à `10.0+` | `3.0` | Fréquence du motif de bruit |
+| `distortionStrength` | `withDistortionStrength()` / `getDistortionStrength()` | float | `0.0` à `0.5+` | `0.13` | Amplitude de la déformation |
+| `timeScale` | `withTimeScale()` / `getTimeScale()` | float | `0.01` à `1.0+` | `0.1` | Multiplicateur de vitesse de l'animation |
 
-### Valeurs des Paramètres
+### Valeurs des paramètres
 
-- **`time`**:
-  - Incrémenté automatiquement chaque image
-  - Contrôle la progression de l'animation
-  - Exemple: `time += deltaTime`
+- **`time`** :
+  - Réglez-le à chaque frame avec le temps écoulé de votre programme
+  - Le motif de bruit défile en diagonale sur l'écran quand le temps augmente
+  - Exemple : `distortion.withTime(clock.getElapsedTime().asSeconds())`
 
-- **`noiseScale`**:
-  - `1.0` - Grandes ondes lisses
-  - `3.0` - Ondulations moyennes (standard)
+- **`noiseScale`** :
+  - `1.0` - Grandes vagues douces
+  - `3.0` - Ondulations moyennes (défaut)
   - `6.0` - Distorsions fines et détaillées
-  - `10.0+` - Effets très granulaires
+  - `10.0+` - Effet très granuleux
 
-- **`distortionStrength`**:
+- **`distortionStrength`** :
   - `0.0` - Pas de distorsion
-  - `0.1` - Effet subtil
-  - `0.2` - Déformation modérée
+  - `0.05` - Léger miroitement
+  - `0.1` - Déformation visible
+  - `0.2` - Forte déformation
   - `0.3+` - Déformation extrême
 
-- **`timeScale`**:
+- **`timeScale`** :
   - `0.05` - Animation très lente
-  - `0.1` - Vitesse normale (par défaut)
+  - `0.1` - Vitesse normale (défaut)
   - `0.3` - Animation rapide
   - `0.5+` - Changements très rapides
 
 ## Utilisation
 
-### Utilisation Basique
-
-![Complete Example](../../../res/shaders/distortion.gif)
+![Example](../../../res/shaders/distortion.gif)
 
 ```cpp
-#include <SFML/Graphics.hpp>
-#include <optional>
-#include "backend/BackendFactory.hpp"
-#include "effects/DistortionEffect.hpp"
+#include <shimera.hpp>
 
-int main() {
-  sf::RenderWindow window(sf::VideoMode(800, 600), "Démo de Distorsion");
-  window.setActive(true);
+shimera::EffectPipeline fx(960, 540);
+fx.add<shimera::Distortion>(3.0f, 0.15f, 0.1f); // noiseScale, distortionStrength, timeScale
 
-  IBackend *backend = BackendFactory::create();
-  IFrameBuffer *sceneFramebuffer = backend->createFrameBuffer(800, 600);
+// Garder une référence pour mettre le temps à jour à chaque frame
+auto& distortion = fx.get<shimera::Distortion>();
 
-  DistortionEffect distortion(backend);
-  distortion.withDistortionStrength(0.15f)
-        .withNoiseScale(3.0f)
-        .withTimeScale(0.1f);
+while (running) {
+    // ... dessinez la scène dans la cible hôte ...
 
-  float time = 0.0f;
-  while (window.isOpen()) {
-    while (const std::optional event = window.pollEvent()) {
-      if (event->is<sf::Event::Closed>()) window.close();
-    }
-
-    auto *rt = static_cast<sf::RenderTexture*>(sceneFramebuffer->getNativeRenderTarget());
-    rt->clear(sf::Color::Black);
-    // ... dessinez votre scène sur rt ...
-    sceneFramebuffer->unbind();
-
-    distortion.time = time;
-    window.setActive(true);
-    distortion.render(sceneFramebuffer->getTexture());
-
-    time += 0.016f;
-    window.display();
-  }
-
-  delete sceneFramebuffer;
-  delete backend;
-  return 0;
+    distortion.withTime(elapsedSeconds);
+    fx.render(scene);
 }
 ```
+
+Sources de temps selon la bibliothèque hôte :
+
+| Bibliothèque hôte | Temps écoulé |
+|-------------------|--------------|
+| SFML | `clock.getElapsedTime().asSeconds()` (avec une `sf::Clock`) |
+| raylib | `static_cast<float>(GetTime())` |
+| SDL3 | `SDL_GetTicks() / 1000.0f` |
+| GLFW | `static_cast<float>(glfwGetTime())` |
+
+Voir [Shaders & Effets](./index.md#exemple-complet-sfml) pour un programme complet.

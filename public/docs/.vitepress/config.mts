@@ -104,14 +104,13 @@ export default defineConfig({
                   items: [
                     { text: 'Index', link: '/fr/userdoc/shaders/index' },
                     { text: 'Atmospheric Scattering', link: '/fr/userdoc/shaders/atmospheric_scattering' },
+                    { text: 'Bloom', link: '/fr/userdoc/shaders/bloom' },
                     { text: 'Brightness', link: '/fr/userdoc/shaders/brightness' },
                     { text: 'Chromatic Aberration', link: '/fr/userdoc/shaders/chromatic_aberration' },
-                    { text: 'Colorshift', link: '/fr/userdoc/shaders/colorshift' },
+                    { text: 'Color Tint', link: '/fr/userdoc/shaders/color_tint' },
                     { text: 'Contrast', link: '/fr/userdoc/shaders/contrast' },
                     { text: 'Distortion', link: '/fr/userdoc/shaders/distortion' },
                     { text: 'Gaussian Blur', link: '/fr/userdoc/shaders/gaussian_blur' },
-                    { text: 'Grayscale', link: '/fr/userdoc/shaders/grayscale' },
-                    { text: 'HDR Bloom', link: '/fr/userdoc/shaders/hdr_bloom' },
                     { text: 'Saturation', link: '/fr/userdoc/shaders/saturation' },
                     { text: 'Vignette', link: '/fr/userdoc/shaders/vignette' },
                     { text: 'Pixelisation', link: '/fr/userdoc/shaders/pixelisation' }
