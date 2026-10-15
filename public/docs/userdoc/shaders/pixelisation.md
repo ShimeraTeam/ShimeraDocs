@@ -1,40 +1,64 @@
 # Pixelisation Effect
 
-**Header:** `include/effects/PixelisationEffect.hpp`  
-**Implementation:** `src/effects/PixelisationEffect.cpp`  
-**Shader:** `res/shader/postprocessing/pixelisation.frag`
+**Class:** `shimera::Pixelisation`  
+**Header:** `effects/Pixelisation.hpp`  
+**Implementation:** `src/effects/Pixelisation.cpp`  
+**Shader:** `res/shader/postprocessing/pixelisation.slang`
 
 ## Description
 
-The Pixelisation effect applies a retro pixel-art look to the rendered image by snapping UV coordinates to a grid of configurable size. Each "pixel block" samples the color at the center of its cell, creating a chunky, low-resolution appearance. The pixel grid can be sized independently on the X and Y axes, and an optional offset allows the grid to be shifted across the screen.
+The Pixelisation effect gives the image a retro pixel-art look by splitting the screen into a grid of blocks and filling each block with the color found at its center. The block size can be set independently on the X and Y axes, and the grid can be shifted with an offset.
+
+## Constructor
+
+```cpp
+explicit Pixelisation(float pixelSizeX = 4.0f,
+                      float pixelSizeY = 4.0f,
+                      float gap = 0.3f,
+                      Vec2<float> resolution = Vec2(1920.0f, 1080.0f),
+                      Vec2<float> offset = Vec2(0.0f, 0.0f));
+```
+
+::: info
+The third constructor parameter, `gap`, is currently unused. To set the resolution or the offset, pass any value for it, or use the setters below instead.
+:::
 
 ## Parameters
 
-| Parameter | Type | Range | Default | Effect |
-|-----------|------|-------|---------|--------|
-| `u_pixelSizeX` | float | `1.0` to screen width | `4.0` | Width of each pixel block in screen pixels |
-| `u_pixelSizeY` | float | `1.0` to screen height | `4.0` | Height of each pixel block in screen pixels |
-| `u_resolution` | Vec2&lt;float&gt; | pixels | `(1920, 1080)` | Screen resolution used to compute UV step size |
-| `u_offset` | Vec2&lt;float&gt; | UV space (0–1) | `(0, 0)` | Grid origin offset in UV coordinates |
+| Parameter | Setter / Getter | Type | Range | Default | Effect |
+|-----------|-----------------|------|-------|---------|--------|
+| `pixelSizeX` | `withPixelSizeX()` / `getPixelSizeX()` | float | `1.0` to screen width | `4.0` | Width of each block, in screen pixels |
+| `pixelSizeY` | `withPixelSizeY()` / `getPixelSizeY()` | float | `1.0` to screen height | `4.0` | Height of each block, in screen pixels |
+| `resolution` | `withResolution()` / `getResolution()` | Vec2&lt;float&gt; | output size | `(1920, 1080)` | Size of the output in pixels |
+| `offset` | `withOffset()` / `getOffset()` | Vec2&lt;float&gt; | `0.0` to `1.0` | `(0, 0)` | Grid origin, as a fraction of the screen |
+
+`withPixelSize(size)` sets both `pixelSizeX` and `pixelSizeY` at once. `getPixelSize()` returns `pixelSizeX`.
+
+::: warning Set the resolution
+Unlike most effects, Pixelisation does **not** take its resolution from the pipeline. It is used to convert the block size from pixels to screen fractions, so if it does not match your output, the blocks are not the size you asked for. Set it when adding the effect, and again whenever the window is resized:
+
+```cpp
+fx.resize(width, height);
+fx.get<shimera::Pixelisation>().withResolution(shimera::Vec2(float(width), float(height)));
+```
+:::
 
 ### Parameter Values
 
-- **`u_pixelSizeX` / `u_pixelSizeY`**:
+- **`pixelSizeX` / `pixelSizeY`**:
   - `1.0` - No pixelisation (original resolution)
-  - `4.0` - Subtle pixel art look (default)
-  - `8.0` - Clear blocky appearance
+  - `4.0` - Subtle pixel-art look (default)
+  - `8.0` - Clearly blocky
   - `16.0` - Strong retro effect
-  - `32.0+` - Extreme, very coarse pixelisation
+  - `32.0+` - Very coarse blocks
 
-- **`u_resolution`**:
-  - Must match the actual render target resolution so that UV step sizes are computed correctly
-  - `(960, 540)` - Low-resolution window
-  - `(1920, 1080)` - Full HD (default)
-  - `(2560, 1440)` - 1440p display
+- **`resolution`**:
+  - Must be the size, in pixels, of the output the pipeline renders into (the same size you gave to `EffectPipeline`).
 
-- **`u_offset`**:
-  - `(0, 0)` - Grid origin at the top-left corner (default)
-  - Any non-zero value shifts the pixel grid across the screen, which can be used to animate or jitter the grid
+- **`offset`**:
+  - `(0, 0)` - The grid starts at the bottom-left corner of the screen (default)
+  - Expressed as a fraction of the screen: `(0.5, 0.5)` moves the grid origin to the center, so grid lines cross exactly at the middle of the screen
+  - Changing it over time makes the grid slide or jitter
 
 ## Usage
 
@@ -43,51 +67,38 @@ The Pixelisation effect applies a retro pixel-art look to the rendered image by 
 ![Complete Example](../../res/shaders/pixelisation.gif)
 
 ```cpp
-#include <SFML/Graphics.hpp>
-#include <optional>
-#include "backend/BackendFactory.hpp"
-#include "effects/PixelisationEffect.hpp"
-#include "uniform/Vec2.hpp"
+#include <shimera.hpp>
 
-int main() {
-  sf::RenderWindow window(sf::VideoMode(960, 540), "Pixelisation Demo");
-  window.setActive(true);
+shimera::EffectPipeline fx(960, 540);
+fx.add<shimera::Pixelisation>();
 
-  IBackend *backend = BackendFactory::create();
-  IFrameBuffer *sceneFramebuffer = backend->createFrameBuffer(960, 540);
+fx.get<shimera::Pixelisation>()
+  .withPixelSize(8.0f)
+  .withResolution(shimera::Vec2(960.0f, 540.0f));
 
-  PixelisationEffect pixelisation(backend);
-  pixelisation.withPixelSize(8.0f)
-              .withResolution(Vec2<float>(960.0f, 540.0f));
-
-  while (window.isOpen()) {
-    while (const std::optional event = window.pollEvent()) {
-      if (event->is<sf::Event::Closed>()) window.close();
-    }
-
-    auto *rt = static_cast<sf::RenderTexture*>(sceneFramebuffer->getNativeRenderTarget());
-    rt->clear(sf::Color::Black);
-    // ... draw your scene to rt ...
-    sceneFramebuffer->unbind();
-
-    window.setActive(true);
-    pixelisation.render(sceneFramebuffer->getTexture());
-    window.display();
-  }
-
-  delete sceneFramebuffer;
-  delete backend;
-  return 0;
-}
+// Every frame, after drawing the scene into the host target
+fx.render(scene);
 ```
 
-### Non-square pixel blocks
+### Non-square Blocks
 
-`withPixelSizeX` and `withPixelSizeY` let you set the block dimensions independently for a stretched or squished pixel-art look:
+`withPixelSizeX()` and `withPixelSizeY()` set the block dimensions independently, for a stretched or squashed pixel-art look:
 
 ```cpp
-PixelisationEffect pixelisation(backend);
-pixelisation.withPixelSizeX(16.0f)   // wide blocks
-            .withPixelSizeY(4.0f)    // short blocks
-            .withResolution(Vec2<float>(1920.0f, 1080.0f));
+fx.get<shimera::Pixelisation>()
+  .withPixelSizeX(16.0f)   // wide blocks
+  .withPixelSizeY(4.0f)    // short blocks
+  .withResolution(shimera::Vec2(1920.0f, 1080.0f));
 ```
+
+### Transition
+
+Growing the block size quickly makes a classic "pixelate out" scene transition:
+
+```cpp
+auto& pixelisation = fx.get<shimera::Pixelisation>();
+// every frame of the transition, with progress going from 0 to 1
+pixelisation.withPixelSize(1.0f + progress * 63.0f);
+```
+
+See [Shaders & Effects](./index.md#complete-example-sfml) for a complete program.

@@ -1,65 +1,52 @@
 # Effet de Luminosité
 
-**En-tête:** `include/effects/BrightnessEffect.hpp`  
-**Implémentation:** `src/effects/BrightnessEffect.cpp`  
-**Shader:** `res/shader/postprocessing/brightness.frag`  
+**Classe :** `shimera::Brightness`  
+**En-tête :** `effects/Brightness.hpp`  
+**Implémentation :** `src/effects/Brightness.cpp`  
+**Shader :** `res/shader/postprocessing/brightness.slang`
 
 ## Description
 
-L'effet de luminosité ajuste la luminosité globale de l'image rendue en ajoutant ou soustrayant une valeur à tous les composants de couleur RGB. C'est un ajustement de luminosité linéaire simple qui éclaircit ou assombrit l'ensemble de l'image uniformément.
+L'effet de luminosité ajoute la même valeur aux composantes rouge, verte et bleue de chaque pixel, ce qui éclaircit ou assombrit toute l'image de manière uniforme. Le résultat est limité à l'intervalle `[0, 1]`, et le canal alpha n'est pas modifié.
+
+## Constructeur
+
+```cpp
+explicit Brightness(float strength = 0.1f);
+```
 
 ## Paramètres
 
-| Paramètre | Type | Plage | Défaut | Effet |
-|-----------|------|-------|--------|-------|
-| `u_strength` | float | `-1.0` à `1.0` | `0.0` | Montant d'ajustement de luminosité |
+| Paramètre | Setter / Getter | Type | Plage | Défaut | Effet |
+|-----------|-----------------|------|-------|--------|-------|
+| `strength` | `withStrength()` / `getStrength()` | float | `-1.0` à `1.0` | `0.1` | Valeur ajoutée à chaque canal de couleur |
 
-### Valeurs des Paramètres
+### Valeurs des paramètres
 
-- **`< 0.0`** - Assombrit l'image (ex: `-0.2` = 20% plus sombre)
-- **`0.0`** - Aucun changement (luminosité originale)
-- **`> 0.0`** - Éclaircit l'image (ex: `+0.2` = 20% plus lumineux)
+- **`< 0.0`** - Assombrit l'image (ex. `-0.2` retire 20 % de la luminosité maximale à chaque canal)
+- **`0.0`** - Aucun changement
+- **`> 0.0`** - Éclaircit l'image (ex. `0.2` ajoute 20 % de la luminosité maximale à chaque canal)
+- **`-1.0`** / **`1.0`** - Image entièrement noire / entièrement blanche
+
+::: tip
+La valeur étant ajoutée et non multipliée, les zones claires atteignent vite le blanc pur et perdent leurs détails. Pour un résultat plus doux, combinez une petite valeur de luminosité avec [Contrast](./contrast.md).
+:::
 
 ## Utilisation
 
 ![Complete Example](../../../res/shaders/brightness.gif)
 
 ```cpp
-#include <SFML/Graphics.hpp>
-#include <optional>
-#include "backend/BackendFactory.hpp"
-#include "effects/BrightnessEffect.hpp"
+#include <shimera.hpp>
 
-int main() {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Démo de Luminosité");
-    window.setActive(true);
+shimera::EffectPipeline fx(960, 540);
+fx.add<shimera::Brightness>(0.2f);
 
-    IBackend *backend = BackendFactory::create();
-    IFrameBuffer *sceneFramebuffer = backend->createFrameBuffer(800, 600);
+// La changer plus tard, par ex. quand le joueur entre dans une pièce sombre
+fx.get<shimera::Brightness>().withStrength(-0.15f);
 
-    BrightnessEffect brightness(backend);
-    brightness.withStrength(0.2f);
-
-    float time = 0.0f;
-    while (window.isOpen()) {
-        while (const std::optional event = window.pollEvent()) {
-            if (event->is<sf::Event::Closed>()) window.close();
-        }
-
-        auto *rt = static_cast<sf::RenderTexture*>(sceneFramebuffer->getNativeRenderTarget());
-        rt->clear(sf::Color::Black);
-        // ... dessinez votre scène sur rt ...
-        sceneFramebuffer->unbind();
-
-        window.setActive(true);
-        brightness.render(sceneFramebuffer->getTexture());
-        window.display();
-
-        time += 0.016f;
-    }
-
-    delete sceneFramebuffer;
-    delete backend;
-    return 0;
-}
+// À chaque frame, après avoir dessiné la scène dans la cible hôte
+fx.render(scene);
 ```
+
+Voir [Shaders & Effets](./index.md#exemple-complet-sfml) pour un programme complet.

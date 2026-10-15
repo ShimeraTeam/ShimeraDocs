@@ -1,150 +1,174 @@
 # Effect Pipeline Builder
 
-**Header:** `include/EffectPipeline.inl`
+**Header:** `EffectPipeline.hpp` (included by `shimera.hpp`)  
+**Implementation:** `src/EffectPipeline.cpp`
 
 ## Description
 
-`EffectPipeline` lets you chain multiple post-processing effects together without manually managing intermediate framebuffers. You add effects in order, call `render()`, and the pipeline handles the ping-pong framebuffer routing internally. Each effect reads from the previous one's output and writes to the next one's input, with only two framebuffers allocated regardless of how many effects are in the chain.
+`EffectPipeline` is the way to apply post-processing effects with Shimera. You add effects in order, call `render()` once per frame, and the pipeline takes care of everything else:
 
-Without `EffectPipeline`, chaining N effects requires N−1 manually managed intermediate framebuffers and careful bind/unbind sequencing.
+- it routes each effect's output into the next one through two internal ping-pong framebuffers, whatever the number of effects in the chain;
+- it pushes the output resolution down to every effect (on `add()` and on every `resize()`), so most effects never need to be told the screen size;
+- it saves the host's OpenGL state before rendering and restores it afterwards (see [GL state protection](#gl-state-protection)), so SFML, raylib or SDL keep drawing correctly after Shimera ran.
+
+Even for a single effect, going through a pipeline is the recommended path.
+
+## Prerequisites
+
+A pipeline issues OpenGL calls, so two things must exist before you create one:
+
+1. **A `shimera::Context`**, created once, after your window and its OpenGL context exist. It loads the OpenGL functions and throws a `shimera::InitError` naming the missing call if no context is current.
+2. **A host target** (`SfmlTarget`, `RaylibTarget`, `GlfwTarget` or `SdlTarget`), the offscreen surface your scene is drawn into. See [Host targets](./index.md#host-targets).
+
+```cpp
+#include <shimera.hpp>
+#include <hosts/RaylibTarget.hpp>
+
+InitWindow(960, 540, "My game");                       // 1. the window and its GL context
+
+shimera::Context context = shimera::Context::create(); // 2. Shimera's GL setup
+shimera::RaylibTarget scene(960, 540);                 // 3. where the scene is drawn
+shimera::EffectPipeline fx(960, 540);                  // 4. the effects
+```
+
+::: tip Use `std::optional` members in classes
+`Context`, the host targets and `EffectPipeline` cannot be created before the window. When they are class members, store them in `std::optional` and `emplace()` them once the window exists, as all the official examples do.
+:::
 
 ## API Reference
 
 ### Constructor
 
 ```cpp
-EffectPipeline(IBackend* backend, unsigned int width, unsigned int height);
+EffectPipeline(int width, int height);
 ```
 
 | Parameter | Description |
 |-----------|-------------|
-| `backend` | Non-owning pointer to the active backend (same one used to create your effects) |
-| `width` | Output resolution width in pixels |
-| `height` | Output resolution height in pixels |
+| `width` | Output width in pixels |
+| `height` | Output height in pixels |
+
+The size must match the framebuffer the pipeline renders into (usually the window). It is used for the viewport, for the internal framebuffers and as the resolution given to each effect. On high-DPI screens, use the framebuffer size in pixels (for example `glfwGetFramebufferSize`), not the window size in screen coordinates.
+
+`EffectPipeline` is move-only: it can be moved (into a `std::optional`, a container, ...) but not copied.
 
 ---
 
-### `addEffect`: construct in place (recommended)
+### `add`
 
 ```cpp
 template<typename TEffect, typename... Args>
-EffectPipeline& addEffect(Args&&... args);
+EffectPipeline& add(Args&&... args);
 ```
 
-Constructs the effect directly inside the pipeline. The backend is injected automatically as the first constructor argument, so you only pass the effect-specific parameters.
+Constructs a `TEffect` inside the pipeline, forwarding `args` to its constructor, then gives it the pipeline's current size. `TEffect` must derive from `shimera::Effect`, which is checked at compile time.
 
-Returns `*this` to allow chaining.
+Returns `*this`, so calls can be chained.
 
 ```cpp
-pipeline.addEffect<DistortionEffect>()
-        .addEffect<GaussianBlurEffect>() // Create it there to configure it afterward
-        .addEffect<VignetteEffect>(1.0f, 0.4f, 0.3f); // Can also define the shader's parameters like that
-        .addEffect<ChromaticAberrationEffect>(); // You can also add effects without configuring it, the default constructor will be used
-
-// The recommended way to use and configure an effect is to create it inside the pipeline with empty parameters and retrieve it afterward to configure it:
-auto &blur = pipeline.get<GaussianBlurEffect>();
-blur.withSigma(5.0f)
-    .withSamples(15)
-    .withResolution(Vec2(960.0f, 540.0f));
+fx.add<shimera::Distortion>()                       // default parameters
+  .add<shimera::Vignette>(1.0f, 0.45f, 0.35f)       // constructor parameters
+  .add<shimera::Bloom>(0.7f, 0.2f, 1.0f, 10.0f, 30);
 ```
 
----
+Each effect page lists its constructor parameters and their default values.
 
-### `addEffect`: move a pre-configured effect
-
-```cpp
-template<typename TEffect>
-EffectPipeline& addEffect(TEffect&& effect);
-```
-
-Moves an already-constructed and configured effect into the pipeline. Use this when you need to configure an effect with the fluent API before handing it off.
-
-Returns `*this` to allow chaining.
-
-```cpp
-DistortionEffect distortion(backend);
-distortion.withNoiseScale(2.0f).withDistortionStrength(0.1f);
-
-pipeline.addEffect(std::move(distortion));  // distortion is now owned by the pipeline
-```
-
-::: warning
-After `std::move`, the original object is in a valid but unspecified state. Do not use it; access the effect through `pipeline.get<DistortionEffect>()` instead.
+::: tip Order matters
+Effects are applied in the order they were added: the first added is the first applied.
 :::
 
 ---
 
-### `get`: retrieve an effect for per-frame updates
+### `get`
 
 ```cpp
 template<typename TEffect>
 TEffect& get(std::size_t index = 0);
 ```
 
-Returns a reference to the Nth effect of type `TEffect` in the pipeline (0-indexed per type). Use this to update parameters each frame (e.g. incrementing a time uniform).
+Returns a reference to the `index`-th effect of type `TEffect` in the pipeline. The index counts effects **of that type only**, starting at 0, so it is only needed when the same effect is added more than once.
 
-Throws `std::out_of_range` if no effect of that type exists at the given index.
+Throws `std::out_of_range` if there is no such effect.
+
+Use it to configure an effect after adding it, or to update it every frame:
 
 ```cpp
-pipeline.get<DistortionEffect>().m_uTime = time; // index 0 by default
-pipeline.get<GaussianBlurEffect>(0).m_uSigma = 4.0f; // first blur
-pipeline.get<GaussianBlurEffect>(1).m_uSigma = 8.0f; // second blur
-pipeline.get<DistortionEffect>().withTime(time); // ! This also works, but should not be used when frequently updating a uniform !
+// Configure once, after adding
+fx.get<shimera::GaussianBlur>()
+  .withSigma(5.0f)
+  .withSamples(15);
 
+// Update every frame
+fx.get<shimera::Distortion>().withTime(elapsedSeconds);
+
+// Two effects of the same type
+fx.get<shimera::GaussianBlur>(0).withSigma(4.0f); // first blur
+fx.get<shimera::GaussianBlur>(1).withSigma(8.0f); // second blur
+```
+
+::: tip
+`get()` walks the effect list on each call. If you update an effect every frame, keep the reference once and reuse it:
+
+```cpp
+auto& distortion = fx.get<shimera::Distortion>();
+// in the loop:
+distortion.withTime(time);
+```
+
+The reference stays valid for the lifetime of the pipeline, adding more effects does not invalidate it.
+:::
+
+---
+
+### `render` from a host target (recommended)
+
+```cpp
+void render(IHostTarget& scene);
+void render(IHostTarget& scene, GLFramebuffer& target);
+```
+
+Runs every enabled effect on the scene held by `scene`, which must have been closed with `scene.end()`. The scene's depth texture is forwarded automatically when the host provides one.
+
+- The first overload writes the result into **the framebuffer that is bound when `render()` is called**. After `scene.end()`, that is the window for every host, so this is the call you write in your main loop.
+- The second overload writes the result into `target` instead, to feed another pipeline or a later composition step.
+
+```cpp
+scene.begin();
+    // ... draw your scene with your host library ...
+scene.end();
+
+fx.render(scene); // to the window
 ```
 
 ---
 
-### `build`
+### `render` from a texture
 
 ```cpp
-void build();
+void render(const GLTexture& input, const GLTexture* depth = nullptr);
+void render(const GLTexture& input, GLFramebuffer& target, const GLTexture* depth = nullptr);
 ```
 
-Allocates the two internal ping-pong framebuffers at the configured resolution. Calling this is **optional**, `render()` calls it automatically on the first frame. Use it explicitly if you want to pre-allocate GPU resources at startup rather than on first render.
-
----
-
-### `render`: output to screen
-
-```cpp
-void render(ITexture& input);
-```
-
-Runs all enabled effects in order, routing output through internal ping-pong framebuffers, and presents the final result to the currently active screen target.
-
----
-
-### `render`: output to framebuffer
-
-```cpp
-void render(ITexture& input, IFrameBuffer& target);
-```
-
-Same as above but writes the final pass into `target` instead of the screen. Use this to feed the pipeline's output into another pipeline or a post-composition step.
-
----
-
-### `render` with scene depth (3D effects)
-
-```cpp
-void render(ITexture& input, ITexture* depth = nullptr);
-void render(ITexture& input, IFrameBuffer& target, ITexture* depth = nullptr);
-```
-
-Optional `depth` parameter provides the scene's depth buffer to effects that need it. **Only effects with `isDepthNeeded() == true`** (like [Atmospheric Scattering](./shaders/atmospheric_scattering.md)) use this, all other effects ignore it.
+Same as above, from any `GLTexture` instead of a host target. Use it when the image to process does not come from a host target, for example the output of another pipeline rendered into a `GLFramebuffer`.
 
 | Parameter | Description |
 |-----------|-------------|
-| `depth` | Optional pointer to a sampleable depth texture from your scene framebuffer (obtained via `framebuffer->getDepthTexture()`). Only needed if the pipeline contains depth-aware effects. |
+| `input` | Texture to process |
+| `target` | Framebuffer to write into (second overload only) |
+| `depth` | Optional depth texture, only read by effects that need the scene's depth |
 
-When an effect needs depth but none is provided, `render()` throws `std::runtime_error`.
+```cpp
+shimera::GLFramebuffer intermediate(960, 540);
 
-#### When to use
+first.render(scene, intermediate);        // pipeline 1 -> intermediate framebuffer
+second.render(intermediate.color());      // pipeline 2 -> window
+```
 
-Pass scene depth when:
-- Your pipeline contains a 3D effect like [Atmospheric Scattering](./shaders/atmospheric_scattering.md) that reads the scene's depth buffer.
-- Your scene framebuffer was created with **depth sampling enabled** (`createFrameBuffer(width, height, true)`).
+#### Scene depth
+
+Effects can declare that they need the scene's depth (`Effect::needsDepth()`). For those, the pipeline hands over the depth texture given to `render()`, or the host target's own depth texture. If such an effect is enabled and no depth was ever provided, `render()` throws `std::runtime_error`.
+
+None of the built-in effects needs depth at the moment. To get a depth texture from a host target, create it with `samplableDepth = true` (`RaylibTarget` and `GlfwTarget` only).
 
 ---
 
@@ -154,197 +178,223 @@ Pass scene depth when:
 void resize(int width, int height);
 ```
 
-Updates the internal framebuffer resolution. Call this when your window or render target is resized.
-
----
-
-### `size`
+Resizes the internal framebuffers and passes the new size to every effect. Call it whenever the window is resized, together with your host target's `resize()`:
 
 ```cpp
-std::size_t size() const;
+scene.resize(width, height);
+fx.resize(width, height);
 ```
 
-Returns the total number of effects in the pipeline (including disabled ones).
+---
+
+### Queries
+
+```cpp
+std::size_t size() const;        // number of effects, disabled ones included
+std::string effectNames() const; // "Vignette, Distortion, Bloom", or "no_effects"
+int getWidth() const;
+int getHeight() const;
+```
+
+`effectNames()` is handy for logging or for a debug overlay.
 
 ---
+
+### Enabling and disabling effects
+
+Every effect has `setEnabled(bool)` and `isEnabled()`. Disabled effects stay in the pipeline (they keep their parameters and are still returned by `get()`) but are skipped at render time, so they cost neither a pass nor GPU time.
+
+```cpp
+auto& bloom = fx.get<shimera::Bloom>();
+bloom.setEnabled(!bloom.isEnabled()); // toggle on a key press
+```
+
+::: warning All effects disabled
+When no effect is enabled, `render()` returns without drawing anything: the scene is **not** copied to the output. If you allow the user to turn every effect off, draw the scene yourself in that case.
+:::
 
 ## Usage
 
-### Basic: construct effects inside the pipeline
+### Minimal example (raylib)
 
 ```cpp
-#include "backend/BackendFactory.hpp"
-#include "EffectPipeline.inl"
-#include "effects/DistortionEffect.hpp"
-#include "effects/GaussianBlurEffect.hpp"
-
-IBackend *backend = BackendFactory::create();
-IFrameBuffer *sceneFramebuffer = backend->createFrameBuffer(960, 540);
-
-EffectPipeline pipeline(backend, 960, 540);
-pipeline.addEffect<DistortionEffect>()
-        .addEffect<GaussianBlurEffect>()
-        .build();  // optional, allocates FBOs now instead of on first render
-    
-auto &distortion = pipeline.get<DistortionEffect>();
-
-float time = 0.0f;
-while (window.isOpen()) {
-    // ... render scene into sceneFramebuffer ...
-
-    distortion.m_uTime = time;
-    pipeline.render(sceneFramebuffer->getTexture());
-
-    time += 0.016f;
-    window.display();
-}
-```
-
----
-
-### Pre-configure effects before adding them
-
-Useful when you want to set initial parameters with the fluent API:
-
-```cpp
-GaussianBlurEffect blur(backend);
-blur.withSigma(5.0f)
-    .withSamples(15)
-    .withResolution(Vec2(960.0f, 540.0f));
-
-DistortionEffect distortion(backend);
-distortion.withNoiseScale(2.0f)
-          .withDistortionStrength(0.1f);
-
-EffectPipeline pipeline(backend, 960, 540);
-pipeline.addEffect(std::move(distortion))
-        .addEffect(std::move(blur));
-```
-::: tip
-**Order matters:** effects are applied in the order they were added in the effect pipeline, first added is first applied.
-:::
-
----
-
-### Complete Example (SFML)
-
-```cpp
-#include <SFML/Graphics.hpp>
-#include <optional>
-#include <GL/glew.h>
-#include <SFML/OpenGL.hpp>
-#include "backend/BackendFactory.hpp"
-#include "backend/sfml/SFMLFramebuffer.hpp"
-#include "effects/DistortionEffect.hpp"
-#include "effects/GaussianBlurEffect.hpp"
-#include "EffectPipeline.inl"
-
-using namespace shimera;
+#include <raylib.h>
+#include <shimera.hpp>
+#include <hosts/RaylibTarget.hpp>
 
 int main() {
-    const sf::VideoMode videoMode({960, 540});
-    sf::RenderWindow window(videoMode, "Effect Pipeline Demo");
-    window.setActive(true);
+    constexpr int width = 960;
+    constexpr int height = 540;
 
-    if (glewInit() != GLEW_OK) return -1;
+    InitWindow(width, height, "Shimera - raylib");
+    SetTargetFPS(60);
+    {
+        auto context = shimera::Context::create();
+        shimera::RaylibTarget scene(width, height);
 
-    IBackend *backend = BackendFactory::create();
-    IFrameBuffer *sceneFramebuffer = backend->createFrameBuffer(960, 540);
+        shimera::EffectPipeline fx(width, height);
+        fx.add<shimera::Distortion>()
+          .add<shimera::Bloom>();
 
-    EffectPipeline effects(backend, 960, 540);
-    effects.addEffect<DistortionEffect>()
-            .addEffect<GaussianBlurEffect>()
-            .build();
+        auto& distortion = fx.get<shimera::Distortion>();
 
-    auto &blur = effects.get<GaussianBlurEffect>();
-    blur.withSigma(5.0f)
-        .withSamples(15)
-        .withResolution(Vec2(960.0f, 540.0f));
-    
-    auto &distortion = effects.get<DistortionEffect>();
+        while (!WindowShouldClose()) {
+            scene.begin();
+                ClearBackground(Color{18, 20, 28, 255});
+                DrawCircle(480, 270, 120.0f, Color{41, 181, 242, 255});
+            scene.end();
 
-    sf::Texture texture;
-    texture.loadFromFile("path/to/image.jpg");
-    sf::Sprite sprite(texture);
+            distortion.withTime(static_cast<float>(GetTime()));
 
-    sf::Clock clock;
-    clock.start();
-    while (window.isOpen()) {
-        while (const std::optional event = window.pollEvent()) {
-            if (event->is<sf::Event::Closed>()) window.close();
+            BeginDrawing();
+                ClearBackground(BLACK);
+                fx.render(scene);
+            EndDrawing();
         }
-
-        if (!window.isOpen()) break;
-        if (!window.setActive(true)) break;
-
-        // Render scene into framebuffer
-        auto *rt = static_cast<sf::RenderTexture*>(sceneFramebuffer->getNativeRenderTarget());
-        rt->clear(sf::Color::Black);
-        rt->draw(sprite);
-        sceneFramebuffer->unbind();
-
-        // Apply pipeline: distortion -> gaussian blur -> screen
-        distortion.m_uTime = clock.getElapsedTime().asSeconds();
-        glClear(GL_COLOR_BUFFER_BIT);
-        effects.render(sceneFramebuffer->getTexture());
-
-        window.display();
-    }
-    clock.stop();
-
-    delete sceneFramebuffer;
-    delete backend;
+    } // Shimera objects are destroyed here, while the GL context still exists
+    CloseWindow();
     return 0;
 }
 ```
 
+::: warning Destruction order
+Pipelines, effects and host targets own OpenGL resources. Destroy them **before** the window (`CloseWindow()`, `glfwDestroyWindow()`, `SDL_DestroyWindow()`, ...), which is why the example above uses an inner scope.
+:::
+
 ---
+
+### Complete example (SFML)
+
+```cpp
+#include <SFML/Graphics.hpp>
+#include <shimera.hpp>
+#include <hosts/SfmlTarget.hpp>
+
+#include <iostream>
+#include <optional>
+
+int main() {
+    sf::RenderWindow window(sf::VideoMode({960, 540}), "Shimera - SFML");
+    window.setVerticalSyncEnabled(true);
+
+    try {
+        auto context = shimera::Context::create();
+        std::cout << shimera::Context::getRendererInfo() << '\n';
+
+        shimera::SfmlTarget scene(window, 960, 540);
+
+        shimera::EffectPipeline fx(960, 540);
+        fx.add<shimera::Vignette>(1.0f, 0.45f, 0.35f)
+          .add<shimera::Distortion>()
+          .add<shimera::Bloom>(0.7f, 0.2f, 1.0f, 10.0f, 30);
+
+        auto& distortion = fx.get<shimera::Distortion>();
+
+        sf::CircleShape circle(115.0f);
+        circle.setPosition({555.0f, 160.0f});
+        circle.setFillColor(sf::Color::Yellow);
+
+        sf::Clock clock;
+        while (window.isOpen()) {
+            while (const std::optional event = window.pollEvent()) {
+                if (event->is<sf::Event::Closed>()) {
+                    window.close();
+                } else if (const auto* resized = event->getIf<sf::Event::Resized>()) {
+                    const auto w = static_cast<int>(resized->size.x);
+                    const auto h = static_cast<int>(resized->size.y);
+                    window.setView(sf::View(sf::FloatRect({0.0f, 0.0f}, sf::Vector2f(resized->size))));
+                    scene.resize(w, h);
+                    fx.resize(w, h);
+                }
+            }
+
+            // 1. Draw the scene into the target
+            auto& texture = *scene.native<sf::RenderTexture>();
+            scene.begin();
+                texture.clear(sf::Color::Black);
+                texture.draw(circle);
+            scene.end();
+
+            // 2. Update the effects
+            distortion.withTime(clock.getElapsedTime().asSeconds());
+
+            // 3. Apply the pipeline to the window
+            window.clear(sf::Color::Black);
+            fx.render(scene);
+            window.display();
+        }
+    } catch (const std::exception& error) {
+        std::cerr << error.what() << '\n';
+        return 1;
+    }
+    return 0;
+}
+```
 
 ## How It Works Internally
 
-The pipeline keeps exactly **two framebuffers** and alternates them each pass:
+The framebuffers are created on the first `render()`. The pipeline then keeps exactly **two** of them and alternates between them, the last effect writing straight into the output:
 
 ```
 Scene texture  ──►  Effect 0  ──►  fboA
-                    Effect 1  ──►  fboB  (reads fboA)
-                    Effect 2  ──►  fboA  (reads fboB)
-                    Effect N  ──►  Screen (reads last written fbo)
+                    Effect 1  ──►  fboB    (reads fboA)
+                    Effect 2  ──►  fboA    (reads fboB)
+                    ...
+                    Effect N  ──►  output  (reads the last written fbo)
 ```
 
-Disabled effects (via `setEnabled(false)`) are skipped entirely at render time, so they don't consume a framebuffer slot or GPU time.
+With a single enabled effect, no intermediate framebuffer is used: the effect reads the scene and writes into the output directly.
 
----
+Some effects (Gaussian Blur, Bloom) need two passes on their own. They keep their own intermediate framebuffer, sized by the pipeline, so they still take a single slot in the chain.
+
+### GL state protection
+
+OpenGL is one global state machine shared by Shimera and your host library, and host libraries cache what they believe is bound. To avoid breaking the host's next draw, `render()` wraps the whole chain in a `GLStateGuard` that captures the state it is about to change (bound program, VAO, buffers, framebuffer, textures of units 0 to 7, blending, depth and cull settings, viewport, clear color) and restores it once the chain is done, even if an effect throws.
+
+If you render at a point where you know the state does not matter and want to skip those queries, the guard can be turned off globally:
+
+```cpp
+shimera::GLStateGuard::setEnabled(false);
+```
 
 ## Comparison with Manual Chaining
 
-Without `EffectPipeline`:
+Effects can be rendered by hand with `Effect::render(input)` and `Effect::render(input, target)`, but you then have to do the pipeline's work yourself:
 
 ```cpp
-// Manual ping-pong, you manage every framebuffer
-IFrameBuffer *temp1 = backend->createFrameBuffer(960, 540);
-IFrameBuffer *temp2 = backend->createFrameBuffer(960, 540);
+shimera::Distortion distortion;
+shimera::GaussianBlur blur;
+shimera::Vignette vignette;
 
-temp1->bind();
-distortion.render(scene->getTexture());
-temp1->unbind();
+// Effects learn the output size from resize(), and multi-pass ones allocate
+// their intermediate framebuffer there. Skipping this breaks them.
+distortion.resize(960, 540);
+blur.resize(960, 540);
+vignette.resize(960, 540);
 
-temp2->bind();
-blur.render(temp1->getTexture());
-temp2->unbind();
+shimera::GLFramebuffer temp1(960, 540);
+shimera::GLFramebuffer temp2(960, 540);
 
-window.setActive(true);
-vignette.render(temp2->getTexture());
+// Every frame:
+{
+    const shimera::GLStateGuard guard;   // protect the host's GL state
+    const uint32_t output = shimera::currentDrawFramebuffer();
+    glViewport(0, 0, 960, 540);
 
-delete temp1;
-delete temp2;
+    distortion.render(scene.getColor(), temp1);
+    blur.render(temp1.color(), temp2);
+
+    shimera::bindFramebuffer(output);
+    vignette.render(temp2.color());
+}
 ```
 
 With `EffectPipeline`:
 
 ```cpp
-pipeline.render(scene->getTexture());
+fx.render(scene);
 ```
 
 ## References
 
-- `T&&`: [Forwarding References](https://en.cppreference.com/cpp/language/reference#Forwarding_references) ([*Easier to understand*](https://lemire.me/blog/2024/05/13/forwarding-references-in-c/))
+- `Args&&...`: [Forwarding References](https://en.cppreference.com/cpp/language/reference#Forwarding_references) ([*Easier to understand*](https://lemire.me/blog/2024/05/13/forwarding-references-in-c/))

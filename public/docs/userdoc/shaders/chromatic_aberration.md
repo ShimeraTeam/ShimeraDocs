@@ -1,21 +1,33 @@
 # Chromatic Aberration Effect
 
-**Header:** `include/effects/ChromaticAberrationEffect.hpp`  
-**Implementation:** `src/effects/ChromaticAberrationEffect.cpp`  
-**Shader:** `res/shader/postprocessing/chromatic_aberration.frag`
+**Class:** `shimera::ChromaticAberration`  
+**Header:** `effects/ChromaticAberration.hpp`  
+**Implementation:** `src/effects/ChromaticAberration.cpp`  
+**Shader:** `res/shader/postprocessing/chromatic_aberration.slang`
 
 ## Description
 
-The Chromatic Aberration effect simulates optical distortion by separating the red, green, and blue color channels. This creates colorful fringes at high-contrast edges, commonly seen in old lenses, sci-fi interfaces, or artistic effects. The effect supports both linear and radial (lens-based) distortion patterns.
+The Chromatic Aberration effect simulates a lens that does not focus every wavelength at the same place, by spreading the red, green and blue channels apart. It creates colorful fringes along high-contrast edges, commonly seen with old lenses, in sci-fi interfaces, or as an impact effect.
+
+The image is sampled several times along a short line: samples at one end are weighted toward red, samples in the middle toward green, and samples at the other end toward blue. The line can either have the same direction everywhere (linear mode) or point away from the center of the screen (radial mode, like a real lens).
+
+## Constructor
+
+```cpp
+explicit ChromaticAberration(float strength = 1.0f,
+                             bool radius = false,
+                             float contrast = 2.0f,
+                             int samples = 20);
+```
 
 ## Parameters
 
-| Parameter | Type | Range | Default | Effect |
-|-----------|------|-------|---------|--------|
-| `strength` | float | `0.0` to `1.0+` | `1.0` | Magnitude of color separation |
-| `radius` | int | `0` or `1` | `0` | `0`=linear distortion, `1`=radial from center |
-| `contrast` | float | `0.5` to `3.0+` | `2.0` | Blend contrast between channels |
-| `samples` | int | `5` to `64` | `20` | Number of samples for quality/performance |
+| Parameter | Setter / Getter | Type | Range | Default | Effect |
+|-----------|-----------------|------|-------|---------|--------|
+| `strength` | `withStrength()` / `getStrength()` | float | `0.0` to `1.0+` | `1.0` | Distance between the color channels |
+| `radius` | `withRadius()` / `getRadius()` | bool | `true` / `false` | `false` | `false` = linear, `true` = radial from the center |
+| `contrast` | `withContrast()` / `getContrast()` | float | `0.5` to `3.0+` | `2.0` | How sharply the channels are separated |
+| `samples` | `withSamples()` / `getSamples()` | int | `1` to `64` | `20` | Number of samples, quality versus performance |
 
 ### Parameter Values
 
@@ -23,70 +35,57 @@ The Chromatic Aberration effect simulates optical distortion by separating the r
   - `0.0` - No aberration
   - `0.3` - Subtle color fringing
   - `0.5` - Noticeable effect
-  - `1.0` - Strong chromatic shift
+  - `1.0` - Strong separation
   - `> 1.0` - Extreme separation
 
 - **`radius`**:
-  - `0` - Linear pattern (uniform across screen)
-  - `1` - Radial pattern (from screen center, like lens distortion)
+  - `false` - Linear: the channels are shifted diagonally, by the same amount over the whole screen
+  - `true` - Radial: no shift at the center of the screen, growing toward the edges, like a real lens
 
 - **`contrast`**:
-  - `1.0` - Subtle blending
-  - `2.0` - Normal contrast (default)
-  - `3.0+` - High-contrast sharp edges
+  - `1.0` - Soft blending between the channels
+  - `2.0` - Clearly separated channels (default)
+  - `3.0+` - Very sharp, saturated fringes
 
 - **`samples`**:
-  - `5` - Very fast, lower quality
-  - `10` - Good balance, medium quality
-  - `20` - High quality (standard)
+  - `5` - Very fast, visible banding
+  - `10` - Good balance
+  - `20` - High quality (default)
   - `30+` - Very high quality, slower
-  - `64` - Maximum quality
+  - Values below `1` are treated as `1`. Raise it along with `strength`, otherwise the individual samples become visible.
 
 ## Usage
-
-### Basic Usage
 
 ![Complete Example](../../res/shaders/chromaticAberration.gif)
 
 ```cpp
-#include <SFML/Graphics.hpp>
-#include <optional>
-#include "backend/BackendFactory.hpp"
-#include "effects/ChromaticAberrationEffect.hpp"
+#include <shimera.hpp>
 
-int main() {
-  sf::RenderWindow window(sf::VideoMode(800, 600), "Chromatic Aberration Demo");
-  window.setActive(true);
+shimera::EffectPipeline fx(960, 540);
+fx.add<shimera::ChromaticAberration>();
 
-  IBackend *backend = BackendFactory::create();
-  IFrameBuffer *sceneFramebuffer = backend->createFrameBuffer(800, 600);
+fx.get<shimera::ChromaticAberration>()
+  .withStrength(0.5f)
+  .withRadius(true)
+  .withContrast(2.0f)
+  .withSamples(20);
 
-  ChromaticAberrationEffect chromatic(backend);
-  chromatic.withStrength(0.5f)
-       .withRadius(false)
-       .withContrast(2.0f)
-       .withSamples(20);
-
-  float time = 0.0f;
-  while (window.isOpen()) {
-    while (const std::optional event = window.pollEvent()) {
-      if (event->is<sf::Event::Closed>()) window.close();
-    }
-
-    auto *rt = static_cast<sf::RenderTexture*>(sceneFramebuffer->getNativeRenderTarget());
-    rt->clear(sf::Color::Black);
-    // ... draw your scene to rt ...
-    sceneFramebuffer->unbind();
-
-    window.setActive(true);
-    chromatic.render(sceneFramebuffer->getTexture());
-    window.display();
-
-    time += 0.016f;
-  }
-
-  delete sceneFramebuffer;
-  delete backend;
-  return 0;
-}
+// Every frame, after drawing the scene into the host target
+fx.render(scene);
 ```
+
+### Impact Effect
+
+A short burst of aberration that fades out, for example when the player is hit:
+
+```cpp
+auto& aberration = fx.get<shimera::ChromaticAberration>();
+
+// when the player is hit
+aberration.withStrength(1.5f);
+
+// every frame
+aberration.withStrength(std::max(0.0f, aberration.getStrength() - deltaTime * 3.0f));
+```
+
+See [Shaders & Effects](./index.md#complete-example-sfml) for a complete program.
