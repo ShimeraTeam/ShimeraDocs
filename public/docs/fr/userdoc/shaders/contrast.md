@@ -1,65 +1,51 @@
 # Effet de Contraste
 
-**En-tête:** `include/effects/ContrastEffect.hpp`  
-**Implémentation:** `src/effects/ContrastEffect.cpp`  
-**Shader:** `res/shader/postprocessing/contrast.frag`
+**Classe :** `shimera::Contrast`  
+**En-tête :** `effects/Contrast.hpp`  
+**Implémentation :** `src/effects/Contrast.cpp`  
+**Shader :** `res/shader/postprocessing/contrast.slang`
 
 ## Description
 
-L'effet de contraste ajuste le contraste de l'image rendue en utilisant une approche multiplicative. Il étire ou comprime la distance entre les valeurs claires et sombres autour d'un point médian (0.5). Cela crée un ajustement de luminosité non linéaire qui préserve la demi-teinte grise tout en intensifiant les hautes lumières et les ombres.
+L'effet de contraste étire ou resserre l'écart entre chaque canal de couleur et le gris moyen `0.5`. Plus le facteur augmente, plus les hautes lumières s'éclaircissent et les ombres s'assombrissent, tandis que les tons moyens restent en place. Le résultat est limité à l'intervalle `[0, 1]`, et le canal alpha n'est pas modifié.
+
+Chaque canal est calculé ainsi : `(couleur - 0.5) * contrastFactor + 0.5`.
+
+## Constructeur
+
+```cpp
+explicit Contrast(float contrastFactor = 1.2f);
+```
 
 ## Paramètres
 
-| Paramètre | Type | Plage | Défaut | Effet |
-|-----------|------|-------|--------|-------|
-| `u_contrastFactor` | float | `0.0` à `2.0+` | `1.0` | Multiplicateur d'intensité de contraste |
+| Paramètre | Setter / Getter | Type | Plage | Défaut | Effet |
+|-----------|-----------------|------|-------|--------|-------|
+| `contrastFactor` | `withContrastFactor()` / `getContrastFactor()` | float | `0.0` à `2.0+` | `1.2` | Multiplicateur de contraste |
 
-### Valeurs des Paramètres
+### Valeurs des paramètres
 
-- **`< 1.0`** - Diminue le contraste, l'image devient plus plate/grise (ex: `0.5` = 50% moins de contraste)
-- **`1.0`** - Aucun changement (contraste normal)
-- **`> 1.0`** - Augmente le contraste, les couleurs plus vivantes (ex: `1.5` = 50% plus de contraste)
+- **`0.0`** - Image uniformément grise
+- **`< 1.0`** - Contraste réduit, l'image paraît délavée (ex. `0.5` divise le contraste par deux)
+- **`1.0`** - Aucun changement
+- **`> 1.0`** - Contraste accru, couleurs plus vives (ex. `1.5` ajoute 50 % de contraste)
+- **`< 0.0`** - Inverse l'image autour du gris moyen
 
 ## Utilisation
 
 ![Complete Example](../../../res/shaders/contrast.gif)
 
 ```cpp
-#include <SFML/Graphics.hpp>
-#include <optional>
-#include "backend/BackendFactory.hpp"
-#include "effects/ContrastEffect.hpp"
+#include <shimera.hpp>
 
-int main() {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Démo de Contraste");
-    window.setActive(true);
+shimera::EffectPipeline fx(960, 540);
+fx.add<shimera::Contrast>(1.5f);
 
-    IBackend *backend = BackendFactory::create();
-    IFrameBuffer *sceneFramebuffer = backend->createFrameBuffer(800, 600);
+// Le changer plus tard
+fx.get<shimera::Contrast>().withContrastFactor(0.8f);
 
-    ContrastEffect contrast(backend);
-    contrast.withContrastFactor(1.5f);
-
-    float time = 0.0f;
-    while (window.isOpen()) {
-        while (const std::optional event = window.pollEvent()) {
-            if (event->is<sf::Event::Closed>()) window.close();
-        }
-
-        auto *rt = static_cast<sf::RenderTexture*>(sceneFramebuffer->getNativeRenderTarget());
-        rt->clear(sf::Color::Black);
-        // ... dessinez votre scène sur rt ...
-        sceneFramebuffer->unbind();
-
-        window.setActive(true);
-        contrast.render(sceneFramebuffer->getTexture());
-        window.display();
-
-        time += 0.016f;
-    }
-
-    delete sceneFramebuffer;
-    delete backend;
-    return 0;
-}
+// À chaque frame, après avoir dessiné la scène dans la cible hôte
+fx.render(scene);
 ```
+
+Voir [Shaders & Effets](./index.md#exemple-complet-sfml) pour un programme complet.
